@@ -83,26 +83,44 @@ workflows:
     name: ChoreQuest – iOS (TestFlight)
     instance_type: mac_mini_m2
     max_build_duration: 90
-    integrations:
-      app_store_connect: ChoreQuest ASC Key   # name of your App Store Connect API key in Codemagic > Team > Integrations
+    # Authenticates with your App Store Connect API key (JWT) — no Mac or
+    # Transporter needed on your side. Create an environment variable group
+    # named "app_store_credentials" in Codemagic (app > Environment variables)
+    # with these SECURE variables:
+    #   APP_STORE_CONNECT_ISSUER_ID       – Issuer ID shown above your API keys
+    #   APP_STORE_CONNECT_KEY_IDENTIFIER  – the key's Key ID
+    #   APP_STORE_CONNECT_PRIVATE_KEY     – full contents of AuthKey_XXXX.p8
+    #   CERTIFICATE_PRIVATE_KEY           – an RSA 2048 PEM key used for your distribution certificate
     environment:
       <<: *flutter_env
       xcode: latest
       cocoapods: default
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.Dadapps.chorequest
+      groups:
+        - app_store_credentials
+      vars:
+        BUNDLE_ID: com.Dadapps.chorequest
     scripts:
+      - name: Set up keychain
+        script: keychain initialize
+      - name: Fetch or create signing certificate + App Store profile (via API key)
+        script: app-store-connect fetch-signing-files "$BUNDLE_ID" --type IOS_APP_STORE --create
+      - name: Add certificates to keychain
+        script: keychain add-certificates
+      - name: Apply signing profiles to Xcode project
+        script: xcode-project use-profiles
       - *get_packages
       - name: Install pods
         script: cd ios && pod install
-      - name: Apply signing profiles
-        script: xcode-project use-profiles
       - name: Build IPA
-        script: flutter build ipa --release --build-number=$PROJECT_BUILD_NUMBER --export-options-plist=/Users/builder/export_options.plist
+        script: |
+          flutter build ipa --release \
+            --build-number=$PROJECT_BUILD_NUMBER \
+            --export-options-plist=/Users/builder/export_options.plist
     artifacts:
       - build/ios/ipa/*.ipa
     publishing:
       app_store_connect:
-        auth: integration
+        api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+        key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+        issuer_id: $APP_STORE_CONNECT_ISSUER_ID
         submit_to_testflight: true
