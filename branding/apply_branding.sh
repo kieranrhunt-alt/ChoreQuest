@@ -12,4 +12,9 @@ flutter pub get
 dart run flutter_launcher_icons
 flutter pub add --dev flutter_native_splash:2.4.4
 dart run flutter_native_splash:create --path=branding/flutter_native_splash.yaml
+# The splash images/storyboard are generated now; the package itself is only a
+# generator. Remove it so it is not linked into the app (its iOS plugin breaks
+# Xcode's Swift Package Manager resolution).
+flutter pub remove flutter_native_splash
+flutter pub get
 echo "Branding applied: launcher icon, adaptive icon, native splash."
