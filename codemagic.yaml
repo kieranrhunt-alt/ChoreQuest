@@ -1,0 +1,108 @@
+# Codemagic CI/CD for ChoreQuest (FlutterFlow project chore-quest-ie1roc).
+# Docs: https://docs.codemagic.io/yaml-basic-configuration/yaml-getting-started/
+#
+# Workflows:
+#   android-test   – builds an installable APK on every push to main (no setup needed)
+#   web            – builds the web app and zips it as an artifact
+#   android-release – signed App Bundle for Google Play (needs a keystore, see below)
+#   ios-release    – signed IPA to TestFlight (needs App Store Connect setup, see below)
+
+definitions:
+  flutter_env: &flutter_env
+    flutter: 3.47.6          # same Flutter version FlutterFlow uses for this project
+  get_packages: &get_packages
+    name: Get packages
+    script: flutter pub get
+
+workflows:
+  android-test:
+    name: ChoreQuest – Android test APK
+    instance_type: linux_x2
+    max_build_duration: 45
+    environment:
+      <<: *flutter_env
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+    scripts:
+      - *get_packages
+      - name: Build APK
+        script: flutter build apk --release --build-number=$PROJECT_BUILD_NUMBER
+    artifacts:
+      - build/app/outputs/flutter-apk/*.apk
+
+  web:
+    name: ChoreQuest – Web
+    instance_type: linux_x2
+    max_build_duration: 45
+    environment:
+      <<: *flutter_env
+    scripts:
+      - *get_packages
+      - name: Build web
+        script: flutter build web --release
+      - name: Zip web build
+        script: cd build/web && zip -r ../chorequest-web.zip .
+    artifacts:
+      - build/chorequest-web.zip
+
+  android-release:
+    name: ChoreQuest – Android release (Google Play)
+    instance_type: linux_x2
+    max_build_duration: 60
+    environment:
+      <<: *flutter_env
+      android_signing:
+        - chorequest_upload_key   # upload your keystore in Codemagic > Team > Code signing identities with this reference name
+    scripts:
+      - *get_packages
+      - name: Use the release keystore
+        script: |
+          cat >> "$CM_BUILD_DIR/android/key.properties" <<EOF
+          storePassword=$CM_KEYSTORE_PASSWORD
+          keyPassword=$CM_KEY_PASSWORD
+          keyAlias=$CM_KEY_ALIAS
+          storeFile=$CM_KEYSTORE_PATH
+          EOF
+          # FlutterFlow's template signs release builds with debug keys; switch to the release config.
+          sed -i 's/signingConfig signingConfigs.debug/signingConfig signingConfigs.release/' android/app/build.gradle
+      - name: Build App Bundle
+        script: flutter build appbundle --release --build-number=$PROJECT_BUILD_NUMBER
+    artifacts:
+      - build/app/outputs/bundle/release/*.aab
+    # Uncomment to upload straight to Google Play (add a service account JSON as GCLOUD_SERVICE_ACCOUNT_CREDENTIALS):
+    # publishing:
+    #   google_play:
+    #     credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+    #     track: internal
+
+  ios-release:
+    name: ChoreQuest – iOS (TestFlight)
+    instance_type: mac_mini_m2
+    max_build_duration: 90
+    integrations:
+      app_store_connect: ChoreQuest ASC Key   # name of your App Store Connect API key in Codemagic > Team > Integrations
+    environment:
+      <<: *flutter_env
+      xcode: latest
+      cocoapods: default
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.Dadapps.chorequest
+    scripts:
+      - *get_packages
+      - name: Install pods
+        script: cd ios && pod install
+      - name: Apply signing profiles
+        script: xcode-project use-profiles
+      - name: Build IPA
+        script: flutter build ipa --release --build-number=$PROJECT_BUILD_NUMBER --export-options-plist=/Users/builder/export_options.plist
+    artifacts:
+      - build/ios/ipa/*.ipa
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
