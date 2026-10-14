@@ -1,14 +1,18 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/ff_builtin_enums.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'gatehouse_page_model.dart';
@@ -25,10 +29,14 @@ class GatehousePageWidget extends StatefulWidget {
   State<GatehousePageWidget> createState() => _GatehousePageWidgetState();
 }
 
-class _GatehousePageWidgetState extends State<GatehousePageWidget> {
+class _GatehousePageWidgetState extends State<GatehousePageWidget>
+    with TickerProviderStateMixin {
   late GatehousePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  var hasContainerTriggered1 = false;
+  var hasContainerTriggered2 = false;
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -53,6 +61,69 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget> {
 
     _model.pinFieldTextController ??= TextEditingController();
     _model.pinFieldFocusNode ??= FocusNode();
+
+    animationsMap.addAll({
+      'containerOnActionTriggerAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
   }
 
   @override
@@ -87,7 +158,7 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget> {
                   child: Container(
                     child: custom_widgets.KingdomBackdrop(
                       animate: true,
-                      scene: 'castle',
+                      scene: 'candy',
                     ),
                   ),
                 ),
@@ -159,11 +230,11 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget> {
                                   textBaseline: TextBaseline.alphabetic,
                                   children: [
                                     Text(
-                                      'ChoreQuest',
+                                      'Squishie Chore Adventure',
                                       style: FlutterFlowTheme.of(context)
                                           .headlineMedium
                                           .override(
-                                            font: GoogleFonts.cinzel(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineMedium
@@ -191,7 +262,7 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -257,7 +328,7 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .fontWeight,
@@ -319,7 +390,7 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .titleLarge
                                       .override(
-                                        font: GoogleFonts.cinzel(
+                                        font: GoogleFonts.comicNeue(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .titleLarge
@@ -341,6 +412,11 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget> {
                                 TextFormField(
                                   controller: _model.pinFieldTextController,
                                   focusNode: _model.pinFieldFocusNode,
+                                  onChanged: (_) => EasyDebounce.debounce(
+                                    '_model.pinFieldTextController',
+                                    Duration(milliseconds: 250),
+                                    () => safeSetState(() {}),
+                                  ),
                                   obscureText: !_model.pinFieldVisibility,
                                   decoration: InputDecoration(
                                     labelText: 'Enter PIN',
@@ -418,113 +494,281 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget> {
                                   children: [
                                     Expanded(
                                       flex: 1,
-                                      child: FFButtonWidget(
-                                        onPressed: () async {
-                                          _model.showPin = false;
-                                          safeSetState(() {});
-                                          safeSetState(() {
-                                            _model.pinFieldTextController
-                                                ?.clear();
-                                          });
-                                        },
-                                        text: 'Cancel',
-                                        options: FFButtonOptions(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          color: Colors.transparent,
-                                          textStyle: TextStyle(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                          ),
-                                          elevation: 0.0,
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 1.0,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 0.0,
+                                              color: Color(0xFF9C8CD0),
+                                              offset: Offset(
+                                                0.0,
+                                                5.0,
+                                              ),
+                                              spreadRadius: 0.0,
+                                            )
+                                          ],
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Colors.white,
+                                              Color(0xFFF3EEFF),
+                                              Color(0xFFE8E0FF),
+                                              Color(0xFFD4C8F5)
+                                            ],
+                                            stops: [0.0, 0.48, 0.52, 1.0],
+                                            begin:
+                                                AlignmentDirectional(1.0, 0.0),
+                                            end: AlignmentDirectional(-1.0, 0),
                                           ),
                                           borderRadius:
-                                              BorderRadius.circular(14.0),
+                                              BorderRadius.circular(22.0),
+                                          border: Border.all(
+                                            color: Color(0xD9FFFFFF),
+                                            width: 2.5,
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: FFButtonWidget(
-                                        onPressed: () async {
-                                          if (_model.pinFieldTextController
-                                                  .text ==
-                                              functions.memberPin(
-                                                  FFAppState().members.toList(),
-                                                  _model.selectedId)) {
-                                            FFAppState().currentMemberId =
-                                                _model.selectedId!;
-                                            safeSetState(() {});
+                                        child: FFButtonWidget(
+                                          onPressed: () async {
+                                            if (animationsMap[
+                                                    'containerOnActionTriggerAnimation1'] !=
+                                                null) {
+                                              safeSetState(() =>
+                                                  hasContainerTriggered1 =
+                                                      true);
+                                              SchedulerBinding.instance
+                                                  .addPostFrameCallback((_) async =>
+                                                      await animationsMap[
+                                                              'containerOnActionTriggerAnimation1']!
+                                                          .controller
+                                                          .forward(from: 0.0));
+                                            }
                                             _model.showPin = false;
                                             safeSetState(() {});
                                             safeSetState(() {
                                               _model.pinFieldTextController
                                                   ?.clear();
                                             });
-                                            if (functions.memberRole(
-                                                    FFAppState()
-                                                        .members
-                                                        .toList(),
-                                                    _model.selectedId) ==
-                                                'parent') {
-                                              if (Navigator.of(context)
-                                                  .canPop()) {
-                                                context.pop();
-                                              }
-                                              context.pushNamed(
-                                                  ThroneRoomPageWidget
-                                                      .routeName);
-                                            } else {
-                                              if (Navigator.of(context)
-                                                  .canPop()) {
-                                                context.pop();
-                                              }
-                                              context.pushNamed(
-                                                  HeroHomePageWidget.routeName);
-                                            }
-                                          } else {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  'That PIN is not right. Try again!',
-                                                  style: TextStyle(),
-                                                ),
-                                                duration: Duration(
-                                                    milliseconds: 4000),
+                                          },
+                                          text: '✖️ Cancel',
+                                          options: FFButtonOptions(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: Color(0x00FFFFFF),
+                                            textStyle: GoogleFonts.comicNeue(
+                                              color: Color(0xFF3A2A6B),
+                                              fontSize: 17.0,
+                                            ),
+                                            elevation: 0.0,
+                                            borderRadius:
+                                                BorderRadius.circular(22.0),
+                                          ),
+                                        ),
+                                      ).animateOnActionTrigger(
+                                          animationsMap[
+                                              'containerOnActionTriggerAnimation1']!,
+                                          hasBeenTriggered:
+                                              hasContainerTriggered1),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 0.0,
+                                              color: Color(0xFFB8740A),
+                                              offset: Offset(
+                                                0.0,
+                                                5.0,
                                               ),
-                                            );
-                                          }
-                                        },
-                                        text: '🔓 Unlock',
-                                        options: FFButtonOptions(
-                                          height: 48.0,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          color: FlutterFlowTheme.of(context)
-                                              .tertiary,
-                                          textStyle: TextStyle(
-                                            color: Color(0xFF2A1B4D),
+                                              spreadRadius: 0.0,
+                                            )
+                                          ],
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Color(0xFFFFF6C4),
+                                              Color(0xFFFFD54F),
+                                              Color(0xFFFFC22E),
+                                              Color(0xFFF0A30A)
+                                            ],
+                                            stops: [0.0, 0.48, 0.52, 1.0],
+                                            begin:
+                                                AlignmentDirectional(1.0, 0.0),
+                                            end: AlignmentDirectional(-1.0, 0),
                                           ),
                                           borderRadius:
-                                              BorderRadius.circular(18.0),
+                                              BorderRadius.circular(22.0),
+                                          border: Border.all(
+                                            color: Color(0xD9FFFFFF),
+                                            width: 2.5,
+                                          ),
                                         ),
-                                      ),
+                                        child: FFButtonWidget(
+                                          onPressed: ((String? a0) {
+                                            return (a0 ?? '').trim().isEmpty;
+                                          }(_model.pinFieldTextController
+                                                  .text))!
+                                              ? null
+                                              : () async {
+                                                  if (animationsMap[
+                                                          'containerOnActionTriggerAnimation2'] !=
+                                                      null) {
+                                                    safeSetState(() =>
+                                                        hasContainerTriggered2 =
+                                                            true);
+                                                    SchedulerBinding.instance
+                                                        .addPostFrameCallback((_) async =>
+                                                            await animationsMap[
+                                                                    'containerOnActionTriggerAnimation2']!
+                                                                .controller
+                                                                .forward(
+                                                                    from: 0.0));
+                                                  }
+                                                  if (_model
+                                                          .pinFieldTextController
+                                                          .text ==
+                                                      functions.memberPin(
+                                                          FFAppState()
+                                                              .members
+                                                              .toList(),
+                                                          _model.selectedId)) {
+                                                    FFAppState()
+                                                            .currentMemberId =
+                                                        _model.selectedId!;
+                                                    safeSetState(() {});
+                                                    _model.showPin = false;
+                                                    safeSetState(() {});
+                                                    safeSetState(() {
+                                                      _model
+                                                          .pinFieldTextController
+                                                          ?.clear();
+                                                    });
+                                                    if (functions.memberRole(
+                                                            FFAppState()
+                                                                .members
+                                                                .toList(),
+                                                            _model
+                                                                .selectedId) ==
+                                                        'parent') {
+                                                      if (Navigator.of(context)
+                                                          .canPop()) {
+                                                        context.pop();
+                                                      }
+                                                      context.pushNamed(
+                                                          ThroneRoomPageWidget
+                                                              .routeName);
+                                                    } else {
+                                                      if (Navigator.of(context)
+                                                          .canPop()) {
+                                                        context.pop();
+                                                      }
+                                                      context.pushNamed(
+                                                          HeroHomePageWidget
+                                                              .routeName);
+                                                    }
+                                                  } else {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      SnackBar(
+                                                        content: Text(
+                                                          'That PIN is not right. Try again!',
+                                                          style: GoogleFonts
+                                                              .comicNeue(
+                                                            color: Colors.white,
+                                                            fontSize: 16.0,
+                                                          ),
+                                                        ),
+                                                        duration: Duration(
+                                                            milliseconds: 4000),
+                                                      ),
+                                                    );
+                                                  }
+                                                },
+                                          text: '🔓 Unlock',
+                                          options: FFButtonOptions(
+                                            height: 48.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: Color(0x00FFFFFF),
+                                            textStyle: GoogleFonts.comicNeue(
+                                              color: Color(0xFF3A2400),
+                                              fontSize: 17.0,
+                                            ),
+                                            elevation: 0.0,
+                                            borderRadius:
+                                                BorderRadius.circular(22.0),
+                                            disabledColor: Color(0xC7EEE8F7),
+                                            disabledTextColor:
+                                                Color(0xFF6E6880),
+                                          ),
+                                        ),
+                                      ).animateOnActionTrigger(
+                                          animationsMap[
+                                              'containerOnActionTriggerAnimation2']!,
+                                          hasBeenTriggered:
+                                              hasContainerTriggered2),
                                     ),
                                   ].divide(SizedBox(width: 10.0)),
                                 ),
+                                if (((String? a0) {
+                                      return (a0 ?? '').trim().isEmpty;
+                                    }(_model.pinFieldTextController.text)) ??
+                                    true)
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFFFE3EA),
+                                      borderRadius: BorderRadius.circular(14.0),
+                                      border: Border.all(
+                                        color: Color(0xFFC42646),
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          12.0, 8.0, 12.0, 8.0),
+                                      child: Text(
+                                        ((String? a0) {
+                                          return '✋ Still needed: ' +
+                                              [
+                                                if ((a0 ?? '').trim().isEmpty)
+                                                  'PIN'
+                                              ].join(', ');
+                                        }(_model.pinFieldTextController.text))!,
+                                        style: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              font: GoogleFonts.comicNeue(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontStyle,
+                                              ),
+                                              color: Color(0xFF7E1028),
+                                              letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontStyle,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
                               ].divide(SizedBox(height: 12.0)),
                             ),
                           ),
@@ -637,7 +881,7 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
-                                                font: GoogleFonts.cinzel(
+                                                font: GoogleFonts.comicNeue(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -668,7 +912,7 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .labelMedium
                                               .override(
-                                                font: GoogleFonts.nunito(
+                                                font: GoogleFonts.comicNeue(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)

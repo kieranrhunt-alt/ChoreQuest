@@ -1,16 +1,20 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/ff_builtin_enums.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'quest_forge_page_model.dart';
@@ -33,10 +37,15 @@ class QuestForgePageWidget extends StatefulWidget {
   State<QuestForgePageWidget> createState() => _QuestForgePageWidgetState();
 }
 
-class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
+class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
+    with TickerProviderStateMixin {
   late QuestForgePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  var hasContainerTriggered1 = false;
+  var hasContainerTriggered2 = false;
+  var hasContainerTriggered3 = false;
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -77,6 +86,95 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
     _model.customValueFocusNode ??= FocusNode();
 
     _model.toggleValue = _model.requiresPhoto!;
+    animationsMap.addAll({
+      'containerOnActionTriggerAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation3': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
   }
 
   @override
@@ -189,7 +287,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            font: GoogleFonts.cinzel(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineSmall
@@ -225,7 +323,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodySmall
@@ -251,6 +349,128 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                   ].divide(SizedBox(height: 2.0)),
                                 ),
                               ),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  if (animationsMap[
+                                          'containerOnActionTriggerAnimation1'] !=
+                                      null) {
+                                    safeSetState(
+                                        () => hasContainerTriggered1 = true);
+                                    SchedulerBinding.instance.addPostFrameCallback(
+                                        (_) async => await animationsMap[
+                                                'containerOnActionTriggerAnimation1']!
+                                            .controller
+                                            .forward(from: 0.0));
+                                  }
+                                  if (functions.memberRole(
+                                          FFAppState().members.toList(),
+                                          FFAppState().currentMemberId) ==
+                                      'parent') {
+                                    context.pushNamed(
+                                        ThroneRoomPageWidget.routeName);
+                                  } else {
+                                    context.pushNamed(
+                                        HeroHomePageWidget.routeName);
+                                  }
+                                },
+                                child: Container(
+                                  height: 44.0,
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 0.0,
+                                        color: Color(0xFFB8740A),
+                                        offset: Offset(
+                                          0.0,
+                                          4.0,
+                                        ),
+                                        spreadRadius: 0.0,
+                                      )
+                                    ],
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color(0xFFFFF6C4),
+                                        Color(0xFFFFD54F),
+                                        Color(0xFFFFC22E),
+                                        Color(0xFFF0A30A)
+                                      ],
+                                      stops: [0.0, 0.48, 0.52, 1.0],
+                                      begin: AlignmentDirectional(1.0, 0.0),
+                                      end: AlignmentDirectional(-1.0, 0),
+                                    ),
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    border: Border.all(
+                                      color: Color(0xD9FFFFFF),
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10.0, 0.0, 10.0, 0.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          (FFMainAxisAlignment.center)
+                                              .flutterValue,
+                                      crossAxisAlignment:
+                                          (FFCrossAxisAlignment.center)
+                                              .flutterValue,
+                                      textBaseline: TextBaseline.alphabetic,
+                                      children: [
+                                        Container(
+                                          width: 26.0,
+                                          height: 26.0,
+                                          child: Container(
+                                            child:
+                                                custom_widgets.ChoreQuestLogo(
+                                              showTitle: false,
+                                              animate: false,
+                                              titleFontFamily: '',
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Throne Room',
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelSmall
+                                              .override(
+                                                font: GoogleFonts.comicNeue(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelSmall
+                                                          .fontStyle,
+                                                ),
+                                                color: Color(0xFF3A2400),
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelSmall
+                                                        .fontStyle,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ).animateOnActionTrigger(
+                                  animationsMap[
+                                      'containerOnActionTriggerAnimation1']!,
+                                  hasBeenTriggered: hasContainerTriggered1),
                             ].divide(SizedBox(width: 10.0)),
                           ),
                         ),
@@ -288,6 +508,11 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                               TextFormField(
                                 controller: _model.questTitleTextController,
                                 focusNode: _model.questTitleFocusNode,
+                                onChanged: (_) => EasyDebounce.debounce(
+                                  '_model.questTitleTextController',
+                                  Duration(milliseconds: 250),
+                                  () => safeSetState(() {}),
+                                ),
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'Quest title',
@@ -435,7 +660,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .fontWeight,
@@ -495,7 +720,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -547,7 +772,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -600,7 +825,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -652,7 +877,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -705,7 +930,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -757,7 +982,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -810,7 +1035,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -862,7 +1087,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -915,7 +1140,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -967,7 +1192,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1020,7 +1245,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1072,7 +1297,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1204,7 +1429,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleMedium
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleMedium
                                             .fontWeight,
@@ -1262,7 +1487,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .fontWeight,
@@ -1319,7 +1544,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.nunito(
+                                          font: GoogleFonts.comicNeue(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -1371,7 +1596,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.nunito(
+                                          font: GoogleFonts.comicNeue(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -1450,7 +1675,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                                       context)
                                                   .titleSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1510,7 +1735,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                                       context)
                                                   .titleSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1582,7 +1807,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .fontWeight,
@@ -1639,7 +1864,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.nunito(
+                                          font: GoogleFonts.comicNeue(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -1691,7 +1916,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.nunito(
+                                          font: GoogleFonts.comicNeue(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -1743,7 +1968,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.nunito(
+                                          font: GoogleFonts.comicNeue(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -1795,7 +2020,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.nunito(
+                                          font: GoogleFonts.comicNeue(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -1847,7 +2072,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.nunito(
+                                          font: GoogleFonts.comicNeue(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -1899,7 +2124,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.nunito(
+                                          font: GoogleFonts.comicNeue(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -1962,7 +2187,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodySmall
                                       .override(
-                                        font: GoogleFonts.nunito(
+                                        font: GoogleFonts.comicNeue(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .bodySmall
@@ -2004,7 +2229,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .titleMedium
                                             .override(
-                                              font: GoogleFonts.nunito(
+                                              font: GoogleFonts.comicNeue(
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
                                                         .titleMedium
@@ -2026,83 +2251,122 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                             ),
                                       ),
                                     ),
-                                    FFButtonWidget(
-                                      onPressed: () async {
-                                        final _datePickedDate =
-                                            await showDatePicker(
-                                          context: context,
-                                          initialDate: getCurrentTimestamp,
-                                          firstDate: getCurrentTimestamp,
-                                          lastDate: DateTime(2050),
-                                          builder: (context, child) {
-                                            return wrapInMaterialDatePickerTheme(
-                                              context,
-                                              child!,
-                                              headerBackgroundColor:
-                                                  Color(0x00000000),
-                                              headerForegroundColor:
-                                                  Color(0x00000000),
-                                              headerTextStyle: TextStyle(),
-                                              pickerBackgroundColor:
-                                                  Color(0x00000000),
-                                              pickerForegroundColor:
-                                                  Color(0x00000000),
-                                              selectedDateTimeBackgroundColor:
-                                                  Color(0x00000000),
-                                              selectedDateTimeForegroundColor:
-                                                  Color(0x00000000),
-                                              actionButtonForegroundColor:
-                                                  Color(0x00000000),
-                                              iconSize: 24,
-                                            );
-                                          },
-                                        );
-
-                                        if (_datePickedDate != null) {
-                                          safeSetState(() {
-                                            _model.datePicked = DateTime(
-                                              _datePickedDate.year,
-                                              _datePickedDate.month,
-                                              _datePickedDate.day,
-                                            );
-                                          });
-                                        } else if (_model.datePicked != null) {
-                                          safeSetState(() {
-                                            _model.datePicked =
-                                                getCurrentTimestamp;
-                                          });
-                                        }
-                                        _model.dueDate = _model.datePicked;
-                                        safeSetState(() {});
-                                      },
-                                      text: 'Pick date',
-                                      icon: Icon(
-                                        Icons.event,
-                                        size: 20.0,
-                                      ),
-                                      options: FFButtonOptions(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 0.0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        iconColor: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        color: Colors.transparent,
-                                        textStyle: TextStyle(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                        ),
-                                        elevation: 0.0,
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          width: 1.0,
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 0.0,
+                                            color: Color(0xFF1F66A8),
+                                            offset: Offset(
+                                              0.0,
+                                              5.0,
+                                            ),
+                                            spreadRadius: 0.0,
+                                          )
+                                        ],
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFE2F4FF),
+                                            Color(0xFF8CD0FF),
+                                            Color(0xFF66BDF7),
+                                            Color(0xFF3E9BE0)
+                                          ],
+                                          stops: [0.0, 0.48, 0.52, 1.0],
+                                          begin: AlignmentDirectional(1.0, 0.0),
+                                          end: AlignmentDirectional(-1.0, 0),
                                         ),
                                         borderRadius:
-                                            BorderRadius.circular(12.0),
+                                            BorderRadius.circular(22.0),
+                                        border: Border.all(
+                                          color: Color(0xD9FFFFFF),
+                                          width: 2.5,
+                                        ),
                                       ),
-                                    ),
+                                      child: FFButtonWidget(
+                                        onPressed: () async {
+                                          if (animationsMap[
+                                                  'containerOnActionTriggerAnimation2'] !=
+                                              null) {
+                                            safeSetState(() =>
+                                                hasContainerTriggered2 = true);
+                                            SchedulerBinding.instance
+                                                .addPostFrameCallback((_) async =>
+                                                    await animationsMap[
+                                                            'containerOnActionTriggerAnimation2']!
+                                                        .controller
+                                                        .forward(from: 0.0));
+                                          }
+                                          final _datePickedDate =
+                                              await showDatePicker(
+                                            context: context,
+                                            initialDate: getCurrentTimestamp,
+                                            firstDate: getCurrentTimestamp,
+                                            lastDate: DateTime(2050),
+                                            builder: (context, child) {
+                                              return wrapInMaterialDatePickerTheme(
+                                                context,
+                                                child!,
+                                                headerBackgroundColor:
+                                                    Color(0x00000000),
+                                                headerForegroundColor:
+                                                    Color(0x00000000),
+                                                headerTextStyle: TextStyle(),
+                                                pickerBackgroundColor:
+                                                    Color(0x00000000),
+                                                pickerForegroundColor:
+                                                    Color(0x00000000),
+                                                selectedDateTimeBackgroundColor:
+                                                    Color(0x00000000),
+                                                selectedDateTimeForegroundColor:
+                                                    Color(0x00000000),
+                                                actionButtonForegroundColor:
+                                                    Color(0x00000000),
+                                                iconSize: 24,
+                                              );
+                                            },
+                                          );
+
+                                          if (_datePickedDate != null) {
+                                            safeSetState(() {
+                                              _model.datePicked = DateTime(
+                                                _datePickedDate.year,
+                                                _datePickedDate.month,
+                                                _datePickedDate.day,
+                                              );
+                                            });
+                                          } else if (_model.datePicked !=
+                                              null) {
+                                            safeSetState(() {
+                                              _model.datePicked =
+                                                  getCurrentTimestamp;
+                                            });
+                                          }
+                                          _model.dueDate = _model.datePicked;
+                                          safeSetState(() {});
+                                        },
+                                        text: '📅 Date',
+                                        options: FFButtonOptions(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          iconPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color: Color(0x00FFFFFF),
+                                          textStyle: GoogleFonts.comicNeue(
+                                            color: Color(0xFF0B2E4F),
+                                            fontSize: 15.0,
+                                          ),
+                                          elevation: 0.0,
+                                          borderRadius:
+                                              BorderRadius.circular(22.0),
+                                        ),
+                                      ),
+                                    ).animateOnActionTrigger(
+                                        animationsMap[
+                                            'containerOnActionTriggerAnimation2']!,
+                                        hasBeenTriggered:
+                                            hasContainerTriggered2),
                                     FlutterFlowIconButton(
                                       buttonSize: 40.0,
                                       icon: Icon(
@@ -2155,7 +2419,29 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                                   ),
                                   Text(
                                     '📸 Require photo proof',
-                                    style: TextStyle(),
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          font: GoogleFonts.comicNeue(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
                                   ),
                                 ],
                               ),
@@ -2163,92 +2449,210 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget> {
                           ),
                         ),
                       ),
-                      FFButtonWidget(
-                        onPressed: () async {
-                          if (_model.isEdit!) {
-                            FFAppState().quests = functions
-                                .updateQuest(
-                                    FFAppState().quests.toList(),
-                                    widget!.questId,
-                                    _model.questTitleTextController.text,
-                                    _model.questDescTextController.text,
-                                    _model.buckValue,
-                                    _model.assigneeId,
-                                    _model.dueDate,
-                                    _model.recurrence,
-                                    _model.requiresPhoto)!
-                                .toList()
-                                .cast<QuestStruct>();
-                            safeSetState(() {});
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'Quest updated',
-                                  style: TextStyle(),
-                                ),
-                                duration: Duration(milliseconds: 4000),
+                      Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 0.0,
+                              color: Color(0xFFB8740A),
+                              offset: Offset(
+                                0.0,
+                                5.0,
                               ),
-                            );
-                            context.pop();
-                          } else {
-                            if (functions.isBlank(
-                                _model.questTitleTextController.text)!) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Give the quest a title',
-                                    style: TextStyle(),
-                                  ),
-                                  duration: Duration(milliseconds: 4000),
-                                ),
-                              );
-                            } else {
-                              FFAppState().quests = functions
-                                  .createQuest(
-                                      FFAppState().quests.toList(),
-                                      _model.questTitleTextController.text,
-                                      _model.questDescTextController.text,
-                                      _model.buckValue,
-                                      _model.assigneeId,
-                                      _model.dueDate,
-                                      _model.recurrence,
-                                      _model.requiresPhoto)!
-                                  .toList()
-                                  .cast<QuestStruct>();
-                              safeSetState(() {});
-                              FFAppState().quests = functions
-                                  .generateRecurring(
-                                      FFAppState().quests.toList())!
-                                  .toList()
-                                  .cast<QuestStruct>();
-                              safeSetState(() {});
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Quest forged 🗺️',
-                                    style: TextStyle(),
-                                  ),
-                                  duration: Duration(milliseconds: 4000),
-                                ),
-                              );
-                              context.pop();
-                            }
-                          }
-                        },
-                        text: '⚒️ Save quest',
-                        options: FFButtonOptions(
-                          height: 54.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: FlutterFlowTheme.of(context).tertiary,
-                          textStyle: TextStyle(
-                            color: Color(0xFF2A1B4D),
+                              spreadRadius: 0.0,
+                            )
+                          ],
+                          gradient: LinearGradient(
+                            colors: [
+                              Color(0xFFFFF6C4),
+                              Color(0xFFFFD54F),
+                              Color(0xFFFFC22E),
+                              Color(0xFFF0A30A)
+                            ],
+                            stops: [0.0, 0.48, 0.52, 1.0],
+                            begin: AlignmentDirectional(1.0, 0.0),
+                            end: AlignmentDirectional(-1.0, 0),
                           ),
-                          borderRadius: BorderRadius.circular(18.0),
+                          borderRadius: BorderRadius.circular(22.0),
+                          border: Border.all(
+                            color: Color(0xD9FFFFFF),
+                            width: 2.5,
+                          ),
                         ),
-                      ),
+                        child: FFButtonWidget(
+                          onPressed: ((String? a0, bool? e) {
+                            return !(e ?? false) && ((a0 ?? '').trim().isEmpty);
+                          }(_model.questTitleTextController.text,
+                                  _model.isEdit))!
+                              ? null
+                              : () async {
+                                  if (animationsMap[
+                                          'containerOnActionTriggerAnimation3'] !=
+                                      null) {
+                                    safeSetState(
+                                        () => hasContainerTriggered3 = true);
+                                    SchedulerBinding.instance.addPostFrameCallback(
+                                        (_) async => await animationsMap[
+                                                'containerOnActionTriggerAnimation3']!
+                                            .controller
+                                            .forward(from: 0.0));
+                                  }
+                                  if (_model.isEdit!) {
+                                    FFAppState().quests = functions
+                                        .updateQuest(
+                                            FFAppState().quests.toList(),
+                                            widget!.questId,
+                                            _model
+                                                .questTitleTextController.text,
+                                            _model.questDescTextController.text,
+                                            _model.buckValue,
+                                            _model.assigneeId,
+                                            _model.dueDate,
+                                            _model.recurrence,
+                                            _model.requiresPhoto)!
+                                        .toList()
+                                        .cast<QuestStruct>();
+                                    safeSetState(() {});
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Quest updated',
+                                          style: GoogleFonts.comicNeue(
+                                            color: Colors.white,
+                                            fontSize: 16.0,
+                                          ),
+                                        ),
+                                        duration: Duration(milliseconds: 4000),
+                                      ),
+                                    );
+                                    context.pop();
+                                  } else {
+                                    if (functions.isBlank(_model
+                                        .questTitleTextController.text)!) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Give the quest a title',
+                                            style: GoogleFonts.comicNeue(
+                                              color: Colors.white,
+                                              fontSize: 16.0,
+                                            ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                        ),
+                                      );
+                                    } else {
+                                      FFAppState().quests = functions
+                                          .createQuest(
+                                              FFAppState().quests.toList(),
+                                              _model.questTitleTextController
+                                                  .text,
+                                              _model
+                                                  .questDescTextController.text,
+                                              _model.buckValue,
+                                              _model.assigneeId,
+                                              _model.dueDate,
+                                              _model.recurrence,
+                                              _model.requiresPhoto)!
+                                          .toList()
+                                          .cast<QuestStruct>();
+                                      safeSetState(() {});
+                                      FFAppState().quests = functions
+                                          .generateRecurring(
+                                              FFAppState().quests.toList())!
+                                          .toList()
+                                          .cast<QuestStruct>();
+                                      safeSetState(() {});
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Quest forged 🗺️',
+                                            style: GoogleFonts.comicNeue(
+                                              color: Colors.white,
+                                              fontSize: 16.0,
+                                            ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                        ),
+                                      );
+                                      context.pop();
+                                    }
+                                  }
+                                },
+                          text: '⚒️ Save quest',
+                          options: FFButtonOptions(
+                            height: 54.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: Color(0x00FFFFFF),
+                            textStyle: GoogleFonts.comicNeue(
+                              color: Color(0xFF3A2400),
+                              fontSize: 17.0,
+                            ),
+                            elevation: 0.0,
+                            borderRadius: BorderRadius.circular(22.0),
+                            disabledColor: Color(0xC7EEE8F7),
+                            disabledTextColor: Color(0xFF6E6880),
+                          ),
+                        ),
+                      ).animateOnActionTrigger(
+                          animationsMap['containerOnActionTriggerAnimation3']!,
+                          hasBeenTriggered: hasContainerTriggered3),
+                      if (((String? a0, bool? e) {
+                            return !(e ?? false) && ((a0 ?? '').trim().isEmpty);
+                          }(_model.questTitleTextController.text,
+                              _model.isEdit)) ??
+                          true)
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xFFFFE3EA),
+                            borderRadius: BorderRadius.circular(14.0),
+                            border: Border.all(
+                              color: Color(0xFFC42646),
+                              width: 1.5,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                12.0, 8.0, 12.0, 8.0),
+                            child: Text(
+                              ((String? a0, bool? e) {
+                                return '✋ Still needed: ' +
+                                    [
+                                      if ((a0 ?? '').trim().isEmpty)
+                                        'Quest title'
+                                    ].join(', ');
+                              }(_model.questTitleTextController.text,
+                                  _model.isEdit))!,
+                              style: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    font: GoogleFonts.comicNeue(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
+                                    color: Color(0xFF7E1028),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
+                            ),
+                          ),
+                        ),
                     ].divide(SizedBox(height: 14.0)),
                   ),
                 ),

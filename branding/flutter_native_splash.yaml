@@ -1,0 +1,10 @@
+# Native launch splash for Squishie Chore Adventure (butter-yellow + badge logo).
+# Generated on CI by `dart run flutter_native_splash:create --path=branding/flutter_native_splash.yaml`.
+flutter_native_splash:
+  color: "#FFF1BF"
+  image: branding/splash_logo.png
+  android_12:
+    color: "#FFF1BF"
+    image: branding/adaptive_foreground_icon.png
+    icon_background_color: "#FFF1BF"
+  web: false

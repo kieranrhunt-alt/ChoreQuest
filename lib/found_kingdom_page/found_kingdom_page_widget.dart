@@ -1,13 +1,18 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/ff_builtin_enums.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'found_kingdom_page_model.dart';
@@ -25,10 +30,13 @@ class FoundKingdomPageWidget extends StatefulWidget {
   State<FoundKingdomPageWidget> createState() => _FoundKingdomPageWidgetState();
 }
 
-class _FoundKingdomPageWidgetState extends State<FoundKingdomPageWidget> {
+class _FoundKingdomPageWidgetState extends State<FoundKingdomPageWidget>
+    with TickerProviderStateMixin {
   late FoundKingdomPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  var hasContainerTriggered = false;
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -43,6 +51,42 @@ class _FoundKingdomPageWidgetState extends State<FoundKingdomPageWidget> {
 
     _model.parentPinFieldTextController ??= TextEditingController();
     _model.parentPinFieldFocusNode ??= FocusNode();
+
+    animationsMap.addAll({
+      'containerOnActionTriggerAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
   }
 
   @override
@@ -138,7 +182,7 @@ class _FoundKingdomPageWidgetState extends State<FoundKingdomPageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .headlineMedium
                                     .override(
-                                      font: GoogleFonts.cinzel(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .headlineMedium
                                             .fontWeight,
@@ -156,12 +200,12 @@ class _FoundKingdomPageWidgetState extends State<FoundKingdomPageWidget> {
                                     ),
                               ),
                               Text(
-                                'Build family habits. Make chores a quest.',
+                                'Turn chores into Squishie Kingdom adventures!',
                                 textAlign: TextAlign.center,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .bodyLarge
                                             .fontWeight,
@@ -184,6 +228,11 @@ class _FoundKingdomPageWidgetState extends State<FoundKingdomPageWidget> {
                                 controller:
                                     _model.familyNameFieldTextController,
                                 focusNode: _model.familyNameFieldFocusNode,
+                                onChanged: (_) => EasyDebounce.debounce(
+                                  '_model.familyNameFieldTextController',
+                                  Duration(milliseconds: 250),
+                                  () => safeSetState(() {}),
+                                ),
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'Kingdom (family) name',
@@ -240,6 +289,11 @@ class _FoundKingdomPageWidgetState extends State<FoundKingdomPageWidget> {
                                 controller:
                                     _model.parentNameFieldTextController,
                                 focusNode: _model.parentNameFieldFocusNode,
+                                onChanged: (_) => EasyDebounce.debounce(
+                                  '_model.parentNameFieldTextController',
+                                  Duration(milliseconds: 250),
+                                  () => safeSetState(() {}),
+                                ),
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'Your royal name (parent)',
@@ -362,100 +416,243 @@ class _FoundKingdomPageWidgetState extends State<FoundKingdomPageWidget> {
                                     .parentPinFieldTextControllerValidator
                                     .asValidator(context),
                               ),
-                              FFButtonWidget(
-                                onPressed: () async {
-                                  if (functions.isBlank(_model
-                                      .familyNameFieldTextController.text)!) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'Please name your kingdom',
-                                          style: TextStyle(),
-                                        ),
-                                        duration: Duration(milliseconds: 4000),
+                              Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 0.0,
+                                      color: Color(0xFFB8740A),
+                                      offset: Offset(
+                                        0.0,
+                                        5.0,
                                       ),
-                                    );
-                                  } else {
-                                    if (functions.isBlank(_model
-                                        .parentNameFieldTextController.text)!) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Please enter your royal name',
-                                            style: TextStyle(),
-                                          ),
-                                          duration:
-                                              Duration(milliseconds: 4000),
-                                        ),
-                                      );
-                                    } else {
-                                      _model.parentId = functions.newId('m');
-                                      safeSetState(() {});
-                                      FFAppState().family = FamilyStruct(
-                                        id: functions.newId('fam'),
-                                        name: _model
-                                            .familyNameFieldTextController.text,
-                                      );
-                                      safeSetState(() {});
-                                      FFAppState().addToMembers(MemberStruct(
-                                        id: _model.parentId,
-                                        role: 'parent',
-                                        name: _model
-                                            .parentNameFieldTextController.text,
-                                        age: 0,
-                                        baseAvatar:
-                                            'species:bear|color:#8E6CEF|hat:crown',
-                                        pin: _model
-                                            .parentPinFieldTextController.text,
-                                      ));
-                                      safeSetState(() {});
-                                      FFAppState().currentMemberId =
-                                          _model.parentId!;
-                                      safeSetState(() {});
-                                      FFAppState().rewards = functions
-                                          .defaultRewards()!
-                                          .toList()
-                                          .cast<RewardStruct>();
-                                      safeSetState(() {});
-                                      FFAppState().avatarItems = functions
-                                          .starterAvatarCatalog()!
-                                          .toList()
-                                          .cast<AvatarItemStruct>();
-                                      safeSetState(() {});
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Your kingdom is founded! Now add your heroes.',
-                                            style: TextStyle(),
-                                          ),
-                                          duration:
-                                              Duration(milliseconds: 4000),
-                                        ),
-                                      );
-                                      if (Navigator.of(context).canPop()) {
-                                        context.pop();
-                                      }
-                                      context.pushNamed(
-                                          KnightsPageWidget.routeName);
-                                    }
-                                  }
-                                },
-                                text: '👑 Found our kingdom',
-                                options: FFButtonOptions(
-                                  height: 54.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).tertiary,
-                                  textStyle: TextStyle(
-                                    color: Color(0xFF2A1B4D),
+                                      spreadRadius: 0.0,
+                                    )
+                                  ],
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFFFFF6C4),
+                                      Color(0xFFFFD54F),
+                                      Color(0xFFFFC22E),
+                                      Color(0xFFF0A30A)
+                                    ],
+                                    stops: [0.0, 0.48, 0.52, 1.0],
+                                    begin: AlignmentDirectional(1.0, 0.0),
+                                    end: AlignmentDirectional(-1.0, 0),
                                   ),
-                                  borderRadius: BorderRadius.circular(18.0),
+                                  borderRadius: BorderRadius.circular(22.0),
+                                  border: Border.all(
+                                    color: Color(0xD9FFFFFF),
+                                    width: 2.5,
+                                  ),
                                 ),
-                              ),
+                                child: FFButtonWidget(
+                                  onPressed: ((String? a0, String? a1) {
+                                    return (a0 ?? '').trim().isEmpty ||
+                                        (a1 ?? '').trim().isEmpty;
+                                  }(
+                                          _model.familyNameFieldTextController
+                                              .text,
+                                          _model.parentNameFieldTextController
+                                              .text))!
+                                      ? null
+                                      : () async {
+                                          if (animationsMap[
+                                                  'containerOnActionTriggerAnimation'] !=
+                                              null) {
+                                            safeSetState(() =>
+                                                hasContainerTriggered = true);
+                                            SchedulerBinding.instance
+                                                .addPostFrameCallback((_) async =>
+                                                    await animationsMap[
+                                                            'containerOnActionTriggerAnimation']!
+                                                        .controller
+                                                        .forward(from: 0.0));
+                                          }
+                                          if (functions.isBlank(_model
+                                              .familyNameFieldTextController
+                                              .text)!) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Please name your kingdom',
+                                                  style: GoogleFonts.comicNeue(
+                                                    color: Colors.white,
+                                                    fontSize: 16.0,
+                                                  ),
+                                                ),
+                                                duration: Duration(
+                                                    milliseconds: 4000),
+                                              ),
+                                            );
+                                          } else {
+                                            if (functions.isBlank(_model
+                                                .parentNameFieldTextController
+                                                .text)!) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'Please enter your royal name',
+                                                    style:
+                                                        GoogleFonts.comicNeue(
+                                                      color: Colors.white,
+                                                      fontSize: 16.0,
+                                                    ),
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds: 4000),
+                                                ),
+                                              );
+                                            } else {
+                                              _model.parentId =
+                                                  functions.newId('m');
+                                              safeSetState(() {});
+                                              FFAppState().family =
+                                                  FamilyStruct(
+                                                id: functions.newId('fam'),
+                                                name: _model
+                                                    .familyNameFieldTextController
+                                                    .text,
+                                              );
+                                              safeSetState(() {});
+                                              FFAppState()
+                                                  .addToMembers(MemberStruct(
+                                                id: _model.parentId,
+                                                role: 'parent',
+                                                name: _model
+                                                    .parentNameFieldTextController
+                                                    .text,
+                                                age: 0,
+                                                baseAvatar:
+                                                    'species:bear|color:#8E6CEF|hat:crown',
+                                                pin: _model
+                                                    .parentPinFieldTextController
+                                                    .text,
+                                              ));
+                                              safeSetState(() {});
+                                              FFAppState().currentMemberId =
+                                                  _model.parentId!;
+                                              safeSetState(() {});
+                                              FFAppState().rewards = functions
+                                                  .defaultRewards()!
+                                                  .toList()
+                                                  .cast<RewardStruct>();
+                                              safeSetState(() {});
+                                              FFAppState().avatarItems =
+                                                  functions
+                                                      .starterAvatarCatalog()!
+                                                      .toList()
+                                                      .cast<AvatarItemStruct>();
+                                              safeSetState(() {});
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'Your kingdom is founded! Now add your heroes.',
+                                                    style:
+                                                        GoogleFonts.comicNeue(
+                                                      color: Colors.white,
+                                                      fontSize: 16.0,
+                                                    ),
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds: 4000),
+                                                ),
+                                              );
+                                              if (Navigator.of(context)
+                                                  .canPop()) {
+                                                context.pop();
+                                              }
+                                              context.pushNamed(
+                                                  KnightsPageWidget.routeName);
+                                            }
+                                          }
+                                        },
+                                  text: '👑 Found our kingdom',
+                                  options: FFButtonOptions(
+                                    height: 54.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: Color(0x00FFFFFF),
+                                    textStyle: GoogleFonts.comicNeue(
+                                      color: Color(0xFF3A2400),
+                                      fontSize: 17.0,
+                                    ),
+                                    elevation: 0.0,
+                                    borderRadius: BorderRadius.circular(22.0),
+                                    disabledColor: Color(0xC7EEE8F7),
+                                    disabledTextColor: Color(0xFF6E6880),
+                                  ),
+                                ),
+                              ).animateOnActionTrigger(
+                                  animationsMap[
+                                      'containerOnActionTriggerAnimation']!,
+                                  hasBeenTriggered: hasContainerTriggered),
+                              if (((String? a0, String? a1) {
+                                    return (a0 ?? '').trim().isEmpty ||
+                                        (a1 ?? '').trim().isEmpty;
+                                  }(
+                                      _model.familyNameFieldTextController.text,
+                                      _model.parentNameFieldTextController
+                                          .text)) ??
+                                  true)
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFFFE3EA),
+                                    borderRadius: BorderRadius.circular(14.0),
+                                    border: Border.all(
+                                      color: Color(0xFFC42646),
+                                      width: 1.5,
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        12.0, 8.0, 12.0, 8.0),
+                                    child: Text(
+                                      ((String? a0, String? a1) {
+                                        return '✋ Still needed: ' +
+                                            [
+                                              if ((a0 ?? '').trim().isEmpty)
+                                                'Kingdom name',
+                                              if ((a1 ?? '').trim().isEmpty)
+                                                'Your royal name'
+                                            ].join(', ');
+                                      }(
+                                          _model.familyNameFieldTextController
+                                              .text,
+                                          _model.parentNameFieldTextController
+                                              .text))!,
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            font: GoogleFonts.comicNeue(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontStyle,
+                                            ),
+                                            color: Color(0xFF7E1028),
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                          ),
+                                    ),
+                                  ),
+                                ),
                             ].divide(SizedBox(height: 14.0)),
                           ),
                         ),

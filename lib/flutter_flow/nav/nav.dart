@@ -42,12 +42,32 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
-      errorBuilder: (context, state) => SplashPageWidget(),
+      errorBuilder: (context, state) => appStateNotifier.showSplashImage
+          ? Builder(
+              builder: (context) => Container(
+                color: Color(0xFFFFF1BF),
+                child: Image.asset(
+                  'assets/images/squishie_splash_logo.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            )
+          : SplashPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => SplashPageWidget(),
+          builder: (context, _) => appStateNotifier.showSplashImage
+              ? Builder(
+                  builder: (context) => Container(
+                    color: Color(0xFFFFF1BF),
+                    child: Image.asset(
+                      'assets/images/squishie_splash_logo.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
+              : SplashPageWidget(),
         ),
         FFRoute(
           name: GatehousePageWidget.routeName,

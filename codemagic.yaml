@@ -13,6 +13,9 @@ definitions:
   get_packages: &get_packages
     name: Get packages
     script: flutter pub get
+  branding: &branding
+    name: Apply launcher icon, adaptive icon + native splash
+    script: bash branding/apply_branding.sh
 
 workflows:
   android-test:
@@ -29,6 +32,7 @@ workflows:
           include: true
     scripts:
       - *get_packages
+      - *branding
       - name: Build APK
         script: flutter build apk --release --build-number=$PROJECT_BUILD_NUMBER
     artifacts:
@@ -42,6 +46,7 @@ workflows:
       <<: *flutter_env
     scripts:
       - *get_packages
+      - *branding
       - name: Build web
         script: flutter build web --release
       - name: Zip web build
@@ -59,6 +64,7 @@ workflows:
         - chorequest_upload_key   # upload your keystore in Codemagic > Team > Code signing identities with this reference name
     scripts:
       - *get_packages
+      - *branding
       - name: Use the release keystore
         script: |
           cat >> "$CM_BUILD_DIR/android/key.properties" <<EOF
@@ -109,6 +115,7 @@ workflows:
       - name: Apply signing profiles to Xcode project
         script: xcode-project use-profiles
       - *get_packages
+      - *branding
       - name: Install pods
         script: cd ios && pod install
       - name: Build IPA

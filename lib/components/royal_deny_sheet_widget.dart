@@ -1,11 +1,15 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/ff_builtin_enums.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'royal_deny_sheet_model.dart';
@@ -26,8 +30,12 @@ class RoyalDenySheetWidget extends StatefulWidget {
   State<RoyalDenySheetWidget> createState() => _RoyalDenySheetWidgetState();
 }
 
-class _RoyalDenySheetWidgetState extends State<RoyalDenySheetWidget> {
+class _RoyalDenySheetWidgetState extends State<RoyalDenySheetWidget>
+    with TickerProviderStateMixin {
   late RoyalDenySheetModel _model;
+
+  var hasContainerTriggered = false;
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void setState(VoidCallback callback) {
@@ -42,6 +50,42 @@ class _RoyalDenySheetWidgetState extends State<RoyalDenySheetWidget> {
 
     _model.denyNoteTextController ??= TextEditingController();
     _model.denyNoteFocusNode ??= FocusNode();
+
+    animationsMap.addAll({
+      'containerOnActionTriggerAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
   }
 
   @override
@@ -74,7 +118,7 @@ class _RoyalDenySheetWidgetState extends State<RoyalDenySheetWidget> {
             Text(
               '📜 Send it back',
               style: FlutterFlowTheme.of(context).headlineSmall.override(
-                    font: GoogleFonts.cinzel(
+                    font: GoogleFonts.comicNeue(
                       fontWeight:
                           FlutterFlowTheme.of(context).headlineSmall.fontWeight,
                       fontStyle:
@@ -90,7 +134,7 @@ class _RoyalDenySheetWidgetState extends State<RoyalDenySheetWidget> {
             Text(
               widget!.questTitle!,
               style: FlutterFlowTheme.of(context).bodyLarge.override(
-                    font: GoogleFonts.nunito(
+                    font: GoogleFonts.comicNeue(
                       fontWeight:
                           FlutterFlowTheme.of(context).bodyLarge.fontWeight,
                       fontStyle:
@@ -157,51 +201,97 @@ class _RoyalDenySheetWidgetState extends State<RoyalDenySheetWidget> {
               validator:
                   _model.denyNoteTextControllerValidator.asValidator(context),
             ),
-            FFButtonWidget(
-              onPressed: () async {
-                FFAppState().quests = functions
-                    .reviewQuest(FFAppState().quests.toList(), widget!.questId,
-                        false, _model.denyNoteTextController.text)!
-                    .toList()
-                    .cast<QuestStruct>();
-                safeSetState(() {});
-                FFAppState().submissions = functions
-                    .reviewSubmission(
-                        FFAppState().submissions.toList(),
-                        widget!.questId,
-                        false,
-                        _model.denyNoteTextController.text)!
-                    .toList()
-                    .cast<SubmissionStruct>();
-                safeSetState(() {});
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      'Quest returned to Open with your note',
-                      style: TextStyle(),
+            Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 0.0,
+                    color: Color(0xFF7E1028),
+                    offset: Offset(
+                      0.0,
+                      5.0,
                     ),
-                    duration: Duration(milliseconds: 4000),
-                  ),
-                );
-              },
-              text: 'Deny & return to Open',
-              icon: Icon(
-                Icons.undo,
-                size: 20.0,
-              ),
-              options: FFButtonOptions(
-                height: 52.0,
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                iconColor: Colors.white,
-                color: FlutterFlowTheme.of(context).error,
-                textStyle: TextStyle(
-                  color: Colors.white,
+                    spreadRadius: 0.0,
+                  )
+                ],
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFFFFB3C3),
+                    Color(0xFFE64A6C),
+                    Color(0xFFD23356),
+                    Color(0xFFB01E40)
+                  ],
+                  stops: [0.0, 0.48, 0.52, 1.0],
+                  begin: AlignmentDirectional(1.0, 0.0),
+                  end: AlignmentDirectional(-1.0, 0),
                 ),
-                borderRadius: BorderRadius.circular(16.0),
+                borderRadius: BorderRadius.circular(22.0),
+                border: Border.all(
+                  color: Color(0xD9FFFFFF),
+                  width: 2.5,
+                ),
               ),
-            ),
+              child: FFButtonWidget(
+                onPressed: () async {
+                  if (animationsMap['containerOnActionTriggerAnimation'] !=
+                      null) {
+                    safeSetState(() => hasContainerTriggered = true);
+                    SchedulerBinding.instance.addPostFrameCallback((_) async =>
+                        await animationsMap[
+                                'containerOnActionTriggerAnimation']!
+                            .controller
+                            .forward(from: 0.0));
+                  }
+                  FFAppState().quests = functions
+                      .reviewQuest(
+                          FFAppState().quests.toList(),
+                          widget!.questId,
+                          false,
+                          _model.denyNoteTextController.text)!
+                      .toList()
+                      .cast<QuestStruct>();
+                  safeSetState(() {});
+                  FFAppState().submissions = functions
+                      .reviewSubmission(
+                          FFAppState().submissions.toList(),
+                          widget!.questId,
+                          false,
+                          _model.denyNoteTextController.text)!
+                      .toList()
+                      .cast<SubmissionStruct>();
+                  safeSetState(() {});
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Quest returned to Open with your note',
+                        style: GoogleFonts.comicNeue(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                        ),
+                      ),
+                      duration: Duration(milliseconds: 4000),
+                    ),
+                  );
+                },
+                text: '🚫 Deny & return to Open',
+                options: FFButtonOptions(
+                  height: 52.0,
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  iconPadding:
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: Color(0x00FFFFFF),
+                  textStyle: GoogleFonts.comicNeue(
+                    color: Colors.white,
+                    fontSize: 17.0,
+                  ),
+                  elevation: 0.0,
+                  borderRadius: BorderRadius.circular(22.0),
+                ),
+              ),
+            ).animateOnActionTrigger(
+                animationsMap['containerOnActionTriggerAnimation']!,
+                hasBeenTriggered: hasContainerTriggered),
           ].divide(SizedBox(height: 14.0)),
         ),
       ),

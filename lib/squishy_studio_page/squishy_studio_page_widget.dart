@@ -1,14 +1,18 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/ff_builtin_enums.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'squishy_studio_page_model.dart';
@@ -27,15 +31,138 @@ class SquishyStudioPageWidget extends StatefulWidget {
       _SquishyStudioPageWidgetState();
 }
 
-class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
+class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget>
+    with TickerProviderStateMixin {
   late SquishyStudioPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  var hasContainerTriggered1 = false;
+  var hasContainerTriggered2 = false;
+  var hasContainerTriggered3 = false;
+  var hasContainerTriggered4 = false;
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => SquishyStudioPageModel());
+
+    animationsMap.addAll({
+      'containerOnActionTriggerAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation3': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation4': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -145,12 +272,12 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                   textBaseline: TextBaseline.alphabetic,
                                   children: [
                                     Text(
-                                      'Squishy Studio',
+                                      'Squishie Studio',
                                       maxLines: 1,
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            font: GoogleFonts.cinzel(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineSmall
@@ -179,7 +306,7 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodySmall
@@ -205,6 +332,128 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                   ].divide(SizedBox(height: 2.0)),
                                 ),
                               ),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  if (animationsMap[
+                                          'containerOnActionTriggerAnimation1'] !=
+                                      null) {
+                                    safeSetState(
+                                        () => hasContainerTriggered1 = true);
+                                    SchedulerBinding.instance.addPostFrameCallback(
+                                        (_) async => await animationsMap[
+                                                'containerOnActionTriggerAnimation1']!
+                                            .controller
+                                            .forward(from: 0.0));
+                                  }
+                                  if (functions.memberRole(
+                                          FFAppState().members.toList(),
+                                          FFAppState().currentMemberId) ==
+                                      'parent') {
+                                    context.pushNamed(
+                                        ThroneRoomPageWidget.routeName);
+                                  } else {
+                                    context.pushNamed(
+                                        HeroHomePageWidget.routeName);
+                                  }
+                                },
+                                child: Container(
+                                  height: 44.0,
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 0.0,
+                                        color: Color(0xFFB8740A),
+                                        offset: Offset(
+                                          0.0,
+                                          4.0,
+                                        ),
+                                        spreadRadius: 0.0,
+                                      )
+                                    ],
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color(0xFFFFF6C4),
+                                        Color(0xFFFFD54F),
+                                        Color(0xFFFFC22E),
+                                        Color(0xFFF0A30A)
+                                      ],
+                                      stops: [0.0, 0.48, 0.52, 1.0],
+                                      begin: AlignmentDirectional(1.0, 0.0),
+                                      end: AlignmentDirectional(-1.0, 0),
+                                    ),
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    border: Border.all(
+                                      color: Color(0xD9FFFFFF),
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10.0, 0.0, 10.0, 0.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          (FFMainAxisAlignment.center)
+                                              .flutterValue,
+                                      crossAxisAlignment:
+                                          (FFCrossAxisAlignment.center)
+                                              .flutterValue,
+                                      textBaseline: TextBaseline.alphabetic,
+                                      children: [
+                                        Container(
+                                          width: 26.0,
+                                          height: 26.0,
+                                          child: Container(
+                                            child:
+                                                custom_widgets.ChoreQuestLogo(
+                                              showTitle: false,
+                                              animate: false,
+                                              titleFontFamily: '',
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Throne Room',
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelSmall
+                                              .override(
+                                                font: GoogleFonts.comicNeue(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelSmall
+                                                          .fontStyle,
+                                                ),
+                                                color: Color(0xFF3A2400),
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelSmall
+                                                        .fontStyle,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ).animateOnActionTrigger(
+                                  animationsMap[
+                                      'containerOnActionTriggerAnimation1']!,
+                                  hasBeenTriggered: hasContainerTriggered1),
                             ].divide(SizedBox(width: 10.0)),
                           ),
                         ),
@@ -262,75 +511,169 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                           children: [
                             Expanded(
                               flex: 1,
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  _model.previewItemId = '';
-                                  safeSetState(() {});
-                                },
-                                text: 'Cancel',
-                                options: FFButtonOptions(
-                                  height: 52.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: Colors.transparent,
-                                  textStyle: TextStyle(
-                                    color: Color(0xF2FFFCF5),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 0.0,
+                                      color: Color(0xFF9C8CD0),
+                                      offset: Offset(
+                                        0.0,
+                                        5.0,
+                                      ),
+                                      spreadRadius: 0.0,
+                                    )
+                                  ],
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Colors.white,
+                                      Color(0xFFF3EEFF),
+                                      Color(0xFFE8E0FF),
+                                      Color(0xFFD4C8F5)
+                                    ],
+                                    stops: [0.0, 0.48, 0.52, 1.0],
+                                    begin: AlignmentDirectional(1.0, 0.0),
+                                    end: AlignmentDirectional(-1.0, 0),
                                   ),
-                                  elevation: 0.0,
-                                  borderSide: BorderSide(
-                                    color: Color(0xF2FFFCF5),
-                                    width: 1.0,
+                                  borderRadius: BorderRadius.circular(22.0),
+                                  border: Border.all(
+                                    color: Color(0xD9FFFFFF),
+                                    width: 2.5,
                                   ),
-                                  borderRadius: BorderRadius.circular(18.0),
                                 ),
-                              ),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    if (animationsMap[
+                                            'containerOnActionTriggerAnimation2'] !=
+                                        null) {
+                                      safeSetState(
+                                          () => hasContainerTriggered2 = true);
+                                      SchedulerBinding.instance
+                                          .addPostFrameCallback((_) async =>
+                                              await animationsMap[
+                                                      'containerOnActionTriggerAnimation2']!
+                                                  .controller
+                                                  .forward(from: 0.0));
+                                    }
+                                    _model.previewItemId = '';
+                                    safeSetState(() {});
+                                  },
+                                  text: '✖️ Cancel',
+                                  options: FFButtonOptions(
+                                    height: 52.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: Color(0x00FFFFFF),
+                                    textStyle: GoogleFonts.comicNeue(
+                                      color: Color(0xFF3A2A6B),
+                                      fontSize: 17.0,
+                                    ),
+                                    elevation: 0.0,
+                                    borderRadius: BorderRadius.circular(22.0),
+                                  ),
+                                ),
+                              ).animateOnActionTrigger(
+                                  animationsMap[
+                                      'containerOnActionTriggerAnimation2']!,
+                                  hasBeenTriggered: hasContainerTriggered2),
                             ),
                             Expanded(
                               flex: 1,
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  FFAppState().wardrobe = functions
-                                      .equipItem(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 0.0,
+                                      color: Color(0xFF167A5A),
+                                      offset: Offset(
+                                        0.0,
+                                        5.0,
+                                      ),
+                                      spreadRadius: 0.0,
+                                    )
+                                  ],
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFFD4FFEF),
+                                      Color(0xFF5EE0B5),
+                                      Color(0xFF3FD0A0),
+                                      Color(0xFF22AE80)
+                                    ],
+                                    stops: [0.0, 0.48, 0.52, 1.0],
+                                    begin: AlignmentDirectional(1.0, 0.0),
+                                    end: AlignmentDirectional(-1.0, 0),
+                                  ),
+                                  borderRadius: BorderRadius.circular(22.0),
+                                  border: Border.all(
+                                    color: Color(0xD9FFFFFF),
+                                    width: 2.5,
+                                  ),
+                                ),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    if (animationsMap[
+                                            'containerOnActionTriggerAnimation3'] !=
+                                        null) {
+                                      safeSetState(
+                                          () => hasContainerTriggered3 = true);
+                                      SchedulerBinding.instance
+                                          .addPostFrameCallback((_) async =>
+                                              await animationsMap[
+                                                      'containerOnActionTriggerAnimation3']!
+                                                  .controller
+                                                  .forward(from: 0.0));
+                                    }
+                                    FFAppState().wardrobe = functions
+                                        .equipItem(
+                                            FFAppState().wardrobe.toList(),
+                                            FFAppState().avatarItems.toList(),
+                                            FFAppState().currentMemberId,
+                                            _model.previewItemId)!
+                                        .toList()
+                                        .cast<WardrobeEntryStruct>();
+                                    safeSetState(() {});
+                                    _model.previewItemId = '';
+                                    safeSetState(() {});
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Looking legendary! ✨',
+                                          style: GoogleFonts.comicNeue(
+                                            color: Colors.white,
+                                            fontSize: 16.0,
+                                          ),
+                                        ),
+                                        duration: Duration(milliseconds: 1500),
+                                      ),
+                                    );
+                                  },
+                                  text: functions.isEquipped(
                                           FFAppState().wardrobe.toList(),
-                                          FFAppState().avatarItems.toList(),
                                           FFAppState().currentMemberId,
                                           _model.previewItemId)!
-                                      .toList()
-                                      .cast<WardrobeEntryStruct>();
-                                  safeSetState(() {});
-                                  _model.previewItemId = '';
-                                  safeSetState(() {});
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Looking legendary! ✨',
-                                        style: TextStyle(),
-                                      ),
-                                      duration: Duration(milliseconds: 1500),
+                                      ? 'Take off'
+                                      : '✨ Equip!',
+                                  options: FFButtonOptions(
+                                    height: 52.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: Color(0x00FFFFFF),
+                                    textStyle: GoogleFonts.comicNeue(
+                                      color: Color(0xFF0E3B2E),
+                                      fontSize: 17.0,
                                     ),
-                                  );
-                                },
-                                text: functions.isEquipped(
-                                        FFAppState().wardrobe.toList(),
-                                        FFAppState().currentMemberId,
-                                        _model.previewItemId)!
-                                    ? 'Take off'
-                                    : '✨ Equip!',
-                                options: FFButtonOptions(
-                                  height: 52.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).tertiary,
-                                  textStyle: TextStyle(
-                                    color: Color(0xFF2A1B4D),
+                                    elevation: 0.0,
+                                    borderRadius: BorderRadius.circular(22.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(18.0),
                                 ),
-                              ),
+                              ).animateOnActionTrigger(
+                                  animationsMap[
+                                      'containerOnActionTriggerAnimation3']!,
+                                  hasBeenTriggered: hasContainerTriggered3),
                             ),
                           ].divide(SizedBox(width: 10.0)),
                         ),
@@ -372,7 +715,7 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .titleLarge
                                       .override(
-                                        font: GoogleFonts.cinzel(
+                                        font: GoogleFonts.comicNeue(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .titleLarge
@@ -397,7 +740,7 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodySmall
                                       .override(
-                                        font: GoogleFonts.nunito(
+                                        font: GoogleFonts.comicNeue(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .bodySmall
@@ -455,6 +798,1301 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                             ),
                           ),
                         ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xF2FFFCF5),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 14.0,
+                              color: Color(0x26000000),
+                              offset: Offset(
+                                0.0,
+                                4.0,
+                              ),
+                              spreadRadius: 0.0,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(22.0),
+                          border: Border.all(
+                            color: Color(0x99F2B53A),
+                            width: 1.5,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(14.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment:
+                                (FFMainAxisAlignment.start).flutterValue,
+                            crossAxisAlignment:
+                                (FFCrossAxisAlignment.stretch).flutterValue,
+                            textBaseline: TextBaseline.alphabetic,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    (FFMainAxisAlignment.start).flutterValue,
+                                crossAxisAlignment:
+                                    (FFCrossAxisAlignment.center).flutterValue,
+                                textBaseline: TextBaseline.alphabetic,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      '🎒 Equipment Slots',
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .override(
+                                            font: GoogleFonts.comicNeue(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleLarge
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleLarge
+                                                      .fontStyle,
+                                            ),
+                                            color: Color(0xFF2A1B4D),
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLarge
+                                                    .fontStyle,
+                                          ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      if (animationsMap[
+                                              'containerOnActionTriggerAnimation4'] !=
+                                          null) {
+                                        safeSetState(() =>
+                                            hasContainerTriggered4 = true);
+                                        SchedulerBinding.instance
+                                            .addPostFrameCallback((_) async =>
+                                                await animationsMap[
+                                                        'containerOnActionTriggerAnimation4']!
+                                                    .controller
+                                                    .forward(from: 0.0));
+                                      }
+                                      FFAppState().wardrobe = functions
+                                          .surpriseOutfit(
+                                              FFAppState().wardrobe.toList(),
+                                              FFAppState().avatarItems.toList(),
+                                              FFAppState().currentMemberId)!
+                                          .toList()
+                                          .cast<WardrobeEntryStruct>();
+                                      safeSetState(() {});
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            '🎲 Surprise mix! Every combo is a new look ✨',
+                                            style: GoogleFonts.comicNeue(
+                                              color: Colors.white,
+                                              fontSize: 16.0,
+                                            ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 1800),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 0.0,
+                                            color: Color(0xFF4A1FA0),
+                                            offset: Offset(
+                                              0.0,
+                                              4.0,
+                                            ),
+                                            spreadRadius: 0.0,
+                                          )
+                                        ],
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFD9C2FF),
+                                            Color(0xFF9A5CF0),
+                                            Color(0xFF8446E6),
+                                            Color(0xFF6A2FCC)
+                                          ],
+                                          stops: [0.0, 0.48, 0.52, 1.0],
+                                          begin: AlignmentDirectional(1.0, 0.0),
+                                          end: AlignmentDirectional(-1.0, 0),
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        border: Border.all(
+                                          color: Color(0xD9FFFFFF),
+                                          width: 2.5,
+                                        ),
+                                      ),
+                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            14.0, 10.0, 14.0, 10.0),
+                                        child: Text(
+                                          '🎲 Surprise mix',
+                                          style: FlutterFlowTheme.of(context)
+                                              .titleSmall
+                                              .override(
+                                                font: GoogleFonts.comicNeue(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                ),
+                                                color: Colors.white,
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontStyle,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                  ).animateOnActionTrigger(
+                                      animationsMap[
+                                          'containerOnActionTriggerAnimation4']!,
+                                      hasBeenTriggered: hasContainerTriggered4),
+                                ].divide(SizedBox(width: 10.0)),
+                              ),
+                              Text(
+                                'Mix and match any Head, Arm, Filler, Aura, Color and Texture — every combination works! Tap a slot to see what fits it.',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodySmall
+                                    .override(
+                                      font: GoogleFonts.comicNeue(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .fontStyle,
+                                      ),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodySmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodySmall
+                                          .fontStyle,
+                                    ),
+                              ),
+                              Wrap(
+                                spacing: 8.0,
+                                runSpacing: 8.0,
+                                alignment: WrapAlignment.center,
+                                crossAxisAlignment: WrapCrossAlignment.start,
+                                direction: Axis.horizontal,
+                                runAlignment: WrapAlignment.start,
+                                verticalDirection: VerticalDirection.down,
+                                clipBehavior: Clip.none,
+                                children: [
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      _model.category = 'hat';
+                                      safeSetState(() {});
+                                      _model.previewItemId = '';
+                                      safeSetState(() {});
+                                    },
+                                    child: Container(
+                                      width: 100.0,
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 0.0,
+                                            color: Color(0x33000000),
+                                            offset: Offset(
+                                              0.0,
+                                              3.0,
+                                            ),
+                                            spreadRadius: 0.0,
+                                          )
+                                        ],
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.white,
+                                            Color(0xFFFFE0EE)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 0.0),
+                                          end: AlignmentDirectional(-1.0, 0),
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        border: Border.all(
+                                          color: Color(0xFFE2D4F7),
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              (FFMainAxisAlignment.start)
+                                                  .flutterValue,
+                                          crossAxisAlignment:
+                                              (FFCrossAxisAlignment.center)
+                                                  .flutterValue,
+                                          textBaseline: TextBaseline.alphabetic,
+                                          children: [
+                                            Text(
+                                              '🎩',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleLarge
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleLarge
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleLarge
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleLarge
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleLarge
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                            Text(
+                                              'Head',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleSmall
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    color: Color(0xFF2A1B4D),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                            Text(
+                                              functions.notEmpty(
+                                                      functions.slotItemName(
+                                                          FFAppState()
+                                                              .wardrobe
+                                                              .toList(),
+                                                          FFAppState()
+                                                              .avatarItems
+                                                              .toList(),
+                                                          FFAppState()
+                                                              .currentMemberId,
+                                                          'hat'))!
+                                                  ? functions.slotItemName(
+                                                      FFAppState()
+                                                          .wardrobe
+                                                          .toList(),
+                                                      FFAppState()
+                                                          .avatarItems
+                                                          .toList(),
+                                                      FFAppState()
+                                                          .currentMemberId,
+                                                      'hat')!
+                                                  : '— empty —',
+                                              textAlign: TextAlign.center,
+                                              maxLines: 1,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelSmall
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelSmall
+                                                            .fontStyle,
+                                                  ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ].divide(SizedBox(height: 2.0)),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      _model.category = 'gear';
+                                      safeSetState(() {});
+                                      _model.previewItemId = '';
+                                      safeSetState(() {});
+                                    },
+                                    child: Container(
+                                      width: 100.0,
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 0.0,
+                                            color: Color(0x33000000),
+                                            offset: Offset(
+                                              0.0,
+                                              3.0,
+                                            ),
+                                            spreadRadius: 0.0,
+                                          )
+                                        ],
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.white,
+                                            Color(0xFFE0F0FF)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 0.0),
+                                          end: AlignmentDirectional(-1.0, 0),
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        border: Border.all(
+                                          color: Color(0xFFE2D4F7),
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              (FFMainAxisAlignment.start)
+                                                  .flutterValue,
+                                          crossAxisAlignment:
+                                              (FFCrossAxisAlignment.center)
+                                                  .flutterValue,
+                                          textBaseline: TextBaseline.alphabetic,
+                                          children: [
+                                            Text(
+                                              '💪',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleLarge
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleLarge
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleLarge
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleLarge
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleLarge
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                            Text(
+                                              'Arm',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleSmall
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    color: Color(0xFF2A1B4D),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                            Text(
+                                              functions.notEmpty(
+                                                      functions.slotItemName(
+                                                          FFAppState()
+                                                              .wardrobe
+                                                              .toList(),
+                                                          FFAppState()
+                                                              .avatarItems
+                                                              .toList(),
+                                                          FFAppState()
+                                                              .currentMemberId,
+                                                          'gear'))!
+                                                  ? functions.slotItemName(
+                                                      FFAppState()
+                                                          .wardrobe
+                                                          .toList(),
+                                                      FFAppState()
+                                                          .avatarItems
+                                                          .toList(),
+                                                      FFAppState()
+                                                          .currentMemberId,
+                                                      'gear')!
+                                                  : '— empty —',
+                                              textAlign: TextAlign.center,
+                                              maxLines: 1,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelSmall
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelSmall
+                                                            .fontStyle,
+                                                  ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ].divide(SizedBox(height: 2.0)),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      _model.category = 'fill';
+                                      safeSetState(() {});
+                                      _model.previewItemId = '';
+                                      safeSetState(() {});
+                                    },
+                                    child: Container(
+                                      width: 100.0,
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 0.0,
+                                            color: Color(0x33000000),
+                                            offset: Offset(
+                                              0.0,
+                                              3.0,
+                                            ),
+                                            spreadRadius: 0.0,
+                                          )
+                                        ],
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.white,
+                                            Color(0xFFDDF7EE)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 0.0),
+                                          end: AlignmentDirectional(-1.0, 0),
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        border: Border.all(
+                                          color: Color(0xFFE2D4F7),
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              (FFMainAxisAlignment.start)
+                                                  .flutterValue,
+                                          crossAxisAlignment:
+                                              (FFCrossAxisAlignment.center)
+                                                  .flutterValue,
+                                          textBaseline: TextBaseline.alphabetic,
+                                          children: [
+                                            Text(
+                                              '🫧',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleLarge
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleLarge
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleLarge
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleLarge
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleLarge
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                            Text(
+                                              'Filler',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleSmall
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    color: Color(0xFF2A1B4D),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                            Text(
+                                              functions.notEmpty(
+                                                      functions.slotItemName(
+                                                          FFAppState()
+                                                              .wardrobe
+                                                              .toList(),
+                                                          FFAppState()
+                                                              .avatarItems
+                                                              .toList(),
+                                                          FFAppState()
+                                                              .currentMemberId,
+                                                          'fill'))!
+                                                  ? functions.slotItemName(
+                                                      FFAppState()
+                                                          .wardrobe
+                                                          .toList(),
+                                                      FFAppState()
+                                                          .avatarItems
+                                                          .toList(),
+                                                      FFAppState()
+                                                          .currentMemberId,
+                                                      'fill')!
+                                                  : '— empty —',
+                                              textAlign: TextAlign.center,
+                                              maxLines: 1,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelSmall
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelSmall
+                                                            .fontStyle,
+                                                  ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ].divide(SizedBox(height: 2.0)),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      _model.category = 'effect';
+                                      safeSetState(() {});
+                                      _model.previewItemId = '';
+                                      safeSetState(() {});
+                                    },
+                                    child: Container(
+                                      width: 100.0,
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 0.0,
+                                            color: Color(0x33000000),
+                                            offset: Offset(
+                                              0.0,
+                                              3.0,
+                                            ),
+                                            spreadRadius: 0.0,
+                                          )
+                                        ],
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.white,
+                                            Color(0xFFFFF1C9)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 0.0),
+                                          end: AlignmentDirectional(-1.0, 0),
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        border: Border.all(
+                                          color: Color(0xFFE2D4F7),
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              (FFMainAxisAlignment.start)
+                                                  .flutterValue,
+                                          crossAxisAlignment:
+                                              (FFCrossAxisAlignment.center)
+                                                  .flutterValue,
+                                          textBaseline: TextBaseline.alphabetic,
+                                          children: [
+                                            Text(
+                                              '✨',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleLarge
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleLarge
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleLarge
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleLarge
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleLarge
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                            Text(
+                                              'Aura',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleSmall
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    color: Color(0xFF2A1B4D),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                            Text(
+                                              functions.notEmpty(
+                                                      functions.slotItemName(
+                                                          FFAppState()
+                                                              .wardrobe
+                                                              .toList(),
+                                                          FFAppState()
+                                                              .avatarItems
+                                                              .toList(),
+                                                          FFAppState()
+                                                              .currentMemberId,
+                                                          'effect'))!
+                                                  ? functions.slotItemName(
+                                                      FFAppState()
+                                                          .wardrobe
+                                                          .toList(),
+                                                      FFAppState()
+                                                          .avatarItems
+                                                          .toList(),
+                                                      FFAppState()
+                                                          .currentMemberId,
+                                                      'effect')!
+                                                  : '— empty —',
+                                              textAlign: TextAlign.center,
+                                              maxLines: 1,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelSmall
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelSmall
+                                                            .fontStyle,
+                                                  ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ].divide(SizedBox(height: 2.0)),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      _model.category = 'color';
+                                      safeSetState(() {});
+                                      _model.previewItemId = '';
+                                      safeSetState(() {});
+                                    },
+                                    child: Container(
+                                      width: 100.0,
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 0.0,
+                                            color: Color(0x33000000),
+                                            offset: Offset(
+                                              0.0,
+                                              3.0,
+                                            ),
+                                            spreadRadius: 0.0,
+                                          )
+                                        ],
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.white,
+                                            Color(0xFFEDE4FF)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 0.0),
+                                          end: AlignmentDirectional(-1.0, 0),
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        border: Border.all(
+                                          color: Color(0xFFE2D4F7),
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              (FFMainAxisAlignment.start)
+                                                  .flutterValue,
+                                          crossAxisAlignment:
+                                              (FFCrossAxisAlignment.center)
+                                                  .flutterValue,
+                                          textBaseline: TextBaseline.alphabetic,
+                                          children: [
+                                            Text(
+                                              '🎨',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleLarge
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleLarge
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleLarge
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleLarge
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleLarge
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                            Text(
+                                              'Color',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleSmall
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    color: Color(0xFF2A1B4D),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                            Text(
+                                              functions.notEmpty(
+                                                      functions.slotItemName(
+                                                          FFAppState()
+                                                              .wardrobe
+                                                              .toList(),
+                                                          FFAppState()
+                                                              .avatarItems
+                                                              .toList(),
+                                                          FFAppState()
+                                                              .currentMemberId,
+                                                          'color'))!
+                                                  ? functions.slotItemName(
+                                                      FFAppState()
+                                                          .wardrobe
+                                                          .toList(),
+                                                      FFAppState()
+                                                          .avatarItems
+                                                          .toList(),
+                                                      FFAppState()
+                                                          .currentMemberId,
+                                                      'color')!
+                                                  : '— empty —',
+                                              textAlign: TextAlign.center,
+                                              maxLines: 1,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelSmall
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelSmall
+                                                            .fontStyle,
+                                                  ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ].divide(SizedBox(height: 2.0)),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      _model.category = 'texture';
+                                      safeSetState(() {});
+                                      _model.previewItemId = '';
+                                      safeSetState(() {});
+                                    },
+                                    child: Container(
+                                      width: 100.0,
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 0.0,
+                                            color: Color(0x33000000),
+                                            offset: Offset(
+                                              0.0,
+                                              3.0,
+                                            ),
+                                            spreadRadius: 0.0,
+                                          )
+                                        ],
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.white,
+                                            Color(0xFFFFE8D6)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 0.0),
+                                          end: AlignmentDirectional(-1.0, 0),
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        border: Border.all(
+                                          color: Color(0xFFE2D4F7),
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              (FFMainAxisAlignment.start)
+                                                  .flutterValue,
+                                          crossAxisAlignment:
+                                              (FFCrossAxisAlignment.center)
+                                                  .flutterValue,
+                                          textBaseline: TextBaseline.alphabetic,
+                                          children: [
+                                            Text(
+                                              '🧶',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleLarge
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleLarge
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleLarge
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleLarge
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleLarge
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                            Text(
+                                              'Texture',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleSmall
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    color: Color(0xFF2A1B4D),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                            Text(
+                                              functions.notEmpty(
+                                                      functions.slotItemName(
+                                                          FFAppState()
+                                                              .wardrobe
+                                                              .toList(),
+                                                          FFAppState()
+                                                              .avatarItems
+                                                              .toList(),
+                                                          FFAppState()
+                                                              .currentMemberId,
+                                                          'texture'))!
+                                                  ? functions.slotItemName(
+                                                      FFAppState()
+                                                          .wardrobe
+                                                          .toList(),
+                                                      FFAppState()
+                                                          .avatarItems
+                                                          .toList(),
+                                                      FFAppState()
+                                                          .currentMemberId,
+                                                      'texture')!
+                                                  : '— empty —',
+                                              textAlign: TextAlign.center,
+                                              maxLines: 1,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelSmall
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelSmall
+                                                            .fontStyle,
+                                                  ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ].divide(SizedBox(height: 2.0)),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ].divide(SizedBox(height: 10.0)),
+                          ),
+                        ),
+                      ),
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
@@ -495,7 +2133,7 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -549,7 +2187,7 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -600,11 +2238,11 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '🐾 Squishy',
+                                      '🐾 Squishie',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -654,11 +2292,11 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '🐾 Squishy',
+                                      '🐾 Squishie',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -713,7 +2351,7 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -767,7 +2405,7 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -822,7 +2460,7 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -876,7 +2514,7 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -927,11 +2565,11 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '🫧 Fill-in',
+                                      '🫧 Filler',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -981,11 +2619,11 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '🫧 Fill-in',
+                                      '🫧 Filler',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1036,11 +2674,11 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '👑 Headgear',
+                                      '🎩 Head',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1090,11 +2728,11 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '👑 Headgear',
+                                      '🎩 Head',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1145,11 +2783,11 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '⚔️ Gear',
+                                      '💪 Arm',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1199,11 +2837,11 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '⚔️ Gear',
+                                      '💪 Arm',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1258,7 +2896,7 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1312,7 +2950,7 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1363,11 +3001,11 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '✨ Magic',
+                                      '✨ Aura',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1417,11 +3055,11 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '✨ Magic',
+                                      '✨ Aura',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1485,7 +3123,7 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .fontWeight,
@@ -1527,12 +3165,12 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                           child: Padding(
                             padding: EdgeInsets.all(16.0),
                             child: Text(
-                              'Your wardrobe is empty here. Earn styles in the Squishy Shop! 🛍️',
+                              'Your wardrobe is empty here. Earn styles in the Squishie Shop! 🛍️',
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.nunito(
+                                    font: GoogleFonts.comicNeue(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -1628,7 +3266,7 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .labelMedium
                                               .override(
-                                                font: GoogleFonts.nunito(
+                                                font: GoogleFonts.comicNeue(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -1662,7 +3300,7 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .labelSmall
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -1696,7 +3334,7 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .labelSmall
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -1769,7 +3407,7 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .fontWeight,
@@ -1877,7 +3515,8 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                                         context)
                                                     .titleLarge
                                                     .override(
-                                                      font: GoogleFonts.cinzel(
+                                                      font:
+                                                          GoogleFonts.comicNeue(
                                                         fontWeight:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1910,7 +3549,7 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .labelMedium
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -1943,7 +3582,7 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .labelSmall
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)

@@ -19,6 +19,8 @@ List<AvatarItemStruct>? itemsByCategory(
 ) {
   final c = category ?? 'all';
   return (items ?? <AvatarItemStruct>[])
-      .where((i) => c == 'all' || i.category == c)
+      .where((i) =>
+          c == 'all' ||
+          (c == 'holiday' ? i.id.startsWith('hol_') : i.category == c))
       .toList();
 }

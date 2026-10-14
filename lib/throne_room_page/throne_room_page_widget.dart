@@ -151,7 +151,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            font: GoogleFonts.cinzel(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineSmall
@@ -185,7 +185,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodySmall
@@ -269,7 +269,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .fontWeight,
@@ -369,7 +369,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .titleSmall
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -406,7 +406,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .titleMedium
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -463,7 +463,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.nunito(
+                                    font: GoogleFonts.comicNeue(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -529,7 +529,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.nunito(
+                                          font: GoogleFonts.comicNeue(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -572,7 +572,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .fontWeight,
@@ -616,7 +616,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.nunito(
+                                    font: GoogleFonts.comicNeue(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -741,8 +741,8 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                                           context)
                                                       .titleMedium
                                                       .override(
-                                                        font:
-                                                            GoogleFonts.nunito(
+                                                        font: GoogleFonts
+                                                            .comicNeue(
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -782,8 +782,8 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                                           context)
                                                       .bodySmall
                                                       .override(
-                                                        font:
-                                                            GoogleFonts.nunito(
+                                                        font: GoogleFonts
+                                                            .comicNeue(
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -822,7 +822,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .titleMedium
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -859,7 +859,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodySmall
                                               .override(
-                                                font: GoogleFonts.nunito(
+                                                font: GoogleFonts.comicNeue(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -898,182 +898,242 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                         children: [
                                           Expanded(
                                             flex: 1,
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                await showModalBottomSheet(
-                                                  isScrollControlled: true,
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return GestureDetector(
-                                                      onTap: () {
-                                                        FocusScope.of(context)
-                                                            .unfocus();
-                                                        FocusManager.instance
-                                                            .primaryFocus
-                                                            ?.unfocus();
-                                                      },
-                                                      child: Padding(
-                                                        padding: MediaQuery
-                                                            .viewInsetsOf(
-                                                                context),
-                                                        child:
-                                                            RoyalDenySheetWidget(
-                                                          questId: itemItem.id,
-                                                          questTitle:
-                                                              itemItem.title,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                ).then((value) =>
-                                                    safeSetState(() {}));
-                                              },
-                                              text: 'Deny',
-                                              icon: Icon(
-                                                Icons.close,
-                                                size: 20.0,
-                                              ),
-                                              options: FFButtonOptions(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 0.0),
-                                                iconPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                iconColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                color: Colors.transparent,
-                                                textStyle: TextStyle(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                ),
-                                                elevation: 0.0,
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  width: 1.0,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurRadius: 0.0,
+                                                    color: Color(0xFF7E1028),
+                                                    offset: Offset(
+                                                      0.0,
+                                                      5.0,
+                                                    ),
+                                                    spreadRadius: 0.0,
+                                                  )
+                                                ],
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFFFB3C3),
+                                                    Color(0xFFE64A6C),
+                                                    Color(0xFFD23356),
+                                                    Color(0xFFB01E40)
+                                                  ],
+                                                  stops: [0.0, 0.48, 0.52, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 0.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, 0),
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(14.0),
+                                                    BorderRadius.circular(22.0),
+                                                border: Border.all(
+                                                  color: Color(0xD9FFFFFF),
+                                                  width: 2.5,
+                                                ),
+                                              ),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  await showModalBottomSheet(
+                                                    isScrollControlled: true,
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          FocusScope.of(context)
+                                                              .unfocus();
+                                                          FocusManager.instance
+                                                              .primaryFocus
+                                                              ?.unfocus();
+                                                        },
+                                                        child: Padding(
+                                                          padding: MediaQuery
+                                                              .viewInsetsOf(
+                                                                  context),
+                                                          child:
+                                                              RoyalDenySheetWidget(
+                                                            questId:
+                                                                itemItem.id,
+                                                            questTitle:
+                                                                itemItem.title,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ).then((value) =>
+                                                      safeSetState(() {}));
+                                                },
+                                                text: '🚫 Deny',
+                                                options: FFButtonOptions(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
+                                                  color: Color(0x00FFFFFF),
+                                                  textStyle:
+                                                      GoogleFonts.comicNeue(
+                                                    color: Colors.white,
+                                                    fontSize: 17.0,
+                                                  ),
+                                                  elevation: 0.0,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          22.0),
+                                                ),
                                               ),
                                             ),
                                           ),
                                           Expanded(
                                             flex: 1,
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                FFAppState().quests = functions
-                                                    .reviewQuest(
-                                                        FFAppState()
-                                                            .quests
-                                                            .toList(),
-                                                        itemItem.id,
-                                                        true,
-                                                        '')!
-                                                    .toList()
-                                                    .cast<QuestStruct>();
-                                                safeSetState(() {});
-                                                FFAppState().submissions =
-                                                    functions
-                                                        .reviewSubmission(
-                                                            FFAppState()
-                                                                .submissions
-                                                                .toList(),
-                                                            itemItem.id,
-                                                            true,
-                                                            '')!
-                                                        .toList()
-                                                        .cast<
-                                                            SubmissionStruct>();
-                                                safeSetState(() {});
-                                                FFAppState().transactions =
-                                                    functions
-                                                        .questEarnTx(
-                                                            FFAppState()
-                                                                .transactions
-                                                                .toList(),
-                                                            itemItem)!
-                                                        .toList()
-                                                        .cast<
-                                                            BuckTransactionStruct>();
-                                                safeSetState(() {});
-                                                FFAppState().transactions =
-                                                    functions
-                                                        .applyMilestoneTxs(
-                                                            FFAppState()
-                                                                .transactions
-                                                                .toList(),
-                                                            FFAppState()
-                                                                .wardrobe
-                                                                .toList(),
-                                                            FFAppState()
-                                                                .avatarItems
-                                                                .toList(),
-                                                            FFAppState()
-                                                                .quests
-                                                                .toList(),
-                                                            functions
-                                                                .questOwnerId(
-                                                                    itemItem))!
-                                                        .toList()
-                                                        .cast<
-                                                            BuckTransactionStruct>();
-                                                safeSetState(() {});
-                                                FFAppState().wardrobe = functions
-                                                    .applyMilestoneWardrobe(
-                                                        FFAppState()
-                                                            .wardrobe
-                                                            .toList(),
-                                                        FFAppState()
-                                                            .avatarItems
-                                                            .toList(),
-                                                        FFAppState()
-                                                            .quests
-                                                            .toList(),
-                                                        functions.questOwnerId(
-                                                            itemItem))!
-                                                    .toList()
-                                                    .cast<
-                                                        WardrobeEntryStruct>();
-                                                safeSetState(() {});
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                      'Approved — gold awarded and logged ✅',
-                                                      style: TextStyle(),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurRadius: 0.0,
+                                                    color: Color(0xFF167A5A),
+                                                    offset: Offset(
+                                                      0.0,
+                                                      5.0,
                                                     ),
-                                                    duration: Duration(
-                                                        milliseconds: 4000),
-                                                  ),
-                                                );
-                                              },
-                                              text: 'Approve',
-                                              icon: Icon(
-                                                Icons.check,
-                                                size: 20.0,
-                                              ),
-                                              options: FFButtonOptions(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 0.0),
-                                                iconPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                iconColor: Colors.white,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                textStyle: TextStyle(
-                                                  color: Colors.white,
+                                                    spreadRadius: 0.0,
+                                                  )
+                                                ],
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFD4FFEF),
+                                                    Color(0xFF5EE0B5),
+                                                    Color(0xFF3FD0A0),
+                                                    Color(0xFF22AE80)
+                                                  ],
+                                                  stops: [0.0, 0.48, 0.52, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 0.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, 0),
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(14.0),
+                                                    BorderRadius.circular(22.0),
+                                                border: Border.all(
+                                                  color: Color(0xD9FFFFFF),
+                                                  width: 2.5,
+                                                ),
+                                              ),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  FFAppState().quests =
+                                                      functions
+                                                          .reviewQuest(
+                                                              FFAppState()
+                                                                  .quests
+                                                                  .toList(),
+                                                              itemItem.id,
+                                                              true,
+                                                              '')!
+                                                          .toList()
+                                                          .cast<QuestStruct>();
+                                                  safeSetState(() {});
+                                                  FFAppState().submissions =
+                                                      functions
+                                                          .reviewSubmission(
+                                                              FFAppState()
+                                                                  .submissions
+                                                                  .toList(),
+                                                              itemItem.id,
+                                                              true,
+                                                              '')!
+                                                          .toList()
+                                                          .cast<
+                                                              SubmissionStruct>();
+                                                  safeSetState(() {});
+                                                  FFAppState().transactions =
+                                                      functions
+                                                          .questEarnTx(
+                                                              FFAppState()
+                                                                  .transactions
+                                                                  .toList(),
+                                                              itemItem)!
+                                                          .toList()
+                                                          .cast<
+                                                              BuckTransactionStruct>();
+                                                  safeSetState(() {});
+                                                  FFAppState().transactions =
+                                                      functions
+                                                          .applyMilestoneTxs(
+                                                              FFAppState()
+                                                                  .transactions
+                                                                  .toList(),
+                                                              FFAppState()
+                                                                  .wardrobe
+                                                                  .toList(),
+                                                              FFAppState()
+                                                                  .avatarItems
+                                                                  .toList(),
+                                                              FFAppState()
+                                                                  .quests
+                                                                  .toList(),
+                                                              functions
+                                                                  .questOwnerId(
+                                                                      itemItem))!
+                                                          .toList()
+                                                          .cast<
+                                                              BuckTransactionStruct>();
+                                                  safeSetState(() {});
+                                                  FFAppState().wardrobe = functions
+                                                      .applyMilestoneWardrobe(
+                                                          FFAppState()
+                                                              .wardrobe
+                                                              .toList(),
+                                                          FFAppState()
+                                                              .avatarItems
+                                                              .toList(),
+                                                          FFAppState()
+                                                              .quests
+                                                              .toList(),
+                                                          functions
+                                                              .questOwnerId(
+                                                                  itemItem))!
+                                                      .toList()
+                                                      .cast<
+                                                          WardrobeEntryStruct>();
+                                                  safeSetState(() {});
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                        'Approved — gold awarded and logged ✅',
+                                                        style: GoogleFonts
+                                                            .comicNeue(
+                                                          color: Colors.white,
+                                                          fontSize: 16.0,
+                                                        ),
+                                                      ),
+                                                      duration: Duration(
+                                                          milliseconds: 4000),
+                                                    ),
+                                                  );
+                                                },
+                                                text: '✅ Approve',
+                                                options: FFButtonOptions(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
+                                                  color: Color(0x00FFFFFF),
+                                                  textStyle:
+                                                      GoogleFonts.comicNeue(
+                                                    color: Color(0xFF0E3B2E),
+                                                    fontSize: 17.0,
+                                                  ),
+                                                  elevation: 0.0,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          22.0),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -1123,7 +1183,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .fontWeight,
@@ -1167,7 +1227,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.nunito(
+                                    font: GoogleFonts.comicNeue(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -1293,8 +1353,8 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                                           context)
                                                       .titleMedium
                                                       .override(
-                                                        font:
-                                                            GoogleFonts.nunito(
+                                                        font: GoogleFonts
+                                                            .comicNeue(
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -1344,8 +1404,8 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                                           context)
                                                       .bodySmall
                                                       .override(
-                                                        font:
-                                                            GoogleFonts.nunito(
+                                                        font: GoogleFonts
+                                                            .comicNeue(
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -1384,7 +1444,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .titleMedium
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -1424,69 +1484,41 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                         children: [
                                           Expanded(
                                             flex: 1,
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                FFAppState().redemptions =
-                                                    functions
-                                                        .setRedemptionStatus(
-                                                            FFAppState()
-                                                                .redemptions
-                                                                .toList(),
-                                                            itemItem.id,
-                                                            'declined')!
-                                                        .toList()
-                                                        .cast<
-                                                            RedemptionStruct>();
-                                                safeSetState(() {});
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                      'Request declined',
-                                                      style: TextStyle(),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurRadius: 0.0,
+                                                    color: Color(0xFF7E1028),
+                                                    offset: Offset(
+                                                      0.0,
+                                                      5.0,
                                                     ),
-                                                    duration: Duration(
-                                                        milliseconds: 4000),
-                                                  ),
-                                                );
-                                              },
-                                              text: 'Decline',
-                                              options: FFButtonOptions(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 0.0),
-                                                iconPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                color: Colors.transparent,
-                                                textStyle: TextStyle(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                ),
-                                                elevation: 0.0,
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  width: 1.0,
+                                                    spreadRadius: 0.0,
+                                                  )
+                                                ],
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFFFB3C3),
+                                                    Color(0xFFE64A6C),
+                                                    Color(0xFFD23356),
+                                                    Color(0xFFB01E40)
+                                                  ],
+                                                  stops: [0.0, 0.48, 0.52, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 0.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, 0),
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(14.0),
+                                                    BorderRadius.circular(22.0),
+                                                border: Border.all(
+                                                  color: Color(0xD9FFFFFF),
+                                                  width: 2.5,
+                                                ),
                                               ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 1,
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                if (functions.canAfford(
-                                                    FFAppState()
-                                                        .transactions
-                                                        .toList(),
-                                                    itemItem.kidId,
-                                                    itemItem.cost)!) {
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
                                                   FFAppState().redemptions =
                                                       functions
                                                           .setRedemptionStatus(
@@ -1494,85 +1526,187 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                                                   .redemptions
                                                                   .toList(),
                                                               itemItem.id,
-                                                              'approved')!
+                                                              'declined')!
                                                           .toList()
                                                           .cast<
                                                               RedemptionStruct>();
                                                   safeSetState(() {});
-                                                  FFAppState().transactions =
-                                                      functions
-                                                          .spendTx(
-                                                              FFAppState()
-                                                                  .transactions
-                                                                  .toList(),
-                                                              itemItem)!
-                                                          .toList()
-                                                          .cast<
-                                                              BuckTransactionStruct>();
-                                                  safeSetState(() {});
-                                                  if (itemItem.targetType ==
-                                                      'avatar_item') {
-                                                    FFAppState().wardrobe = functions
-                                                        .grantItem(
-                                                            FFAppState()
-                                                                .wardrobe
-                                                                .toList(),
-                                                            itemItem.kidId,
-                                                            itemItem
-                                                                .avatarItemId,
-                                                            'purchased')!
-                                                        .toList()
-                                                        .cast<
-                                                            WardrobeEntryStruct>();
-                                                    safeSetState(() {});
-                                                  }
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
                                                     SnackBar(
                                                       content: Text(
-                                                        'Approved — gold deducted and logged ✅',
-                                                        style: TextStyle(),
+                                                        'Request declined',
+                                                        style: GoogleFonts
+                                                            .comicNeue(
+                                                          color: Colors.white,
+                                                          fontSize: 16.0,
+                                                        ),
                                                       ),
                                                       duration: Duration(
                                                           milliseconds: 4000),
                                                     ),
                                                   );
-                                                } else {
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    SnackBar(
-                                                      content: Text(
-                                                        'Not enough Parent Bucks for this one yet',
-                                                        style: TextStyle(),
-                                                      ),
-                                                      duration: Duration(
-                                                          milliseconds: 4000),
-                                                    ),
-                                                  );
-                                                }
-                                              },
-                                              text: 'Approve',
-                                              icon: Icon(
-                                                Icons.check,
-                                                size: 20.0,
+                                                },
+                                                text: '🙅 Decline',
+                                                options: FFButtonOptions(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
+                                                  color: Color(0x00FFFFFF),
+                                                  textStyle:
+                                                      GoogleFonts.comicNeue(
+                                                    color: Colors.white,
+                                                    fontSize: 17.0,
+                                                  ),
+                                                  elevation: 0.0,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          22.0),
+                                                ),
                                               ),
-                                              options: FFButtonOptions(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 0.0),
-                                                iconPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                iconColor: Colors.white,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                textStyle: TextStyle(
-                                                  color: Colors.white,
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurRadius: 0.0,
+                                                    color: Color(0xFF167A5A),
+                                                    offset: Offset(
+                                                      0.0,
+                                                      5.0,
+                                                    ),
+                                                    spreadRadius: 0.0,
+                                                  )
+                                                ],
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFD4FFEF),
+                                                    Color(0xFF5EE0B5),
+                                                    Color(0xFF3FD0A0),
+                                                    Color(0xFF22AE80)
+                                                  ],
+                                                  stops: [0.0, 0.48, 0.52, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 0.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, 0),
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(14.0),
+                                                    BorderRadius.circular(22.0),
+                                                border: Border.all(
+                                                  color: Color(0xD9FFFFFF),
+                                                  width: 2.5,
+                                                ),
+                                              ),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  if (functions.canAfford(
+                                                      FFAppState()
+                                                          .transactions
+                                                          .toList(),
+                                                      itemItem.kidId,
+                                                      itemItem.cost)!) {
+                                                    FFAppState().redemptions =
+                                                        functions
+                                                            .setRedemptionStatus(
+                                                                FFAppState()
+                                                                    .redemptions
+                                                                    .toList(),
+                                                                itemItem.id,
+                                                                'approved')!
+                                                            .toList()
+                                                            .cast<
+                                                                RedemptionStruct>();
+                                                    safeSetState(() {});
+                                                    FFAppState().transactions =
+                                                        functions
+                                                            .spendTx(
+                                                                FFAppState()
+                                                                    .transactions
+                                                                    .toList(),
+                                                                itemItem)!
+                                                            .toList()
+                                                            .cast<
+                                                                BuckTransactionStruct>();
+                                                    safeSetState(() {});
+                                                    if (itemItem.targetType ==
+                                                        'avatar_item') {
+                                                      FFAppState().wardrobe = functions
+                                                          .grantItem(
+                                                              FFAppState()
+                                                                  .wardrobe
+                                                                  .toList(),
+                                                              itemItem.kidId,
+                                                              itemItem
+                                                                  .avatarItemId,
+                                                              'purchased')!
+                                                          .toList()
+                                                          .cast<
+                                                              WardrobeEntryStruct>();
+                                                      safeSetState(() {});
+                                                    }
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      SnackBar(
+                                                        content: Text(
+                                                          'Approved — gold deducted and logged ✅',
+                                                          style: GoogleFonts
+                                                              .comicNeue(
+                                                            color: Colors.white,
+                                                            fontSize: 16.0,
+                                                          ),
+                                                        ),
+                                                        duration: Duration(
+                                                            milliseconds: 4000),
+                                                      ),
+                                                    );
+                                                  } else {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      SnackBar(
+                                                        content: Text(
+                                                          'Not enough Parent Bucks for this one yet',
+                                                          style: GoogleFonts
+                                                              .comicNeue(
+                                                            color: Colors.white,
+                                                            fontSize: 16.0,
+                                                          ),
+                                                        ),
+                                                        duration: Duration(
+                                                            milliseconds: 4000),
+                                                      ),
+                                                    );
+                                                  }
+                                                },
+                                                text: '✅ Approve',
+                                                options: FFButtonOptions(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
+                                                  color: Color(0x00FFFFFF),
+                                                  textStyle:
+                                                      GoogleFonts.comicNeue(
+                                                    color: Color(0xFF0E3B2E),
+                                                    fontSize: 17.0,
+                                                  ),
+                                                  elevation: 0.0,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          22.0),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -1622,7 +1756,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .fontWeight,
@@ -1712,7 +1846,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
-                                                font: GoogleFonts.cinzel(
+                                                font: GoogleFonts.comicNeue(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -1752,7 +1886,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .titleMedium
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -1785,7 +1919,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodySmall
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -1881,7 +2015,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
-                                                font: GoogleFonts.cinzel(
+                                                font: GoogleFonts.comicNeue(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -1921,7 +2055,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .titleMedium
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -1954,7 +2088,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodySmall
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -2061,7 +2195,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
-                                                font: GoogleFonts.cinzel(
+                                                font: GoogleFonts.comicNeue(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -2101,7 +2235,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .titleMedium
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -2134,7 +2268,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodySmall
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -2231,7 +2365,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
-                                                font: GoogleFonts.cinzel(
+                                                font: GoogleFonts.comicNeue(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -2266,12 +2400,12 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                         textBaseline: TextBaseline.alphabetic,
                                         children: [
                                           Text(
-                                            'Rewards Shop',
+                                            'Treasure Quest Shop',
                                             maxLines: 1,
                                             style: FlutterFlowTheme.of(context)
                                                 .titleMedium
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -2304,7 +2438,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodySmall
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -2411,7 +2545,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
-                                                font: GoogleFonts.cinzel(
+                                                font: GoogleFonts.comicNeue(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -2451,7 +2585,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .titleMedium
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -2484,7 +2618,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodySmall
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -2581,7 +2715,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
-                                                font: GoogleFonts.cinzel(
+                                                font: GoogleFonts.comicNeue(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -2621,7 +2755,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .titleMedium
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -2654,7 +2788,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodySmall
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -2761,7 +2895,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
-                                                font: GoogleFonts.cinzel(
+                                                font: GoogleFonts.comicNeue(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -2796,12 +2930,12 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                         textBaseline: TextBaseline.alphabetic,
                                         children: [
                                           Text(
-                                            'Squishy Catalog',
+                                            'Squishie Catalog',
                                             maxLines: 1,
                                             style: FlutterFlowTheme.of(context)
                                                 .titleMedium
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -2834,7 +2968,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodySmall
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -2931,7 +3065,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
-                                                font: GoogleFonts.cinzel(
+                                                font: GoogleFonts.comicNeue(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -2971,7 +3105,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .titleMedium
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -3004,7 +3138,7 @@ class _ThroneRoomPageWidgetState extends State<ThroneRoomPageWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodySmall
                                                 .override(
-                                                  font: GoogleFonts.nunito(
+                                                  font: GoogleFonts.comicNeue(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)

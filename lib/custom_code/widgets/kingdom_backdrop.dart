@@ -429,6 +429,12 @@ class _KingdomPainter extends CustomPainter {
         _signpost(canvas, Offset(w * 0.78, h * 0.95), w);
         _flowers(canvas, w, h);
         break;
+      case 'candy':
+        _candyKingdom(canvas, r, w, h);
+        break;
+      case 'butter':
+        _butterConfetti(canvas, r, w, h);
+        break;
       default: // castle (bright day)
         _sky(
             canvas,
@@ -459,6 +465,307 @@ class _KingdomPainter extends CustomPainter {
         _hills(canvas, w, h, h * 0.8, const Color(0xFF9EDC92), 0.3);
         _hills(canvas, w, h, h * 0.88, const Color(0xFF6CC27A), 0.7);
         _flowers(canvas, w, h);
+    }
+    _squishieLayer(canvas, w, h);
+  }
+
+  // ------------------------------------------------------------ Squishie Kingdom
+  static const _outdoor = {
+    'castle',
+    'meadow',
+    'questboard',
+    'road',
+    'market',
+    'tournament',
+    'candy',
+    'dusk',
+    'night'
+  };
+
+  /// Floating jelly bubbles on every scene, plus squishies peeking over the
+  /// hills on outdoor scenes.
+  void _squishieLayer(Canvas canvas, double w, double h) {
+    final dark = scene == 'night' || scene == 'dusk' || scene == 'throne';
+    const tints = [
+      Color(0xFFFF9ECF),
+      Color(0xFFB79CFF),
+      Color(0xFF8FD3FF),
+      Color(0xFFFFE27A),
+      Color(0xFF9EE9CF)
+    ];
+    for (var i = 0; i < 9; i++) {
+      final phase = (t * (0.6 + (i % 3) * 0.2) + i / 9) % 1.0;
+      final x = w * (0.06 + 0.88 * ((i * 37) % 11) / 10.0) +
+          math.sin(phase * 2 * math.pi + i) * w * 0.025;
+      final y = h * (1.05 - 1.15 * phase);
+      final r = w * (0.018 + (i % 4) * 0.008);
+      final a = (phase < 0.1
+              ? phase / 0.1
+              : phase > 0.85
+                  ? (1 - phase) / 0.15
+                  : 1.0) *
+          (dark ? 0.55 : 0.4);
+      final c = tints[i % tints.length];
+      canvas.drawCircle(
+          Offset(x, y), r, Paint()..color = c.withOpacity(a * 0.45));
+      canvas.drawCircle(
+          Offset(x, y),
+          r,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = r * 0.14
+            ..color = Colors.white.withOpacity(a * 0.8));
+      canvas.drawCircle(Offset(x - r * 0.35, y - r * 0.38), r * 0.22,
+          Paint()..color = Colors.white.withOpacity(a));
+    }
+    if (_outdoor.contains(scene)) {
+      _peekSquishie(canvas, Offset(w * 0.1, h * 0.985), w * 0.15,
+          dark ? const Color(0xFF9C84E0) : const Color(0xFFFFB8D9), 0.0);
+      _peekSquishie(canvas, Offset(w * 0.9, h * 0.99), w * 0.13,
+          dark ? const Color(0xFF6FA6D9) : const Color(0xFF9EE9CF), 0.5);
+    }
+  }
+
+  /// A little gumdrop squishie peeking up with a bob and a blink.
+  void _peekSquishie(
+      Canvas canvas, Offset base, double size, Color color, double offset) {
+    final bob = math.sin((t * 6 + offset) * 2 * math.pi) * size * 0.04;
+    final bw = size, bh = size * 0.78;
+    final top = base.dy - bh + bob;
+    final body = Path()
+      ..moveTo(base.dx - bw / 2, base.dy + size * 0.1)
+      ..lineTo(base.dx - bw / 2, top + bh * 0.5)
+      ..cubicTo(base.dx - bw / 2, top - bh * 0.05, base.dx + bw / 2,
+          top - bh * 0.05, base.dx + bw / 2, top + bh * 0.5)
+      ..lineTo(base.dx + bw / 2, base.dy + size * 0.1)
+      ..close();
+    final b = body.getBounds();
+    canvas.drawPath(
+        body,
+        Paint()
+          ..shader = RadialGradient(
+              center: const Alignment(-0.35, -0.5),
+              radius: 1.0,
+              colors: [
+                Color.lerp(color, Colors.white, 0.4)!,
+                color,
+                Color.lerp(color, Colors.black, 0.15)!
+              ],
+              stops: const [
+                0,
+                0.55,
+                1
+              ]).createShader(b));
+    canvas.drawPath(
+        body,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = size * 0.025
+          ..color = Color.lerp(color, Colors.black, 0.3)!.withOpacity(0.6));
+    canvas.drawOval(
+        Rect.fromLTWH(b.left + bw * 0.18, top + bh * 0.1, bw * 0.24, bh * 0.14),
+        Paint()..color = Colors.white.withOpacity(0.55));
+    final eyeY = top + bh * 0.42;
+    final blink = ((t * 6 + offset) % 1.0) > 0.92;
+    for (final d in [-1.0, 1.0]) {
+      final e = Offset(base.dx + d * bw * 0.16, eyeY);
+      if (blink) {
+        canvas.drawLine(
+            e - Offset(size * 0.035, 0),
+            e + Offset(size * 0.035, 0),
+            Paint()
+              ..color = const Color(0xFF2A1B3D)
+              ..strokeWidth = size * 0.02
+              ..strokeCap = StrokeCap.round);
+      } else {
+        canvas.drawOval(
+            Rect.fromCenter(
+                center: e, width: size * 0.075, height: size * 0.095),
+            Paint()..color = const Color(0xFF2A1B3D));
+        canvas.drawCircle(e + Offset(-size * 0.014, -size * 0.02), size * 0.016,
+            Paint()..color = Colors.white);
+      }
+      canvas.drawOval(
+          Rect.fromCenter(
+              center: Offset(base.dx + d * bw * 0.27, eyeY + size * 0.08),
+              width: size * 0.1,
+              height: size * 0.05),
+          Paint()..color = const Color(0xFFFF7FA0).withOpacity(0.5));
+    }
+    final my = eyeY + size * 0.07;
+    canvas.drawPath(
+      Path()
+        ..moveTo(base.dx - size * 0.04, my)
+        ..quadraticBezierTo(
+            base.dx - size * 0.02, my + size * 0.03, base.dx, my)
+        ..quadraticBezierTo(
+            base.dx + size * 0.02, my + size * 0.03, base.dx + size * 0.04, my),
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = size * 0.016
+        ..strokeCap = StrokeCap.round
+        ..color = const Color(0xFF2A1B3D),
+    );
+  }
+
+  /// Butter-yellow confetti scene with mint scalloped corners (logo style).
+  void _butterConfetti(Canvas canvas, Rect r, double w, double h) {
+    canvas.drawRect(
+        r,
+        Paint()
+          ..shader = const RadialGradient(
+              radius: 0.9,
+              colors: [Color(0xFFFFFBE6), Color(0xFFFFF1BF), Color(0xFFFFE7A3)],
+              stops: [0, 0.6, 1]).createShader(r));
+    const cols = [
+      Color(0xFFFFB3C7),
+      Color(0xFF9ED8F0),
+      Color(0xFFC9B6FF),
+      Color(0xFFFFD27A),
+      Color(0xFF9EE6C4)
+    ];
+    final rnd = math.Random(4);
+    for (var i = 0; i < 120; i++) {
+      final base = Offset(rnd.nextDouble() * w, rnd.nextDouble() * h);
+      final drift = math.sin(t * 2 * math.pi + i) * w * 0.006;
+      final p = base + Offset(drift, 0);
+      final c = cols[i % cols.length];
+      if (i % 3 == 0) {
+        canvas.save();
+        canvas.translate(p.dx, p.dy);
+        canvas.rotate(rnd.nextDouble() * math.pi +
+            t * 2 * math.pi * (i.isEven ? 0.3 : -0.3));
+        canvas.drawRRect(
+            RRect.fromRectAndRadius(
+                Rect.fromCenter(
+                    center: Offset.zero, width: w * 0.03, height: w * 0.011),
+                Radius.circular(w * 0.005)),
+            Paint()..color = c.withOpacity(0.8));
+        canvas.restore();
+      } else {
+        canvas.drawCircle(
+            p,
+            w * (0.005 + rnd.nextDouble() * 0.005),
+            Paint()
+              ..color =
+                  (i.isEven ? const Color(0xFFF5C76A) : c).withOpacity(0.7));
+      }
+    }
+    // Mint scalloped clouds hugging the top and bottom edges.
+    final mint = Paint()..color = const Color(0xFFBFE8D8);
+    final rim = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = w * 0.008
+      ..color = Colors.white;
+    for (final top in [true, false]) {
+      final y = top ? 0.0 : h;
+      final path = Path()..moveTo(-w * 0.1, y);
+      for (var i = 0; i <= 8; i++) {
+        final x = -w * 0.1 + i * w * 0.15;
+        final bump = top ? w * 0.09 : -w * 0.09;
+        path.quadraticBezierTo(x + w * 0.075, y + bump * 1.6, x + w * 0.15, y);
+      }
+      path.close();
+      canvas.drawPath(path, mint);
+      canvas.drawPath(path, rim);
+    }
+    for (final s in [
+      const Offset(0.15, 0.2),
+      const Offset(0.85, 0.24),
+      const Offset(0.12, 0.78),
+      const Offset(0.88, 0.74)
+    ]) {
+      final tw = 0.7 + 0.3 * math.sin(t * 2 * math.pi * 3 + s.dx * 9);
+      _star(canvas, Offset(w * s.dx, h * s.dy), w * 0.03 * tw,
+          Paint()..color = const Color(0xFFFFD86B));
+    }
+  }
+
+  /// Candy Squishie Kingdom: pastel sky, rainbow, gumdrop castle, candy hills.
+  void _candyKingdom(Canvas canvas, Rect r, double w, double h) {
+    _sky(
+        canvas,
+        r,
+        const [Color(0xFF8FD8FF), Color(0xFFC6B4FF), Color(0xFFFFC2E2)],
+        const [0, 0.55, 1]);
+    canvas.drawCircle(
+        Offset(w * 0.82, h * 0.12),
+        w * 0.3,
+        Paint()
+          ..shader = RadialGradient(
+                  colors: [const Color(0xCCFFF7C2), const Color(0x00FFF7C2)])
+              .createShader(Rect.fromCircle(
+                  center: Offset(w * 0.82, h * 0.12), radius: w * 0.3)));
+    const bands = [
+      Color(0xFFFF7FA8),
+      Color(0xFFFFB36B),
+      Color(0xFFFFE27A),
+      Color(0xFF8FE3A6),
+      Color(0xFF7FC8FF),
+      Color(0xFFB79CFF)
+    ];
+    for (var i = 0; i < bands.length; i++) {
+      canvas.drawArc(
+          Rect.fromCircle(
+              center: Offset(w * 0.5, h * 0.7), radius: w * (0.95 - i * 0.07)),
+          math.pi,
+          math.pi,
+          false,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = w * 0.07
+            ..color = bands[i].withOpacity(0.55));
+    }
+    _cloud(
+        canvas, Offset(w * ((0.2 + t * 0.5) % 1.3 - 0.15), h * 0.12), w * 0.09);
+    _cloud(canvas, Offset(w * ((0.72 + t * 0.35) % 1.3 - 0.15), h * 0.24),
+        w * 0.07);
+    _castle(
+        canvas,
+        Offset(w * 0.5, h * 0.74),
+        w * 0.82,
+        const Color(0xFFFFE6F2),
+        const Color(0xFFC77DB0),
+        const Color(0xFFFFD84D));
+    _hills(canvas, w, h, h * 0.74, const Color(0xFFA8F0BE), 0.4);
+    _hills(canvas, w, h, h * 0.84, const Color(0xFF7FE0A0), 0.75);
+    final rnd = math.Random(8);
+    const dots = [
+      Color(0xFFFF8FBF),
+      Color(0xFFFFE27A),
+      Color(0xFFFFFFFF),
+      Color(0xFFB79CFF)
+    ];
+    for (var i = 0; i < 26; i++) {
+      canvas.drawCircle(
+          Offset(rnd.nextDouble() * w, h * (0.8 + rnd.nextDouble() * 0.18)),
+          w * 0.008,
+          Paint()..color = dots[i % dots.length]);
+    }
+    // Lollipop trees.
+    for (final p in [
+      const Offset(0.1, 0.8),
+      const Offset(0.9, 0.78),
+      const Offset(0.22, 0.9)
+    ]) {
+      final c = Offset(w * p.dx, h * p.dy);
+      canvas.drawLine(
+          c,
+          c + Offset(0, w * 0.1),
+          Paint()
+            ..color = Colors.white
+            ..strokeWidth = w * 0.012
+            ..strokeCap = StrokeCap.round);
+      canvas.drawCircle(c, w * 0.045, Paint()..color = const Color(0xFFFF8FBF));
+      canvas.drawArc(
+          Rect.fromCircle(center: c, radius: w * 0.028),
+          0,
+          math.pi * 1.5,
+          false,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = w * 0.01
+            ..color = Colors.white);
     }
   }
 
@@ -566,19 +873,55 @@ class _KingdomPainter extends CustomPainter {
       canvas.drawRect(Rect.fromLTWH(x, base.dy - th, twW, th), wallPaint);
       canvas.drawRect(
           Rect.fromLTWH(x + twW * 0.75, base.dy - th, twW * 0.25, th), shade);
+      // Squishie Kingdom gumdrop jelly dome (dimmed for night scenes).
+      const candy = [
+        Color(0xFFFF9ECF),
+        Color(0xFFB79CFF),
+        Color(0xFF8FD3FF),
+        Color(0xFFFFC98B),
+        Color(0xFF9EE9CF)
+      ];
+      final dim = 0.65 * (1 - wall.computeLuminance()).clamp(0.0, 1.0);
+      final dc =
+          Color.lerp(candy[towers.indexOf(tw) % candy.length], dark, dim)!;
+      final cx0 = x + twW / 2;
+      final apex = base.dy - th - twW * 1.05;
       final roof = Path()
-        ..moveTo(x - twW * 0.14, base.dy - th)
-        ..lineTo(x + twW / 2, base.dy - th - twW * 1.1)
-        ..lineTo(x + twW * 1.14, base.dy - th)
+        ..moveTo(x - twW * 0.16, base.dy - th)
+        ..cubicTo(x - twW * 0.2, base.dy - th - twW * 0.62, cx0 - twW * 0.1,
+            apex + twW * 0.18, cx0, apex)
+        ..cubicTo(cx0 + twW * 0.1, apex + twW * 0.18, x + twW * 1.2,
+            base.dy - th - twW * 0.62, x + twW * 1.16, base.dy - th)
         ..close();
+      final rb = roof.getBounds();
       canvas.drawPath(
           roof,
           Paint()
             ..shader = LinearGradient(
-                    colors: [const Color(0xFFE2486A), const Color(0xFF9C1F3A)])
-                .createShader(roof.getBounds()));
-      final fx = x + twW / 2;
-      final fy = base.dy - th - twW * 1.1;
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color.lerp(dc, Colors.white, 0.35)!,
+                  dc,
+                  Color.lerp(dc, Colors.black, 0.22)!
+                ],
+                stops: const [
+                  0,
+                  0.5,
+                  1
+                ]).createShader(rb));
+      canvas.drawOval(
+          Rect.fromLTWH(rb.left + rb.width * 0.18, rb.top + rb.height * 0.28,
+              rb.width * 0.26, rb.height * 0.32),
+          Paint()..color = Colors.white.withOpacity(0.45 * (1 - dim)));
+      canvas.drawRRect(
+          RRect.fromRectAndRadius(
+              Rect.fromLTWH(x - twW * 0.16, base.dy - th - twW * 0.06,
+                  twW * 1.32, twW * 0.12),
+              Radius.circular(twW * 0.06)),
+          Paint()..color = Color.lerp(dc, Colors.black, 0.18)!);
+      final fx = cx0;
+      final fy = apex;
       canvas.drawLine(
           Offset(fx, fy),
           Offset(fx, fy - twW * 0.55),

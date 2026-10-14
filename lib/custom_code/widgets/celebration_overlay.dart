@@ -12,10 +12,15 @@ import 'package:flutter/material.dart' hide RepeatMode;
 
 import 'dart:math' as math;
 
+import 'package:google_fonts/google_fonts.dart';
+
 /// Full-screen, tap-through celebration layer.
 ///
-/// * When [acceptKey] changes (to a value > 0) a "QUEST ACCEPTED!" banner
-///   swoops across the screen in a shower of stars.
+/// * When [acceptKey] changes (to a value > 0) the start-of-quest show plays:
+///   the screen dims, golden light rays spin up, a "QUEST BEGINS!" jelly
+///   banner unrolls letter by letter, the hero's own squishie ([heroLook])
+///   hops in wearing its gear, and a 3-2-1-GO! countdown pops before a burst
+///   of stars and confetti sends them off.
 /// * When [coinKey] changes (to a value > 0) a burst of gold coins explodes
 ///   and rains from the top to the bottom of the screen with a
 ///   "QUEST COMPLETE!" banner.
@@ -26,12 +31,14 @@ class CelebrationOverlay extends StatefulWidget {
     this.height,
     this.acceptKey,
     this.coinKey,
+    this.heroLook,
   });
 
   final double? width;
   final double? height;
   final int? acceptKey;
   final int? coinKey;
+  final String? heroLook;
 
   @override
   State<CelebrationOverlay> createState() => _CelebrationOverlayState();
@@ -39,9 +46,9 @@ class CelebrationOverlay extends StatefulWidget {
 
 class _CelebrationOverlayState extends State<CelebrationOverlay>
     with TickerProviderStateMixin {
-  late final AnimationController _banner = AnimationController(
+  late final AnimationController _start = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 2300),
+    duration: const Duration(milliseconds: 4200),
   );
   late final AnimationController _coins = AnimationController(
     vsync: this,
@@ -53,7 +60,7 @@ class _CelebrationOverlayState extends State<CelebrationOverlay>
     super.didUpdateWidget(oldWidget);
     if ((widget.acceptKey ?? 0) > 0 &&
         widget.acceptKey != oldWidget.acceptKey) {
-      _banner.forward(from: 0);
+      _start.forward(from: 0);
     }
     if ((widget.coinKey ?? 0) > 0 && widget.coinKey != oldWidget.coinKey) {
       _coins.forward(from: 0);
@@ -62,10 +69,21 @@ class _CelebrationOverlayState extends State<CelebrationOverlay>
 
   @override
   void dispose() {
-    _banner.dispose();
+    _start.dispose();
     _coins.dispose();
     super.dispose();
   }
+
+  TextStyle _font(double size, Color color,
+          {Paint? stroke, FontWeight weight = FontWeight.w700}) =>
+      GoogleFonts.comicNeue(
+        fontSize: size,
+        fontWeight: weight,
+        height: 1.0,
+        color: stroke == null ? color : null,
+        foreground: stroke,
+        decoration: TextDecoration.none,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +94,7 @@ class _CelebrationOverlayState extends State<CelebrationOverlay>
           width: widget.width,
           height: widget.height,
           child: AnimatedBuilder(
-            animation: Listenable.merge([_banner, _coins]),
+            animation: Listenable.merge([_start, _coins]),
             builder: (context, _) {
               final layers = <Widget>[];
               if (_coins.isAnimating) {
@@ -93,24 +111,9 @@ class _CelebrationOverlayState extends State<CelebrationOverlay>
                       Color(0xFFF2B53A),
                       Color(0xFFD79A1E)
                     ],
-                    const Color(0xFF5A3A00)));
+                    const Color(0xFF4A2E00)));
               }
-              if (_banner.isAnimating) {
-                layers.add(Positioned.fill(
-                    child: CustomPaint(
-                        painter: _StarShowerPainter(_banner.value))));
-                layers.add(_bannerFor(
-                    _banner.value,
-                    'QUEST ACCEPTED!',
-                    '⚔️',
-                    'Go get it, brave hero!',
-                    const [
-                      Color(0xFF8A6CFF),
-                      Color(0xFF5B3CC4),
-                      Color(0xFF3E2490)
-                    ],
-                    Colors.white));
-              }
+              if (_start.isAnimating) layers.addAll(_questStart(_start.value));
               return Stack(clipBehavior: Clip.none, children: layers);
             },
           ),
@@ -119,10 +122,203 @@ class _CelebrationOverlayState extends State<CelebrationOverlay>
     );
   }
 
+  // ------------------------------------------------------------ quest start
+  List<Widget> _questStart(double p) {
+    double seg(double a, double b) => ((p - a) / (b - a)).clamp(0.0, 1.0);
+    final fadeOut = 1 - seg(0.88, 1.0);
+    final layers = <Widget>[
+      Positioned.fill(
+          child: CustomPaint(painter: _StartBackPainter(p, fadeOut))),
+    ];
+
+    // Banner unrolls (0.06-0.3) and letters pop in one by one.
+    final unroll = Curves.easeOutBack.transform(seg(0.06, 0.3));
+    const title = 'QUEST BEGINS!';
+    final letters = <Widget>[];
+    for (var i = 0; i < title.length; i++) {
+      final k = seg(0.16 + i * 0.012, 0.26 + i * 0.012);
+      final pop = Curves.elasticOut.transform(k);
+      final bob = math.sin(p * 22 + i * 0.7) * 2.0 * (k >= 1 ? 1 : 0);
+      letters.add(Transform.translate(
+        offset: Offset(0, bob),
+        child: Transform.scale(
+          scale: pop,
+          child: Stack(children: [
+            Text(title[i],
+                style: _font(34, Colors.white,
+                    stroke: Paint()
+                      ..style = PaintingStyle.stroke
+                      ..strokeWidth = 7
+                      ..strokeJoin = StrokeJoin.round
+                      ..color = const Color(0xFF5A1F7A))),
+            Text(title[i], style: _font(34, const Color(0xFFFFF4B0))),
+          ]),
+        ),
+      ));
+    }
+    layers.add(Align(
+      alignment: const Alignment(0, -0.52),
+      child: Opacity(
+        opacity: fadeOut,
+        child: Transform.scale(
+          scaleX: 0.05 + 0.95 * unroll,
+          scaleY: 0.6 + 0.4 * unroll,
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 18),
+            padding: const EdgeInsets.fromLTRB(18, 14, 18, 12),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0xFFD9B8FF),
+                    Color(0xFF9A5CF0),
+                    Color(0xFF7434D6)
+                  ],
+                  stops: [
+                    0,
+                    0.5,
+                    1
+                  ]),
+              borderRadius: BorderRadius.circular(28),
+              border:
+                  Border.all(color: Colors.white.withOpacity(0.85), width: 3),
+              boxShadow: const [
+                BoxShadow(color: Color(0xFF4E1FA0), offset: Offset(0, 7)),
+                BoxShadow(
+                    color: Color(0x66000000),
+                    blurRadius: 24,
+                    offset: Offset(0, 12))
+              ],
+            ),
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
+              FittedBox(
+                  child:
+                      Row(mainAxisSize: MainAxisSize.min, children: letters)),
+              const SizedBox(height: 6),
+              Opacity(
+                opacity: seg(0.3, 0.38),
+                child: Text('Your squishie is ready for adventure!',
+                    textAlign: TextAlign.center,
+                    style: _font(16, Colors.white)),
+              ),
+            ]),
+          ),
+        ),
+      ),
+    ));
+
+    // Hero squishie hops in from the left (0.22-0.5), then bounces in place.
+    final hop = seg(0.22, 0.5);
+    final x = -1.6 + 1.6 * Curves.easeOut.transform(hop);
+    final hops = (hop * 3).floor();
+    final hopK = (hop * 3) - hops;
+    final arc = hop < 1
+        ? math.sin(hopK * math.pi) * 0.12
+        : (math.sin(p * 30).abs() * 0.04 * seg(0.5, 0.6));
+    final go = seg(0.76, 0.84);
+    final leap = go > 0 ? Curves.easeIn.transform(go) : 0.0;
+    layers.add(Align(
+      alignment: Alignment(x + leap * 1.8, 0.5 - arc * 2 - leap * 0.4),
+      child: Opacity(
+        opacity: fadeOut,
+        child: Transform.rotate(
+          angle: hop < 1 ? math.sin(hopK * math.pi) * 0.15 : leap * 0.4,
+          child: SizedBox(
+            width: 170,
+            height: 170,
+            child: SquishyAvatar(
+              width: 170,
+              height: 170,
+              look: (widget.heroLook ?? '').isEmpty
+                  ? 'species:dumpling|hat:helm|gear:sword'
+                  : widget.heroLook,
+              animate: true,
+              showBackground: false,
+            ),
+          ),
+        ),
+      ),
+    ));
+
+    // 3-2-1-GO! countdown jelly bubbles (0.5-0.86).
+    const counts = ['3', '2', '1', 'GO!'];
+    const bubbleColors = [
+      Color(0xFFFF7FA8),
+      Color(0xFF7FC8FF),
+      Color(0xFF8FE3A6),
+      Color(0xFFFFC93C)
+    ];
+    for (var i = 0; i < counts.length; i++) {
+      final a = 0.5 + i * 0.075;
+      final k = seg(a, a + 0.09);
+      if (k <= 0 || k >= 1) continue;
+      final pop = k < 0.4
+          ? Curves.elasticOut.transform(k / 0.4)
+          : 1.0 + (k - 0.4) * 0.6;
+      final alpha = k < 0.75 ? 1.0 : (1 - (k - 0.75) / 0.25);
+      final isGo = i == 3;
+      final size = isGo ? 150.0 : 120.0;
+      layers.add(Align(
+        alignment: const Alignment(0, -0.12),
+        child: Opacity(
+          opacity: alpha.clamp(0.0, 1.0),
+          child: Transform.scale(
+            scale: pop,
+            child: Container(
+              width: size,
+              height: size,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                    center: const Alignment(-0.35, -0.45),
+                    colors: [
+                      Color.lerp(bubbleColors[i], Colors.white, 0.55)!,
+                      bubbleColors[i],
+                      Color.lerp(bubbleColors[i], Colors.black, 0.2)!
+                    ],
+                    stops: const [
+                      0,
+                      0.55,
+                      1
+                    ]),
+                border: Border.all(color: Colors.white, width: 4),
+                boxShadow: [
+                  BoxShadow(
+                      color: Color.lerp(bubbleColors[i], Colors.black, 0.35)!,
+                      offset: const Offset(0, 6))
+                ],
+              ),
+              child: Stack(alignment: Alignment.center, children: [
+                Text(counts[i],
+                    style: _font(isGo ? 52 : 64, Colors.white,
+                        stroke: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 8
+                          ..strokeJoin = StrokeJoin.round
+                          ..color = const Color(0xFF3A1A5C))),
+                Text(counts[i], style: _font(isGo ? 52 : 64, Colors.white)),
+              ]),
+            ),
+          ),
+        ),
+      ));
+    }
+
+    // Star + confetti burst on GO!
+    if (p > 0.74) {
+      layers.add(Positioned.fill(
+          child: CustomPaint(painter: _StarShowerPainter(seg(0.74, 1.0)))));
+      layers.add(Positioned.fill(
+          child: CustomPaint(painter: _ConfettiPainter(seg(0.74, 1.0)))));
+    }
+    return layers;
+  }
+
   Widget _bannerFor(double p, String title, String icon, String sub,
       List<Color> colors, Color text) {
     if (p >= 1) return const SizedBox.shrink();
-    // Swoop in (0-0.22), hold with a gentle bob, swoop out (0.78-1).
     double dx;
     double scale;
     if (p < 0.22) {
@@ -153,8 +349,9 @@ class _CelebrationOverlayState extends State<CelebrationOverlay>
                     colors: colors,
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight),
-                borderRadius: BorderRadius.circular(22),
-                border: Border.all(color: const Color(0xFFF2B53A), width: 4),
+                borderRadius: BorderRadius.circular(26),
+                border:
+                    Border.all(color: Colors.white.withOpacity(0.9), width: 4),
                 boxShadow: const [
                   BoxShadow(
                       color: Color(0x66000000),
@@ -164,22 +361,11 @@ class _CelebrationOverlayState extends State<CelebrationOverlay>
               ),
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 Text(icon, style: const TextStyle(fontSize: 44)),
-                Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w900,
-                      color: text,
-                      letterSpacing: 1.2),
-                ),
-                const SizedBox(height: 2),
-                Text(sub,
+                Text(title,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: text.withOpacity(0.9))),
+                    style: _font(32, text).copyWith(letterSpacing: 1.2)),
+                const SizedBox(height: 2),
+                Text(sub, textAlign: TextAlign.center, style: _font(17, text)),
               ]),
             ),
           ),
@@ -187,6 +373,115 @@ class _CelebrationOverlayState extends State<CelebrationOverlay>
       ),
     );
   }
+}
+
+/// Dim vignette + spinning golden light rays behind the quest-start show.
+class _StartBackPainter extends CustomPainter {
+  _StartBackPainter(this.p, this.fade);
+  final double p;
+  final double fade;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final w = size.width, h = size.height;
+    if (w <= 0 || h <= 0) return;
+    final inK = (p / 0.1).clamp(0.0, 1.0);
+    final a = inK * fade;
+    final r = Offset.zero & size;
+    canvas.drawRect(
+        r,
+        Paint()
+          ..shader = RadialGradient(radius: 0.9, colors: [
+            const Color(0xFF3A1A6B).withOpacity(0.45 * a),
+            const Color(0xFF1A0B33).withOpacity(0.75 * a)
+          ]).createShader(r));
+    final c = Offset(w / 2, h * 0.38);
+    final rays = 14;
+    final spin = p * math.pi * 1.2;
+    for (var i = 0; i < rays; i++) {
+      final ang = spin + i * 2 * math.pi / rays;
+      final path = Path()
+        ..moveTo(c.dx, c.dy)
+        ..lineTo(
+            c.dx + math.cos(ang - 0.09) * h, c.dy + math.sin(ang - 0.09) * h)
+        ..lineTo(
+            c.dx + math.cos(ang + 0.09) * h, c.dy + math.sin(ang + 0.09) * h)
+        ..close();
+      canvas.drawPath(
+          path,
+          Paint()
+            ..color =
+                (i.isEven ? const Color(0xFFFFE27A) : const Color(0xFFFF9ECF))
+                    .withOpacity(0.16 * a));
+    }
+    canvas.drawCircle(
+        c,
+        w * 0.45,
+        Paint()
+          ..shader = RadialGradient(colors: [
+            const Color(0xFFFFF3B0).withOpacity(0.35 * a),
+            const Color(0x00FFF3B0)
+          ]).createShader(Rect.fromCircle(center: c, radius: w * 0.45)));
+    // Rising jelly bubbles.
+    const tints = [
+      Color(0xFFFF9ECF),
+      Color(0xFFB79CFF),
+      Color(0xFF8FD3FF),
+      Color(0xFFFFE27A)
+    ];
+    for (var i = 0; i < 14; i++) {
+      final ph = (p * 1.6 + i / 14) % 1.0;
+      final x = w * (0.05 + 0.9 * ((i * 37) % 13) / 12);
+      final y = h * (1.05 - 1.1 * ph);
+      final rr = w * (0.015 + (i % 3) * 0.01);
+      canvas.drawCircle(
+          Offset(x, y), rr, Paint()..color = tints[i % 4].withOpacity(0.5 * a));
+      canvas.drawCircle(Offset(x - rr * 0.35, y - rr * 0.35), rr * 0.25,
+          Paint()..color = Colors.white.withOpacity(0.8 * a));
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant _StartBackPainter old) =>
+      old.p != p || old.fade != fade;
+}
+
+class _ConfettiPainter extends CustomPainter {
+  _ConfettiPainter(this.p);
+  final double p;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final w = size.width, h = size.height;
+    const colors = [
+      Color(0xFFFF6F91),
+      Color(0xFFFFE27A),
+      Color(0xFF7CC8FF),
+      Color(0xFF8BE39A),
+      Color(0xFFB79CFF)
+    ];
+    final rnd = math.Random(5);
+    final fade = (p > 0.7 ? 1 - (p - 0.7) / 0.3 : 1.0).clamp(0.0, 1.0);
+    for (var i = 0; i < 60; i++) {
+      final a = -math.pi / 2 + (rnd.nextDouble() - 0.5) * math.pi * 1.4;
+      final speed = h * (0.7 + rnd.nextDouble() * 0.7);
+      final o = Offset(w / 2, h * 0.45);
+      final pos = o +
+          Offset(math.cos(a) * speed * p,
+              math.sin(a) * speed * p + h * 1.1 * p * p);
+      canvas.save();
+      canvas.translate(pos.dx, pos.dy);
+      canvas.rotate(p * 12 * (i.isEven ? 1 : -1) + i);
+      canvas.drawRect(
+          Rect.fromCenter(
+              center: Offset.zero, width: w * 0.022, height: w * 0.011),
+          Paint()..color = colors[i % colors.length].withOpacity(fade));
+      canvas.restore();
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant _ConfettiPainter old) => old.p != p;
 }
 
 class _CoinRainPainter extends CustomPainter {
@@ -202,7 +497,6 @@ class _CoinRainPainter extends CustomPainter {
     final g = h * 1.6;
     final rnd = math.Random(99);
     final fade = (p > 0.85 ? (1 - (p - 0.85) / 0.15) : 1.0).clamp(0.0, 1.0);
-    // Golden flash at the start.
     if (p < 0.25) {
       final k = p / 0.25;
       final c = Offset(w / 2, h * 0.5);
@@ -284,7 +578,7 @@ class _StarShowerPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final w = size.width, h = size.height;
-    final c = Offset(w / 2, h * 0.35);
+    final c = Offset(w / 2, h * 0.45);
     const colors = [
       Color(0xFFFFD84D),
       Color(0xFFFFFFFF),
@@ -293,11 +587,11 @@ class _StarShowerPainter extends CustomPainter {
       Color(0xFF7CE3C0)
     ];
     final rnd = math.Random(7);
-    for (var i = 0; i < 28; i++) {
+    for (var i = 0; i < 32; i++) {
       final a = rnd.nextDouble() * math.pi * 2;
       final speed = w * (0.5 + rnd.nextDouble() * 0.7);
-      final delay = 0.12 + rnd.nextDouble() * 0.1;
-      final k = ((p - delay) / 0.7).clamp(0.0, 1.0);
+      final delay = rnd.nextDouble() * 0.1;
+      final k = ((p - delay) / 0.8).clamp(0.0, 1.0);
       if (k <= 0 || k >= 1) continue;
       final pos = c +
           Offset(math.cos(a) * speed * k,

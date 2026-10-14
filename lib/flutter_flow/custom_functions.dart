@@ -93,3 +93,6 @@ export '/custom_code/functions/quest_status.dart';
 export '/custom_code/functions/quest_emoji.dart';
 export '/custom_code/functions/buy_reward_redemption.dart';
 export '/custom_code/functions/buy_reward_tx.dart';
+export '/custom_code/functions/add_holiday_items.dart';
+export '/custom_code/functions/slot_item_name.dart';
+export '/custom_code/functions/surprise_outfit.dart';

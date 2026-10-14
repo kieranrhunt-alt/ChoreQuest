@@ -1,13 +1,18 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/ff_builtin_enums.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
@@ -26,15 +31,54 @@ class SquishyShopPageWidget extends StatefulWidget {
   State<SquishyShopPageWidget> createState() => _SquishyShopPageWidgetState();
 }
 
-class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
+class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
+    with TickerProviderStateMixin {
   late SquishyShopPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  var hasContainerTriggered = false;
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => SquishyShopPageModel());
+
+    animationsMap.addAll({
+      'containerOnActionTriggerAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
   }
 
   @override
@@ -142,12 +186,12 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                   textBaseline: TextBaseline.alphabetic,
                                   children: [
                                     Text(
-                                      'Squishy Shop',
+                                      'Squishie Shop',
                                       maxLines: 1,
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            font: GoogleFonts.cinzel(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineSmall
@@ -180,7 +224,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodySmall
@@ -206,6 +250,128 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                   ].divide(SizedBox(height: 2.0)),
                                 ),
                               ),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  if (animationsMap[
+                                          'containerOnActionTriggerAnimation'] !=
+                                      null) {
+                                    safeSetState(
+                                        () => hasContainerTriggered = true);
+                                    SchedulerBinding.instance.addPostFrameCallback(
+                                        (_) async => await animationsMap[
+                                                'containerOnActionTriggerAnimation']!
+                                            .controller
+                                            .forward(from: 0.0));
+                                  }
+                                  if (functions.memberRole(
+                                          FFAppState().members.toList(),
+                                          FFAppState().currentMemberId) ==
+                                      'parent') {
+                                    context.pushNamed(
+                                        ThroneRoomPageWidget.routeName);
+                                  } else {
+                                    context.pushNamed(
+                                        HeroHomePageWidget.routeName);
+                                  }
+                                },
+                                child: Container(
+                                  height: 44.0,
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 0.0,
+                                        color: Color(0xFFB8740A),
+                                        offset: Offset(
+                                          0.0,
+                                          4.0,
+                                        ),
+                                        spreadRadius: 0.0,
+                                      )
+                                    ],
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color(0xFFFFF6C4),
+                                        Color(0xFFFFD54F),
+                                        Color(0xFFFFC22E),
+                                        Color(0xFFF0A30A)
+                                      ],
+                                      stops: [0.0, 0.48, 0.52, 1.0],
+                                      begin: AlignmentDirectional(1.0, 0.0),
+                                      end: AlignmentDirectional(-1.0, 0),
+                                    ),
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    border: Border.all(
+                                      color: Color(0xD9FFFFFF),
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10.0, 0.0, 10.0, 0.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          (FFMainAxisAlignment.center)
+                                              .flutterValue,
+                                      crossAxisAlignment:
+                                          (FFCrossAxisAlignment.center)
+                                              .flutterValue,
+                                      textBaseline: TextBaseline.alphabetic,
+                                      children: [
+                                        Container(
+                                          width: 26.0,
+                                          height: 26.0,
+                                          child: Container(
+                                            child:
+                                                custom_widgets.ChoreQuestLogo(
+                                              showTitle: false,
+                                              animate: false,
+                                              titleFontFamily: '',
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Throne Room',
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelSmall
+                                              .override(
+                                                font: GoogleFonts.comicNeue(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelSmall
+                                                          .fontStyle,
+                                                ),
+                                                color: Color(0xFF3A2400),
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelSmall
+                                                        .fontStyle,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ).animateOnActionTrigger(
+                                  animationsMap[
+                                      'containerOnActionTriggerAnimation']!,
+                                  hasBeenTriggered: hasContainerTriggered),
                             ].divide(SizedBox(width: 10.0)),
                           ),
                         ),
@@ -248,7 +414,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -300,7 +466,112 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontStyle,
+                                            ),
+                                            color: Color(0xFF2A1B4D),
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                          ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if (_model.category == 'holiday')
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  _model.category = 'holiday';
+                                  safeSetState(() {});
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color:
+                                        FlutterFlowTheme.of(context).tertiary,
+                                    borderRadius: BorderRadius.circular(999.0),
+                                    border: Border.all(
+                                      color: Color(0xFFB07A12),
+                                      width: 1.5,
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        14.0, 9.0, 14.0, 9.0),
+                                    child: Text(
+                                      '🎉 Holiday',
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            font: GoogleFonts.comicNeue(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontStyle,
+                                            ),
+                                            color: Color(0xFF2A1B4D),
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                          ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if (!(_model.category == 'holiday'))
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  _model.category = 'holiday';
+                                  safeSetState(() {});
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Color(0xF2FFFCF5),
+                                    borderRadius: BorderRadius.circular(999.0),
+                                    border: Border.all(
+                                      color: Color(0x99F2B53A),
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        14.0, 9.0, 14.0, 9.0),
+                                    child: Text(
+                                      '🎉 Holiday',
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -349,11 +620,11 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '🐾 Squishy',
+                                      '🐾 Squishie',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -401,11 +672,11 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '🐾 Squishy',
+                                      '🐾 Squishie',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -458,7 +729,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -510,7 +781,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -563,7 +834,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -615,7 +886,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -664,11 +935,11 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '🫧 Fill-in',
+                                      '🫧 Filler',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -716,11 +987,11 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '🫧 Fill-in',
+                                      '🫧 Filler',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -769,11 +1040,11 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '👑 Headgear',
+                                      '🎩 Head',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -821,11 +1092,11 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '👑 Headgear',
+                                      '🎩 Head',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -874,11 +1145,11 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '⚔️ Gear',
+                                      '💪 Arm',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -926,11 +1197,11 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '⚔️ Gear',
+                                      '💪 Arm',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -983,7 +1254,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1035,7 +1306,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1084,11 +1355,11 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '✨ Magic',
+                                      '✨ Aura',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1136,11 +1407,11 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         14.0, 9.0, 14.0, 9.0),
                                     child: Text(
-                                      '✨ Magic',
+                                      '✨ Aura',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1292,8 +1563,8 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                                           context)
                                                       .labelSmall
                                                       .override(
-                                                        font:
-                                                            GoogleFonts.nunito(
+                                                        font: GoogleFonts
+                                                            .comicNeue(
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -1330,7 +1601,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .override(
-                                              font: GoogleFonts.nunito(
+                                              font: GoogleFonts.comicNeue(
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
                                                         .titleSmall
@@ -1365,7 +1636,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .labelSmall
                                             .override(
-                                              font: GoogleFonts.nunito(
+                                              font: GoogleFonts.comicNeue(
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
                                                         .labelSmall
@@ -1427,7 +1698,8 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                                         context)
                                                     .labelSmall
                                                     .override(
-                                                      font: GoogleFonts.nunito(
+                                                      font:
+                                                          GoogleFonts.comicNeue(
                                                         fontWeight:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1477,35 +1749,34 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                             padding: EdgeInsets.all(8.0),
                                             child: Text(
                                               '⏳ Waiting for ruler',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        font:
-                                                            GoogleFonts.nunito(
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .fontStyle,
-                                                      ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .labelMedium
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelMedium
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelMedium
+                                                            .fontStyle,
+                                                  ),
                                             ),
                                           ),
                                         ),
@@ -1515,72 +1786,114 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget> {
                                               FFAppState().redemptions.toList(),
                                               FFAppState().currentMemberId) ??
                                           true)
-                                        FFButtonWidget(
-                                          onPressed: () async {
-                                            if (functions.canAfford(
-                                                FFAppState()
-                                                    .transactions
-                                                    .toList(),
-                                                FFAppState().currentMemberId,
-                                                itemItem.buckCost)!) {
-                                              FFAppState().redemptions =
-                                                  functions
-                                                      .requestRedemption(
-                                                          FFAppState()
-                                                              .redemptions
-                                                              .toList(),
-                                                          'avatar_item',
-                                                          itemItem.id,
-                                                          FFAppState()
-                                                              .currentMemberId,
-                                                          itemItem.name,
-                                                          itemItem.buckCost)!
-                                                      .toList()
-                                                      .cast<RedemptionStruct>();
-                                              safeSetState(() {});
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    '✨ Purchase requested! A ruler will approve it 🛍️',
-                                                    style: TextStyle(),
-                                                  ),
-                                                  duration: Duration(
-                                                      milliseconds: 4000),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 0.0,
+                                                color: Color(0xFFB8740A),
+                                                offset: Offset(
+                                                  0.0,
+                                                  5.0,
                                                 ),
-                                              );
-                                            } else {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    'Not enough gold yet — keep questing! 💪',
-                                                    style: TextStyle(),
-                                                  ),
-                                                  duration: Duration(
-                                                      milliseconds: 4000),
-                                                ),
-                                              );
-                                            }
-                                          },
-                                          text: ((int? c) {
-                                            return 'Buy 🪙 $c';
-                                          }(itemItem.buckCost))!,
-                                          options: FFButtonOptions(
-                                            height: 42.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .tertiary,
-                                            textStyle: TextStyle(
-                                              color: Color(0xFF2A1B4D),
+                                                spreadRadius: 0.0,
+                                              )
+                                            ],
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                Color(0xFFFFF6C4),
+                                                Color(0xFFFFD54F),
+                                                Color(0xFFFFC22E),
+                                                Color(0xFFF0A30A)
+                                              ],
+                                              stops: [0.0, 0.48, 0.52, 1.0],
+                                              begin: AlignmentDirectional(
+                                                  1.0, 0.0),
+                                              end:
+                                                  AlignmentDirectional(-1.0, 0),
                                             ),
                                             borderRadius:
-                                                BorderRadius.circular(18.0),
+                                                BorderRadius.circular(22.0),
+                                            border: Border.all(
+                                              color: Color(0xD9FFFFFF),
+                                              width: 2.5,
+                                            ),
+                                          ),
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              if (functions.canAfford(
+                                                  FFAppState()
+                                                      .transactions
+                                                      .toList(),
+                                                  FFAppState().currentMemberId,
+                                                  itemItem.buckCost)!) {
+                                                FFAppState().redemptions =
+                                                    functions
+                                                        .requestRedemption(
+                                                            FFAppState()
+                                                                .redemptions
+                                                                .toList(),
+                                                            'avatar_item',
+                                                            itemItem.id,
+                                                            FFAppState()
+                                                                .currentMemberId,
+                                                            itemItem.name,
+                                                            itemItem.buckCost)!
+                                                        .toList()
+                                                        .cast<
+                                                            RedemptionStruct>();
+                                                safeSetState(() {});
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      '✨ Purchase requested! A ruler will approve it 🛍️',
+                                                      style:
+                                                          GoogleFonts.comicNeue(
+                                                        color: Colors.white,
+                                                        fontSize: 16.0,
+                                                      ),
+                                                    ),
+                                                    duration: Duration(
+                                                        milliseconds: 4000),
+                                                  ),
+                                                );
+                                              } else {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      'Not enough gold yet — keep questing! 💪',
+                                                      style:
+                                                          GoogleFonts.comicNeue(
+                                                        color: Colors.white,
+                                                        fontSize: 16.0,
+                                                      ),
+                                                    ),
+                                                    duration: Duration(
+                                                        milliseconds: 4000),
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                            text: ((int? c) {
+                                              return 'Buy 🪙 $c';
+                                            }(itemItem.buckCost))!,
+                                            options: FFButtonOptions(
+                                              height: 42.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color: Color(0x00FFFFFF),
+                                              textStyle: GoogleFonts.comicNeue(
+                                                color: Color(0xFF3A2400),
+                                                fontSize: 17.0,
+                                              ),
+                                              elevation: 0.0,
+                                              borderRadius:
+                                                  BorderRadius.circular(22.0),
+                                            ),
                                           ),
                                         ),
                                     ].divide(SizedBox(height: 5.0)),

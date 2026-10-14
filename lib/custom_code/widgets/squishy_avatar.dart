@@ -286,6 +286,90 @@ class _SquishyPainter extends CustomPainter {
       case 'glow':
         _sparkles(canvas, s, gold: true);
         break;
+      case 'snow':
+        _fallers(
+            canvas,
+            s,
+            14,
+            (c, r, k) =>
+                _snowflake(canvas, c, r, Colors.white.withOpacity(0.95 * k)),
+            sway: 0.03);
+        break;
+      case 'leaves':
+        const lc = [
+          Color(0xFFE2763D),
+          Color(0xFFF2B53A),
+          Color(0xFFC0392B),
+          Color(0xFF8B5A2B)
+        ];
+        var li = 0;
+        _fallers(canvas, s, 10, (c, r, k) {
+          canvas.save();
+          canvas.translate(c.dx, c.dy);
+          canvas.rotate(t * 6 + li);
+          canvas.drawOval(
+              Rect.fromCenter(
+                  center: Offset.zero, width: r * 2.2, height: r * 1.2),
+              Paint()..color = lc[li++ % lc.length].withOpacity(k));
+          canvas.restore();
+        }, sway: 0.06);
+        break;
+      case 'confetti':
+        const cc = [
+          Color(0xFFFF6F91),
+          Color(0xFFFFE27A),
+          Color(0xFF7CC8FF),
+          Color(0xFF8BE39A),
+          Color(0xFFB79CFF)
+        ];
+        var ci = 0;
+        _fallers(canvas, s, 18, (c, r, k) {
+          canvas.save();
+          canvas.translate(c.dx, c.dy);
+          canvas.rotate(t * 10 + ci);
+          canvas.drawRect(
+              Rect.fromCenter(
+                  center: Offset.zero, width: r * 1.6, height: r * 0.8),
+              Paint()..color = cc[ci++ % cc.length].withOpacity(k));
+          canvas.restore();
+        }, sway: 0.04);
+        break;
+      case 'bats':
+        for (var i = 0; i < 4; i++) {
+          final a = t * 2 * math.pi + i * math.pi / 2;
+          final c = Offset(s * 0.5 + math.cos(a) * s * 0.38,
+              s * 0.42 + math.sin(a) * s * 0.18 - s * 0.1);
+          _bat(
+              canvas,
+              c,
+              s * (0.035 + 0.01 * math.sin(t * 2 * math.pi * 4 + i)),
+              const Color(0xFF3B2163));
+        }
+        break;
+      case 'fireworks':
+        const fc = [Color(0xFFFF6F91), Color(0xFFFFE27A), Color(0xFF7CC8FF)];
+        for (var i = 0; i < 3; i++) {
+          final k = (t * 1.5 + i / 3) % 1.0;
+          final c = Offset(s * (0.18 + 0.32 * i), s * (0.16 + 0.08 * (i % 2)));
+          for (var j = 0; j < 10; j++) {
+            final a = j * math.pi / 5;
+            final p0 =
+                c + Offset(math.cos(a), math.sin(a)) * s * 0.12 * k * 0.4;
+            final p1 = c + Offset(math.cos(a), math.sin(a)) * s * 0.12 * k;
+            canvas.drawLine(
+                p0,
+                p1,
+                Paint()
+                  ..color = fc[i].withOpacity((1 - k).clamp(0.0, 1.0))
+                  ..strokeWidth = s * 0.008
+                  ..strokeCap = StrokeCap.round);
+          }
+        }
+        break;
+      case 'clovers':
+        _fallers(canvas, s, 8, (c, r, k) => _clover(canvas, c, r * 1.2),
+            sway: 0.05, up: true);
+        break;
     }
     if (burst >= 0) _burstFront(canvas, body, s);
     canvas.restore();
@@ -990,6 +1074,104 @@ class _SquishyPainter extends CustomPainter {
               p);
         }
         break;
+      case 'candystripe':
+        final p = Paint()
+          ..color = const Color(0xFFE23D4B).withOpacity(0.75)
+          ..strokeWidth = s * 0.035;
+        for (var x = b.left - b.height; x < b.right; x += s * 0.1) {
+          canvas.drawLine(Offset(x, b.bottom), Offset(x + b.height, b.top), p);
+        }
+        final w2 = Paint()
+          ..color = Colors.white.withOpacity(0.55)
+          ..strokeWidth = s * 0.012;
+        for (var x = b.left - b.height + s * 0.05; x < b.right; x += s * 0.1) {
+          canvas.drawLine(Offset(x, b.bottom), Offset(x + b.height, b.top), w2);
+        }
+        break;
+      case 'snowflakes':
+        var row = 0;
+        for (var y = b.top + s * 0.03; y < b.bottom; y += s * 0.09) {
+          for (var x = b.left + (row.isOdd ? s * 0.045 : 0);
+              x < b.right;
+              x += s * 0.09) {
+            _snowflake(canvas, Offset(x, y), s * 0.022,
+                Colors.white.withOpacity(0.85));
+          }
+          row++;
+        }
+        break;
+      case 'pumpkinribs':
+        final p = Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = s * 0.012
+          ..color = _darken(base, 0.3).withOpacity(0.55);
+        for (var i = -3; i <= 3; i++) {
+          final x = b.center.dx + i * b.width * 0.14;
+          canvas.drawPath(
+              Path()
+                ..moveTo(x, b.top)
+                ..quadraticBezierTo(x + i * s * 0.03, b.center.dy, x, b.bottom),
+              p);
+        }
+        for (var i = 0; i < 4; i++) {
+          final c = Offset(b.left + b.width * (0.18 + 0.22 * i),
+              b.top + b.height * (0.2 + 0.15 * (i % 2)));
+          _bat(canvas, c, s * 0.03, const Color(0xFF3B2163).withOpacity(0.5));
+        }
+        break;
+      case 'eastereggs':
+        const bands = [
+          Color(0xFFFFB8D0),
+          Color(0xFFB8E6FF),
+          Color(0xFFFFF0A0),
+          Color(0xFFCDB4FF),
+          Color(0xFFB8F0C8)
+        ];
+        var i = 0;
+        for (var y = b.top; y < b.bottom; y += s * 0.07) {
+          final zig = Path()..moveTo(b.left, y);
+          for (var x = b.left; x < b.right + s * 0.04; x += s * 0.04) {
+            zig.lineTo(x + s * 0.02, y + s * 0.025);
+            zig.lineTo(x + s * 0.04, y);
+          }
+          canvas.drawPath(
+              zig,
+              Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = s * 0.018
+                ..color = bands[i++ % bands.length].withOpacity(0.85));
+        }
+        break;
+      case 'shamrocks':
+        var row = 0;
+        for (var y = b.top + s * 0.03; y < b.bottom; y += s * 0.1) {
+          for (var x = b.left + (row.isOdd ? s * 0.05 : 0);
+              x < b.right;
+              x += s * 0.1) {
+            _clover(canvas, Offset(x, y), s * 0.024);
+          }
+          row++;
+        }
+        break;
+      case 'starsstripes':
+        for (var y = b.top + b.height * 0.45; y < b.bottom; y += s * 0.07) {
+          canvas.drawRect(Rect.fromLTWH(b.left, y, b.width, s * 0.035),
+              Paint()..color = const Color(0xFFE23D4B).withOpacity(0.6));
+        }
+        canvas.drawRect(Rect.fromLTWH(b.left, b.top, b.width, b.height * 0.42),
+            Paint()..color = const Color(0xFF2F5BD9).withOpacity(0.55));
+        for (var i = 0; i < 12; i++) {
+          _star(
+              canvas,
+              Offset(
+                  b.left +
+                      b.width * (0.12 + 0.19 * (i % 5)) +
+                      ((i ~/ 5).isOdd ? s * 0.03 : 0.0),
+                  b.top + b.height * (0.08 + 0.12 * (i ~/ 5))),
+              s * 0.016,
+              Paint()..color = Colors.white.withOpacity(0.9));
+        }
+        break;
     }
     // Keep the variables used even for textures that don't need them.
     if (look.texture == 'unused') canvas.drawRect(b, dark);
@@ -1304,6 +1486,271 @@ class _SquishyPainter extends CustomPainter {
         canvas.drawCircle(Offset(cx, y - s * 0.03), s * 0.018,
             Paint()..color = const Color(0xFF3D8BE2));
         break;
+      case 'santa':
+        final y = top + s * 0.06;
+        final cap = Path()
+          ..moveTo(cx - s * 0.18, y)
+          ..quadraticBezierTo(
+              cx - s * 0.1, top - s * 0.16, cx + s * 0.08, top - s * 0.15)
+          ..quadraticBezierTo(
+              cx + s * 0.2, top - s * 0.13, cx + s * 0.24, top - s * 0.02)
+          ..quadraticBezierTo(cx + s * 0.12, top - s * 0.06, cx + s * 0.18, y)
+          ..close();
+        canvas.drawPath(
+            cap,
+            Paint()
+              ..shader = const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [Color(0xFFFF5A6E), Color(0xFFC81E3A)])
+                  .createShader(cap.getBounds()));
+        canvas.drawRRect(
+            RRect.fromRectAndRadius(
+                Rect.fromCenter(
+                    center: Offset(cx, y), width: s * 0.42, height: s * 0.07),
+                Radius.circular(s * 0.035)),
+            Paint()..color = Colors.white);
+        canvas.drawCircle(Offset(cx + s * 0.24, top - s * 0.01), s * 0.04,
+            Paint()..color = Colors.white);
+        break;
+      case 'witch':
+        final brim = Rect.fromCenter(
+            center: Offset(cx, top + s * 0.05),
+            width: s * 0.5,
+            height: s * 0.08);
+        final cone = Path()
+          ..moveTo(cx - s * 0.15, top + s * 0.05)
+          ..quadraticBezierTo(
+              cx - s * 0.05, top - s * 0.1, cx + s * 0.1, top - s * 0.27)
+          ..quadraticBezierTo(
+              cx + s * 0.04, top - s * 0.08, cx + s * 0.15, top + s * 0.05)
+          ..close();
+        canvas.drawOval(brim, Paint()..color = const Color(0xFF3B2163));
+        canvas.drawPath(
+            cone,
+            Paint()
+              ..shader = const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Color(0xFF6B3FA0), Color(0xFF3B2163)])
+                  .createShader(cone.getBounds()));
+        canvas.drawRect(
+            Rect.fromLTWH(cx - s * 0.135, top + s * 0.0, s * 0.27, s * 0.035),
+            Paint()..color = const Color(0xFFFF8C2E));
+        canvas.drawRRect(
+            RRect.fromRectAndRadius(
+                Rect.fromCenter(
+                    center: Offset(cx, top + s * 0.017),
+                    width: s * 0.05,
+                    height: s * 0.045),
+                Radius.circular(s * 0.008)),
+            Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = s * 0.008
+              ..color = const Color(0xFFFFE27A));
+        break;
+      case 'antlers':
+        final ap = Paint()
+          ..color = const Color(0xFF9B6A3C)
+          ..strokeWidth = s * 0.03
+          ..strokeCap = StrokeCap.round
+          ..style = PaintingStyle.stroke;
+        for (final d in [-1.0, 1.0]) {
+          final b0 = Offset(cx + d * s * 0.1, top + s * 0.05);
+          final tip = Offset(cx + d * s * 0.2, top - s * 0.16);
+          canvas.drawPath(
+              Path()
+                ..moveTo(b0.dx, b0.dy)
+                ..quadraticBezierTo(
+                    cx + d * s * 0.12, top - s * 0.08, tip.dx, tip.dy),
+              ap);
+          canvas.drawLine(Offset(cx + d * s * 0.14, top - s * 0.06),
+              Offset(cx + d * s * 0.24, top - s * 0.08), ap);
+          canvas.drawLine(Offset(cx + d * s * 0.16, top - s * 0.11),
+              Offset(cx + d * s * 0.12, top - s * 0.19), ap);
+        }
+        canvas.drawCircle(Offset(cx, top + s * 0.2), s * 0.035,
+            Paint()..color = const Color(0xFFFF3B4E));
+        canvas.drawCircle(Offset(cx - s * 0.01, top + s * 0.19), s * 0.01,
+            Paint()..color = Colors.white.withOpacity(0.8));
+        break;
+      case 'bunnyears':
+        for (final d in [-1.0, 1.0]) {
+          final ear = Rect.fromCenter(
+              center: Offset(cx + d * s * 0.09, top - s * 0.08),
+              width: s * 0.1,
+              height: s * 0.26);
+          canvas.save();
+          canvas.translate(ear.center.dx, ear.center.dy);
+          canvas.rotate(d * 0.18);
+          canvas.translate(-ear.center.dx, -ear.center.dy);
+          canvas.drawOval(ear, Paint()..color = Colors.white);
+          canvas.drawOval(
+              ear.deflate(s * 0.022), Paint()..color = const Color(0xFFFFB8D0));
+          canvas.restore();
+        }
+        canvas.drawRRect(
+            RRect.fromRectAndRadius(
+                Rect.fromCenter(
+                    center: Offset(cx, top + s * 0.04),
+                    width: s * 0.3,
+                    height: s * 0.035),
+                Radius.circular(s * 0.02)),
+            Paint()..color = const Color(0xFFCDB4FF));
+        break;
+      case 'leprechaun':
+        final brim = Rect.fromCenter(
+            center: Offset(cx, top + s * 0.05),
+            width: s * 0.42,
+            height: s * 0.07);
+        final body = Rect.fromLTRB(
+            cx - s * 0.12, top - s * 0.15, cx + s * 0.12, top + s * 0.05);
+        canvas.drawOval(brim, Paint()..color = const Color(0xFF1F7A43));
+        canvas.drawPath(
+            Path()
+              ..moveTo(body.left, body.bottom)
+              ..lineTo(body.left + s * 0.02, body.top)
+              ..lineTo(body.right - s * 0.02, body.top)
+              ..lineTo(body.right, body.bottom)
+              ..close(),
+            Paint()
+              ..shader = const LinearGradient(
+                      colors: [Color(0xFF3DBE6C), Color(0xFF1F7A43)])
+                  .createShader(body));
+        canvas.drawRect(
+            Rect.fromLTWH(
+                body.left, body.bottom - s * 0.06, body.width, s * 0.035),
+            Paint()..color = const Color(0xFF2A1B3D));
+        canvas.drawRRect(
+            RRect.fromRectAndRadius(
+                Rect.fromCenter(
+                    center: Offset(cx, body.bottom - s * 0.043),
+                    width: s * 0.06,
+                    height: s * 0.045),
+                Radius.circular(s * 0.006)),
+            Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = s * 0.008
+              ..color = const Color(0xFFFFD84D));
+        _clover(canvas, Offset(body.right - s * 0.02, body.top + s * 0.06),
+            s * 0.03);
+        break;
+      case 'partyhat':
+        final cone = Path()
+          ..moveTo(cx - s * 0.11, top + s * 0.05)
+          ..lineTo(cx + s * 0.02, top - s * 0.22)
+          ..lineTo(cx + s * 0.13, top + s * 0.05)
+          ..close();
+        canvas.drawPath(
+            cone,
+            Paint()
+              ..shader = const LinearGradient(
+                      colors: [Color(0xFF7CC8FF), Color(0xFFB79CFF)])
+                  .createShader(cone.getBounds()));
+        canvas.save();
+        canvas.clipPath(cone);
+        for (var i = 0; i < 5; i++) {
+          canvas.drawLine(
+              Offset(cx - s * 0.2, top - s * 0.2 + i * s * 0.06),
+              Offset(cx + s * 0.2, top - s * 0.12 + i * s * 0.06),
+              Paint()
+                ..color = const Color(0xFFFFE27A)
+                ..strokeWidth = s * 0.02);
+        }
+        canvas.restore();
+        for (var i = 0; i < 6; i++) {
+          final a = i * math.pi / 3 + t * 2 * math.pi;
+          canvas.drawLine(
+              Offset(cx + s * 0.02, top - s * 0.22),
+              Offset(cx + s * 0.02, top - s * 0.22) +
+                  Offset(math.cos(a), math.sin(a)) * s * 0.04,
+              Paint()
+                ..color = const Color(0xFFFF6F91)
+                ..strokeWidth = s * 0.012
+                ..strokeCap = StrokeCap.round);
+        }
+        break;
+      case 'hearthb':
+        canvas.drawArc(
+            Rect.fromCenter(
+                center: Offset(cx, top + s * 0.12),
+                width: s * 0.44,
+                height: s * 0.3),
+            math.pi * 1.1,
+            math.pi * 0.8,
+            false,
+            Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = s * 0.025
+              ..color = const Color(0xFFFF5C8A));
+        for (final d in [-1.0, 1.0]) {
+          final bob = math.sin(t * 2 * math.pi * 2 + d) * s * 0.01;
+          final stem = Offset(cx + d * s * 0.12, top - s * 0.02);
+          final hc = Offset(cx + d * s * 0.16, top - s * 0.13 + bob);
+          canvas.drawLine(
+              stem,
+              hc,
+              Paint()
+                ..color = const Color(0xFFFF5C8A)
+                ..strokeWidth = s * 0.008);
+          _heart(
+              canvas, hc, s * 0.045, Paint()..color = const Color(0xFFFF3B6F));
+        }
+        break;
+      case 'pilgrim':
+        final crown = Rect.fromLTRB(
+            cx - s * 0.12, top - s * 0.16, cx + s * 0.12, top + s * 0.05);
+        canvas.drawOval(
+            Rect.fromCenter(
+                center: Offset(cx, top + s * 0.05),
+                width: s * 0.44,
+                height: s * 0.07),
+            Paint()..color = const Color(0xFF2A2230));
+        canvas.drawPath(
+            Path()
+              ..moveTo(crown.left, crown.bottom)
+              ..lineTo(crown.left + s * 0.025, crown.top)
+              ..lineTo(crown.right - s * 0.025, crown.top)
+              ..lineTo(crown.right, crown.bottom)
+              ..close(),
+            Paint()..color = const Color(0xFF3B3340));
+        canvas.drawRect(
+            Rect.fromLTWH(crown.left + s * 0.004, crown.bottom - s * 0.065,
+                crown.width - s * 0.008, s * 0.035),
+            Paint()..color = const Color(0xFF8B5A2B));
+        canvas.drawRect(
+            Rect.fromCenter(
+                center: Offset(cx, crown.bottom - s * 0.047),
+                width: s * 0.06,
+                height: s * 0.05),
+            Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = s * 0.01
+              ..color = const Color(0xFFFFD84D));
+        break;
+      case 'starhat':
+        final crown = Rect.fromLTRB(
+            cx - s * 0.11, top - s * 0.17, cx + s * 0.11, top + s * 0.05);
+        canvas.drawOval(
+            Rect.fromCenter(
+                center: Offset(cx, top + s * 0.05),
+                width: s * 0.42,
+                height: s * 0.07),
+            Paint()..color = const Color(0xFF2F5BD9));
+        canvas.drawRect(crown, Paint()..color = Colors.white);
+        for (var i = 0; i < 3; i++) {
+          canvas.drawRect(
+              Rect.fromLTWH(crown.left, crown.top + i * crown.height / 3,
+                  crown.width, crown.height / 6),
+              Paint()..color = const Color(0xFFE23D4B));
+        }
+        canvas.drawRect(
+            Rect.fromLTWH(
+                crown.left, crown.bottom - s * 0.05, crown.width, s * 0.05),
+            Paint()..color = const Color(0xFF2F5BD9));
+        _star(canvas, Offset(cx, crown.bottom - s * 0.025), s * 0.022,
+            Paint()..color = Colors.white);
+        break;
       case 'flowers':
         final colors = [
           const Color(0xFFFF8FB1),
@@ -1439,7 +1886,221 @@ class _SquishyPainter extends CustomPainter {
         _sparkleAt(canvas, Offset(b.right + s * 0.12, b.center.dy - s * 0.16),
             s * 0.02);
         break;
+      case 'candycane':
+        canvas.save();
+        canvas.translate(b.right + s * 0.01, b.center.dy + s * 0.06);
+        canvas.rotate(0.3);
+        final cane = Path()
+          ..moveTo(0, s * 0.1)
+          ..lineTo(0, -s * 0.12)
+          ..arcToPoint(Offset(-s * 0.08, -s * 0.12),
+              radius: Radius.circular(s * 0.04), clockwise: false);
+        canvas.drawPath(
+            cane,
+            Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = s * 0.035
+              ..strokeCap = StrokeCap.round
+              ..color = Colors.white);
+        canvas.save();
+        canvas.clipPath(Path()
+          ..addRect(Rect.fromLTWH(-s * 0.15, -s * 0.2, s * 0.25, s * 0.35)));
+        for (var i = 0; i < 6; i++) {
+          canvas.drawLine(
+              Offset(-s * 0.02, s * 0.09 - i * s * 0.04),
+              Offset(s * 0.02, s * 0.07 - i * s * 0.04),
+              Paint()
+                ..color = const Color(0xFFE23D4B)
+                ..strokeWidth = s * 0.012);
+        }
+        canvas.restore();
+        canvas.restore();
+        break;
+      case 'pumpkin':
+        final c = Offset(b.right + s * 0.02, b.center.dy + s * 0.12);
+        final r = s * 0.075;
+        canvas.drawArc(
+            Rect.fromCircle(center: c - Offset(0, r * 0.4), radius: r * 1.05),
+            math.pi,
+            math.pi,
+            false,
+            Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = s * 0.008
+              ..color = const Color(0xFF3B2163));
+        for (final dx in [-0.45, 0.45, 0.0]) {
+          canvas.drawOval(
+              Rect.fromCenter(
+                  center: c + Offset(dx * r, 0),
+                  width: r * 1.2,
+                  height: r * 1.6),
+              Paint()
+                ..color = dx == 0
+                    ? const Color(0xFFFF9A3C)
+                    : const Color(0xFFF07C1E));
+        }
+        canvas.drawPath(
+            Path()
+              ..moveTo(c.dx - r * 0.45, c.dy - r * 0.15)
+              ..lineTo(c.dx - r * 0.25, c.dy - r * 0.38)
+              ..lineTo(c.dx - r * 0.08, c.dy - r * 0.15)
+              ..close(),
+            Paint()..color = const Color(0xFF3B2163));
+        canvas.drawPath(
+            Path()
+              ..moveTo(c.dx + r * 0.08, c.dy - r * 0.15)
+              ..lineTo(c.dx + r * 0.25, c.dy - r * 0.38)
+              ..lineTo(c.dx + r * 0.45, c.dy - r * 0.15)
+              ..close(),
+            Paint()..color = const Color(0xFF3B2163));
+        canvas.drawArc(
+            Rect.fromCenter(
+                center: c + Offset(0, r * 0.1),
+                width: r * 0.9,
+                height: r * 0.6),
+            0.2,
+            math.pi - 0.4,
+            false,
+            Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = s * 0.01
+              ..color = const Color(0xFF3B2163));
+        canvas.drawRect(
+            Rect.fromCenter(
+                center: c - Offset(0, r * 0.8),
+                width: r * 0.22,
+                height: r * 0.3),
+            Paint()..color = const Color(0xFF3DBE6C));
+        break;
+      case 'heartballoon':
+        final sway = math.sin(t * 2 * math.pi) * s * 0.015;
+        final hand = Offset(b.right - s * 0.02, b.center.dy + s * 0.04);
+        final bal = Offset(b.right + s * 0.08 + sway, b.top - s * 0.04);
+        canvas.drawPath(
+            Path()
+              ..moveTo(hand.dx, hand.dy)
+              ..quadraticBezierTo(hand.dx + s * 0.06, (hand.dy + bal.dy) / 2,
+                  bal.dx, bal.dy + s * 0.06),
+            Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = s * 0.006
+              ..color = const Color(0xFF6B5E80));
+        _heart(canvas, bal, s * 0.07, Paint()..color = const Color(0xFFFF3B6F));
+        canvas.drawCircle(bal + Offset(-s * 0.03, -s * 0.02), s * 0.012,
+            Paint()..color = Colors.white.withOpacity(0.8));
+        break;
+      case 'eggbasket':
+        final c = Offset(b.right, b.center.dy + s * 0.13);
+        final basket =
+            Rect.fromCenter(center: c, width: s * 0.18, height: s * 0.09);
+        canvas.drawArc(
+            Rect.fromCenter(
+                center: c - Offset(0, s * 0.03),
+                width: s * 0.16,
+                height: s * 0.16),
+            math.pi,
+            math.pi,
+            false,
+            Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = s * 0.012
+              ..color = const Color(0xFFB07A3A));
+        const eggs = [Color(0xFFFFB8D0), Color(0xFFB8E6FF), Color(0xFFFFF0A0)];
+        for (var i = 0; i < 3; i++) {
+          canvas.drawOval(
+              Rect.fromCenter(
+                  center: c + Offset((i - 1) * s * 0.05, -s * 0.045),
+                  width: s * 0.05,
+                  height: s * 0.065),
+              Paint()..color = eggs[i]);
+        }
+        canvas.drawRRect(
+            RRect.fromRectAndCorners(basket,
+                bottomLeft: Radius.circular(s * 0.04),
+                bottomRight: Radius.circular(s * 0.04)),
+            Paint()..color = const Color(0xFFD9A35B));
+        for (var i = 1; i < 4; i++) {
+          canvas.drawLine(
+              Offset(basket.left + i * basket.width / 4, basket.top),
+              Offset(basket.left + i * basket.width / 4, basket.bottom),
+              Paint()
+                ..color = const Color(0xFFB07A3A)
+                ..strokeWidth = s * 0.006);
+        }
+        break;
+      case 'sparkler':
+        canvas.save();
+        canvas.translate(b.right, b.center.dy + s * 0.04);
+        canvas.rotate(0.4);
+        canvas.drawLine(
+            const Offset(0, 0),
+            Offset(0, -s * 0.18),
+            Paint()
+              ..color = const Color(0xFF8D99AE)
+              ..strokeWidth = s * 0.012);
+        final tip = Offset(0, -s * 0.18);
+        for (var i = 0; i < 12; i++) {
+          final a = i * math.pi / 6 + t * 2 * math.pi * 3;
+          final len = s *
+              (0.04 + 0.03 * ((i * 5) % 3) / 2) *
+              (0.8 + 0.2 * math.sin(t * 40 + i));
+          canvas.drawLine(
+              tip,
+              tip + Offset(math.cos(a), math.sin(a)) * len,
+              Paint()
+                ..color = i.isEven ? const Color(0xFFFFE27A) : Colors.white
+                ..strokeWidth = s * 0.006
+                ..strokeCap = StrokeCap.round);
+        }
+        canvas.drawCircle(tip, s * 0.015, Paint()..color = Colors.white);
+        canvas.restore();
+        break;
+      case 'present':
+        final box = Rect.fromCenter(
+            center: Offset(b.right, b.center.dy + s * 0.12),
+            width: s * 0.15,
+            height: s * 0.13);
+        canvas.drawRRect(
+            RRect.fromRectAndRadius(box, Radius.circular(s * 0.015)),
+            Paint()..color = const Color(0xFF3DBE6C));
+        canvas.drawRect(
+            Rect.fromCenter(
+                center: box.center, width: s * 0.03, height: box.height),
+            Paint()..color = const Color(0xFFE23D4B));
+        canvas.drawRect(
+            Rect.fromCenter(
+                center: box.center, width: box.width, height: s * 0.03),
+            Paint()..color = const Color(0xFFE23D4B));
+        for (final d in [-1.0, 1.0]) {
+          canvas.drawOval(
+              Rect.fromCenter(
+                  center:
+                      Offset(box.center.dx + d * s * 0.03, box.top - s * 0.015),
+                  width: s * 0.06,
+                  height: s * 0.035),
+              Paint()..color = const Color(0xFFE23D4B));
+        }
+        break;
     }
+  }
+
+  void _clover(Canvas canvas, Offset c, double r) {
+    final p = Paint()..color = const Color(0xFF3DBE6C);
+    for (var i = 0; i < 3; i++) {
+      final a = -math.pi / 2 + i * 2 * math.pi / 3;
+      canvas.save();
+      canvas.translate(
+          c.dx + math.cos(a) * r * 0.55, c.dy + math.sin(a) * r * 0.55);
+      canvas.rotate(a + math.pi / 2);
+      _heart(canvas, Offset.zero, r * 0.6, p);
+      canvas.restore();
+    }
+    canvas.drawLine(
+        c,
+        c + Offset(r * 0.4, r * 1.1),
+        Paint()
+          ..color = const Color(0xFF1F7A43)
+          ..strokeWidth = r * 0.18);
   }
 
   // ---------------------------------------------------------------- effects
@@ -1546,6 +2207,57 @@ class _SquishyPainter extends CustomPainter {
       canvas.drawCircle(Offset(x - r * 0.35, y - r * 0.35), r * 0.25,
           Paint()..color = Colors.white.withOpacity(0.8 * (1 - phase)));
     }
+  }
+
+  /// Particles drifting down (or up) across the avatar tile, looping with [t].
+  void _fallers(Canvas canvas, double s, int n,
+      void Function(Offset c, double r, double alpha) draw,
+      {double sway = 0.03, bool up = false}) {
+    for (var i = 0; i < n; i++) {
+      final phase = (t + i / n) % 1.0;
+      final x = s * (0.08 + 0.84 * ((i * 41) % 13) / 12) +
+          math.sin(phase * 2 * math.pi * 2 + i) * s * sway;
+      final y = up ? s * (0.9 - 0.85 * phase) : s * (0.02 + 0.9 * phase);
+      final alpha = (phase < 0.1
+              ? phase / 0.1
+              : phase > 0.85
+                  ? (1 - phase) / 0.15
+                  : 1.0)
+          .clamp(0.0, 1.0);
+      draw(Offset(x, y), s * (0.016 + (i % 3) * 0.006), alpha);
+    }
+  }
+
+  void _snowflake(Canvas canvas, Offset c, double r, Color color) {
+    final p = Paint()
+      ..color = color
+      ..strokeWidth = r * 0.22
+      ..strokeCap = StrokeCap.round;
+    for (var i = 0; i < 3; i++) {
+      final a = i * math.pi / 3;
+      final d = Offset(math.cos(a), math.sin(a)) * r;
+      canvas.drawLine(c - d, c + d, p);
+    }
+    canvas.drawCircle(c, r * 0.25, Paint()..color = color);
+  }
+
+  void _bat(Canvas canvas, Offset c, double r, Color color) {
+    final flap = math.sin(t * 2 * math.pi * 8) * r * 0.3;
+    final p = Path()
+      ..moveTo(c.dx, c.dy)
+      ..quadraticBezierTo(c.dx - r * 0.8, c.dy - r * 0.9 - flap, c.dx - r * 1.8,
+          c.dy - r * 0.2 - flap)
+      ..quadraticBezierTo(
+          c.dx - r * 1.2, c.dy + r * 0.1, c.dx - r * 1.1, c.dy + r * 0.5)
+      ..quadraticBezierTo(c.dx - r * 0.6, c.dy + r * 0.1, c.dx, c.dy + r * 0.5)
+      ..quadraticBezierTo(
+          c.dx + r * 0.6, c.dy + r * 0.1, c.dx + r * 1.1, c.dy + r * 0.5)
+      ..quadraticBezierTo(
+          c.dx + r * 1.2, c.dy + r * 0.1, c.dx + r * 1.8, c.dy - r * 0.2 - flap)
+      ..quadraticBezierTo(c.dx + r * 0.8, c.dy - r * 0.9 - flap, c.dx, c.dy)
+      ..close();
+    canvas.drawPath(p, Paint()..color = color);
+    canvas.drawCircle(c + Offset(0, r * 0.1), r * 0.42, Paint()..color = color);
   }
 
   void _orbit(Canvas canvas, Rect b, double s) {

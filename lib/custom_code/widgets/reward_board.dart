@@ -12,6 +12,8 @@ import 'package:flutter/material.dart' hide RepeatMode;
 
 import 'dart:math' as math;
 
+import 'package:google_fonts/google_fonts.dart';
+
 /// Reward Road: a snaking game board with one space per gold coin of the
 /// reward. The hero's squishy token sits on the space matching how close their
 /// gold is to the reward cost. Mystery chests reveal their surprise when the
@@ -49,183 +51,186 @@ class RewardBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, cons) {
-      final w = (width != null && width!.isFinite)
-          ? width!
-          : (cons.maxWidth.isFinite ? cons.maxWidth : 360.0);
-      final n = math.max(1, spaces ?? 1);
-      final total = n + 1;
-      final rows = (total / _cols).ceil();
-      final cell = w / _cols;
-      final rowH = cell * 1.08;
-      final pad = cell * 0.22;
-      final h = rows * rowH + pad * 2;
-      final pos = (position ?? 0).clamp(0, n);
-      final list = _RoadPrize.parse(prizes ?? '');
-      final byspace = {for (final p in list) p.space: p};
+    return DefaultTextStyle.merge(
+        style: GoogleFonts.comicNeue(fontWeight: FontWeight.w700),
+        child: LayoutBuilder(builder: (context, cons) {
+          final w = (width != null && width!.isFinite)
+              ? width!
+              : (cons.maxWidth.isFinite ? cons.maxWidth : 360.0);
+          final n = math.max(1, spaces ?? 1);
+          final total = n + 1;
+          final rows = (total / _cols).ceil();
+          final cell = w / _cols;
+          final rowH = cell * 1.08;
+          final pad = cell * 0.22;
+          final h = rows * rowH + pad * 2;
+          final pos = (position ?? 0).clamp(0, n);
+          final list = _RoadPrize.parse(prizes ?? '');
+          final byspace = {for (final p in list) p.space: p};
 
-      Offset center(int i) {
-        final r = i ~/ _cols;
-        final c = r.isEven ? i % _cols : _cols - 1 - i % _cols;
-        return Offset(c * cell + cell / 2, pad + r * rowH + rowH / 2);
-      }
+          Offset center(int i) {
+            final r = i ~/ _cols;
+            final c = r.isEven ? i % _cols : _cols - 1 - i % _cols;
+            return Offset(c * cell + cell / 2, pad + r * rowH + rowH / 2);
+          }
 
-      final tile = cell * 0.74;
-      final themed = (theme ?? '').isNotEmpty;
-      final children = <Widget>[
-        if (themed)
-          Positioned.fill(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(cell * 0.35),
-              child: Stack(fit: StackFit.expand, children: [
-                KingdomBackdrop(scene: theme, animate: false),
-                Container(color: Colors.white.withOpacity(0.16)),
-              ]),
-            ),
-          ),
-        Positioned.fill(
-          child: CustomPaint(
-            painter: _RoadPainter(
-              n: n,
-              pos: pos,
-              cell: cell,
-              tile: tile,
-              center: center,
-              prizes: byspace,
-              themed: (theme ?? '').isNotEmpty,
-            ),
-          ),
-        ),
-      ];
-
-      Widget at(int i, double size, Widget child, {double dy = 0}) {
-        final c = center(i);
-        return Positioned(
-          left: c.dx - size / 2,
-          top: c.dy - size / 2 + dy,
-          width: size,
-          height: size,
-          child: Center(child: child),
-        );
-      }
-
-      // Space numbers.
-      for (var i = 1; i < n; i++) {
-        if (byspace.containsKey(i)) continue;
-        children.add(at(
-          i,
-          tile,
-          Text(
-            '$i',
-            style: TextStyle(
-              fontSize: tile * 0.3,
-              fontWeight: FontWeight.w800,
-              color:
-                  i <= pos ? const Color(0xFF5A3A00) : const Color(0xFF8C7A5B),
-            ),
-          ),
-        ));
-      }
-      children.add(at(
-          0,
-          tile,
-          Column(mainAxisSize: MainAxisSize.min, children: [
-            Text('🏰', style: TextStyle(fontSize: tile * 0.36)),
-            Text('START',
-                style: TextStyle(
-                    fontSize: tile * 0.15,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.white)),
-          ])));
-      children.add(at(
-          n,
-          cell * 0.95,
-          Column(mainAxisSize: MainAxisSize.min, children: [
-            Text(goalIcon?.isNotEmpty == true ? goalIcon! : '🎁',
-                style: TextStyle(fontSize: cell * 0.36)),
-            Text('GOAL',
-                style: TextStyle(
-                    fontSize: tile * 0.16,
-                    fontWeight: FontWeight.w900,
-                    color: const Color(0xFF5A3A00))),
-          ])));
-
-      // Prize markers.
-      for (final p in list) {
-        if (p.space <= 0 || p.space >= n) continue;
-        Widget marker;
-        if (!p.revealed) {
-          marker = Text('?',
-              style: TextStyle(
-                  fontSize: tile * 0.46,
-                  fontWeight: FontWeight.w900,
-                  color: const Color(0xFFFFD84D)));
-        } else if (p.kind == 'item' && p.look.isNotEmpty) {
-          marker = Opacity(
-            opacity: p.claimed ? 0.45 : 1,
-            child: SquishyAvatar(
-                width: tile * 0.95,
-                height: tile * 0.95,
-                look: p.look,
-                animate: false,
-                showBackground: false),
-          );
-        } else {
-          marker = Opacity(
-            opacity: p.claimed ? 0.45 : 1,
-            child: Text('+${p.gold}🪙',
-                style: TextStyle(
-                    fontSize: tile * 0.24,
-                    fontWeight: FontWeight.w900,
-                    color: const Color(0xFF5A3A00))),
-          );
-        }
-        children.add(at(p.space, tile, marker));
-        if (p.claimed) {
-          children.add(at(
-              p.space,
-              tile,
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  width: tile * 0.32,
-                  height: tile * 0.32,
-                  decoration: const BoxDecoration(
-                      color: Color(0xFF1FA67A), shape: BoxShape.circle),
-                  alignment: Alignment.center,
-                  child: Icon(Icons.check_rounded,
-                      size: tile * 0.24, color: Colors.white),
+          final tile = cell * 0.74;
+          final themed = (theme ?? '').isNotEmpty;
+          final children = <Widget>[
+            if (themed)
+              Positioned.fill(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(cell * 0.35),
+                  child: Stack(fit: StackFit.expand, children: [
+                    KingdomBackdrop(scene: theme, animate: false),
+                    Container(color: Colors.white.withOpacity(0.16)),
+                  ]),
                 ),
-              )));
-        }
-      }
+              ),
+            Positioned.fill(
+              child: CustomPaint(
+                painter: _RoadPainter(
+                  n: n,
+                  pos: pos,
+                  cell: cell,
+                  tile: tile,
+                  center: center,
+                  prizes: byspace,
+                  themed: (theme ?? '').isNotEmpty,
+                ),
+              ),
+            ),
+          ];
 
-      // The hero's token slides along the road.
-      final tokenSize = cell * 1.05;
-      final tc = center(pos);
-      children.add(AnimatedPositioned(
-        duration: const Duration(milliseconds: 900),
-        curve: Curves.easeOutBack,
-        left: tc.dx - tokenSize / 2,
-        top: tc.dy - tokenSize * 0.78,
-        width: tokenSize,
-        height: tokenSize,
-        child: SquishyAvatar(
-          width: tokenSize,
-          height: tokenSize,
-          look: tokenLook ?? 'species:bunny',
-          animate: true,
-          showBackground: false,
-          burstKey: burstKey,
-        ),
-      ));
+          Widget at(int i, double size, Widget child, {double dy = 0}) {
+            final c = center(i);
+            return Positioned(
+              left: c.dx - size / 2,
+              top: c.dy - size / 2 + dy,
+              width: size,
+              height: size,
+              child: Center(child: child),
+            );
+          }
 
-      return SizedBox(
-        width: w,
-        height: h,
-        child: Stack(clipBehavior: Clip.none, children: children),
-      );
-    });
+          // Space numbers.
+          for (var i = 1; i < n; i++) {
+            if (byspace.containsKey(i)) continue;
+            children.add(at(
+              i,
+              tile,
+              Text(
+                '$i',
+                style: TextStyle(
+                  fontSize: tile * 0.3,
+                  fontWeight: FontWeight.w800,
+                  color: i <= pos
+                      ? const Color(0xFF5A3A00)
+                      : const Color(0xFF8C7A5B),
+                ),
+              ),
+            ));
+          }
+          children.add(at(
+              0,
+              tile,
+              Column(mainAxisSize: MainAxisSize.min, children: [
+                Text('🏰', style: TextStyle(fontSize: tile * 0.36)),
+                Text('START',
+                    style: TextStyle(
+                        fontSize: tile * 0.15,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white)),
+              ])));
+          children.add(at(
+              n,
+              cell * 0.95,
+              Column(mainAxisSize: MainAxisSize.min, children: [
+                Text(goalIcon?.isNotEmpty == true ? goalIcon! : '🎁',
+                    style: TextStyle(fontSize: cell * 0.36)),
+                Text('GOAL',
+                    style: TextStyle(
+                        fontSize: tile * 0.16,
+                        fontWeight: FontWeight.w900,
+                        color: const Color(0xFF5A3A00))),
+              ])));
+
+          // Prize markers.
+          for (final p in list) {
+            if (p.space <= 0 || p.space >= n) continue;
+            Widget marker;
+            if (!p.revealed) {
+              marker = Text('?',
+                  style: TextStyle(
+                      fontSize: tile * 0.46,
+                      fontWeight: FontWeight.w900,
+                      color: const Color(0xFFFFD84D)));
+            } else if (p.kind == 'item' && p.look.isNotEmpty) {
+              marker = Opacity(
+                opacity: p.claimed ? 0.45 : 1,
+                child: SquishyAvatar(
+                    width: tile * 0.95,
+                    height: tile * 0.95,
+                    look: p.look,
+                    animate: false,
+                    showBackground: false),
+              );
+            } else {
+              marker = Opacity(
+                opacity: p.claimed ? 0.45 : 1,
+                child: Text('+${p.gold}🪙',
+                    style: TextStyle(
+                        fontSize: tile * 0.24,
+                        fontWeight: FontWeight.w900,
+                        color: const Color(0xFF5A3A00))),
+              );
+            }
+            children.add(at(p.space, tile, marker));
+            if (p.claimed) {
+              children.add(at(
+                  p.space,
+                  tile,
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Container(
+                      width: tile * 0.32,
+                      height: tile * 0.32,
+                      decoration: const BoxDecoration(
+                          color: Color(0xFF1FA67A), shape: BoxShape.circle),
+                      alignment: Alignment.center,
+                      child: Icon(Icons.check_rounded,
+                          size: tile * 0.24, color: Colors.white),
+                    ),
+                  )));
+            }
+          }
+
+          // The hero's token slides along the road.
+          final tokenSize = cell * 1.05;
+          final tc = center(pos);
+          children.add(AnimatedPositioned(
+            duration: const Duration(milliseconds: 900),
+            curve: Curves.easeOutBack,
+            left: tc.dx - tokenSize / 2,
+            top: tc.dy - tokenSize * 0.78,
+            width: tokenSize,
+            height: tokenSize,
+            child: SquishyAvatar(
+              width: tokenSize,
+              height: tokenSize,
+              look: tokenLook ?? 'species:bunny',
+              animate: true,
+              showBackground: false,
+              burstKey: burstKey,
+            ),
+          ));
+
+          return SizedBox(
+            width: w,
+            height: h,
+            child: Stack(clipBehavior: Clip.none, children: children),
+          );
+        }));
   }
 }
 

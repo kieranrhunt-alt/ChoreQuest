@@ -14,9 +14,11 @@ import 'dart:math' as math;
 
 import 'package:google_fonts/google_fonts.dart';
 
-/// The ChoreQuest crest: a royal shield with a crown, a squishy hero, a
-/// crossed sword (quest) and broom (chore), gold coins and sparkles, plus an
-/// optional "ChoreQuest" ribbon. With [animate] it bounces in and twinkles.
+/// Squishie Chore Adventure logo: a scalloped mint badge with a butter-yellow
+/// centre sprinkled with confetti, three kawaii dumpling squishies (pink bao,
+/// blue gyoza, lavender bao), the bubbly title and little chore doodles.
+/// [showTitle] false gives the compact icon version. With [animate] the
+/// badge pops in, the squishies hop in one by one and the sparkles twinkle.
 class ChoreQuestLogo extends StatefulWidget {
   const ChoreQuestLogo({
     super.key,
@@ -25,6 +27,7 @@ class ChoreQuestLogo extends StatefulWidget {
     this.showTitle,
     this.animate,
     this.titleFontFamily,
+    this.variant = 'badge',
   });
 
   final double? width;
@@ -35,6 +38,10 @@ class ChoreQuestLogo extends StatefulWidget {
   /// Optional font family override for the title (used for image export).
   final String? titleFontFamily;
 
+  /// 'badge' (default) or 'squishies' (just the three friends, transparent —
+  /// used for the Android adaptive-icon foreground).
+  final String variant;
+
   @override
   State<ChoreQuestLogo> createState() => _ChoreQuestLogoState();
 }
@@ -42,9 +49,9 @@ class ChoreQuestLogo extends StatefulWidget {
 class _ChoreQuestLogoState extends State<ChoreQuestLogo>
     with TickerProviderStateMixin {
   late final AnimationController _intro = AnimationController(
-      vsync: this, duration: const Duration(milliseconds: 1400));
+      vsync: this, duration: const Duration(milliseconds: 1700));
   late final AnimationController _loop =
-      AnimationController(vsync: this, duration: const Duration(seconds: 4));
+      AnimationController(vsync: this, duration: const Duration(seconds: 3));
 
   @override
   void initState() {
@@ -64,25 +71,38 @@ class _ChoreQuestLogoState extends State<ChoreQuestLogo>
     super.dispose();
   }
 
-  TextStyle _titleStyle(double size, Color color, {Paint? foreground}) {
+  TextStyle _font(double size, {Color? color, Paint? foreground}) {
     final base = TextStyle(
       fontSize: size,
-      fontWeight: FontWeight.w900,
-      letterSpacing: size * 0.02,
+      fontWeight: FontWeight.w700,
+      height: 1.0,
       color: foreground == null ? color : null,
       foreground: foreground,
-      fontVariations: const [FontVariation('wght', 900)],
       decoration: TextDecoration.none,
     );
     final family = widget.titleFontFamily;
     if (family != null && family.isNotEmpty)
       return base.copyWith(fontFamily: family);
-    return GoogleFonts.cinzel(textStyle: base);
+    return GoogleFonts.comicNeue(textStyle: base);
   }
+
+  Widget _outlined(
+          String text, double size, double stroke, Color fill, Color line) =>
+      Stack(children: [
+        Text(text,
+            style: _font(size,
+                foreground: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = stroke
+                  ..strokeJoin = StrokeJoin.round
+                  ..color = line)),
+        Text(text, style: _font(size, color: fill)),
+      ]);
 
   @override
   Widget build(BuildContext context) {
     final showTitle = widget.showTitle ?? true;
+    final onlySquishies = widget.variant == 'squishies';
     return SizedBox(
       width: widget.width,
       height: widget.height,
@@ -98,65 +118,69 @@ class _ChoreQuestLogoState extends State<ChoreQuestLogo>
               animation: Listenable.merge([_intro, _loop]),
               builder: (context, _) {
                 final p = _intro.value;
-                final scale = Curves.elasticOut.transform(p.clamp(0.0, 1.0));
-                final t = _loop.value;
-                final squishSize = s * 0.4;
-                final squishCenter =
-                    Offset(s * 0.5, s * (showTitle ? 0.47 : 0.52));
-                return Transform.scale(
-                  scale: 0.2 + 0.8 * scale,
-                  child: Opacity(
-                    opacity: (p * 3).clamp(0.0, 1.0),
-                    child: Stack(clipBehavior: Clip.none, children: [
-                      Positioned.fill(
-                          child: CustomPaint(
-                              painter: _LogoBack(t: t, showTitle: showTitle))),
-                      Positioned(
-                        left: squishCenter.dx - squishSize / 2,
-                        top: squishCenter.dy - squishSize / 2,
-                        width: squishSize,
-                        height: squishSize,
-                        child: SquishyAvatar(
-                          width: squishSize,
-                          height: squishSize,
-                          look: 'species:bunny|color:#F8B6C8|fill:#FFF4DE',
-                          animate: widget.animate ?? false,
-                          showBackground: false,
+                final pop =
+                    Curves.elasticOut.transform((p / 0.6).clamp(0.0, 1.0));
+                return Stack(clipBehavior: Clip.none, children: [
+                  Positioned.fill(
+                    child: Transform.scale(
+                      scale: onlySquishies ? 1 : 0.3 + 0.7 * pop,
+                      child: Opacity(
+                        opacity: onlySquishies ? 1 : (p * 4).clamp(0.0, 1.0),
+                        child: CustomPaint(
+                            painter: _BadgePainter(
+                                intro: p,
+                                t: _loop.value,
+                                showTitle: showTitle,
+                                onlySquishies: onlySquishies)),
+                      ),
+                    ),
+                  ),
+                  if (showTitle && !onlySquishies) ...[
+                    Positioned(
+                      left: s * 0.08,
+                      right: s * 0.08,
+                      top: s * 0.6,
+                      height: s * 0.17,
+                      child: Opacity(
+                        opacity: ((p - 0.35) * 4).clamp(0.0, 1.0),
+                        child: Transform.scale(
+                          scale: 0.6 +
+                              0.4 *
+                                  Curves.elasticOut.transform(
+                                      ((p - 0.35) / 0.5).clamp(0.0, 1.0)),
+                          child: FittedBox(
+                              child: _outlined('Squishie', s * 0.15, s * 0.034,
+                                  const Color(0xFF2B5797), Colors.white)),
                         ),
                       ),
-                      Positioned.fill(
-                          child: CustomPaint(
-                              painter: _LogoFront(t: t, showTitle: showTitle))),
-                      if (showTitle)
-                        Positioned(
-                          left: 0,
-                          right: 0,
-                          top: s * 0.735,
-                          height: s * 0.13,
-                          child: Center(
-                            child: FittedBox(
-                              child: Padding(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: s * 0.16),
-                                child: Stack(children: [
-                                  Text('ChoreQuest',
-                                      style: _titleStyle(
-                                          s * 0.095, Colors.white,
-                                          foreground: Paint()
-                                            ..style = PaintingStyle.stroke
-                                            ..strokeWidth = s * 0.012
-                                            ..color = const Color(0xFF5A0F24))),
-                                  Text('ChoreQuest',
-                                      style: _titleStyle(
-                                          s * 0.095, const Color(0xFFFFE27A))),
-                                ]),
-                              ),
-                            ),
-                          ),
+                    ),
+                    Positioned(
+                      left: s * 0.12,
+                      right: s * 0.12,
+                      top: s * 0.765,
+                      height: s * 0.075,
+                      child: Opacity(
+                        opacity: ((p - 0.5) * 4).clamp(0.0, 1.0),
+                        child: FittedBox(
+                          child: Row(mainAxisSize: MainAxisSize.min, children: [
+                            SizedBox(
+                                width: s * 0.06,
+                                height: s * 0.06,
+                                child: CustomPaint(painter: _StarDot())),
+                            SizedBox(width: s * 0.015),
+                            _outlined('Chore Adventure', s * 0.07, s * 0.018,
+                                const Color(0xFFF08A2E), Colors.white),
+                            SizedBox(width: s * 0.015),
+                            SizedBox(
+                                width: s * 0.06,
+                                height: s * 0.06,
+                                child: CustomPaint(painter: _StarDot())),
+                          ]),
                         ),
-                    ]),
-                  ),
-                );
+                      ),
+                    ),
+                  ],
+                ]);
               },
             ),
           ),
@@ -166,346 +190,509 @@ class _ChoreQuestLogoState extends State<ChoreQuestLogo>
   }
 }
 
-Paint _grad(Rect r, List<Color> c,
-        {Alignment begin = Alignment.topCenter,
-        Alignment end = Alignment.bottomCenter,
-        List<double>? stops}) =>
-    Paint()
-      ..shader = LinearGradient(begin: begin, end: end, colors: c, stops: stops)
-          .createShader(r);
-
-const _goldColors = [
-  Color(0xFFFFF6C2),
-  Color(0xFFF7C948),
-  Color(0xFFD99A1A),
-  Color(0xFFFFE27A)
-];
-
-Path _shieldPath(double s, bool showTitle, {double inset = 0}) {
-  final cx = s * 0.5;
-  final top = s * (showTitle ? 0.2 : 0.22) + inset;
-  final w = s * 0.56 - inset * 2;
-  final h = s * (showTitle ? 0.6 : 0.64) - inset * 2;
-  final l = cx - w / 2, r = cx + w / 2;
-  return Path()
-    ..moveTo(l, top + h * 0.06)
-    ..quadraticBezierTo(cx - w * 0.25, top - h * 0.02, cx, top + h * 0.03)
-    ..quadraticBezierTo(cx + w * 0.25, top - h * 0.02, r, top + h * 0.06)
-    ..lineTo(r, top + h * 0.5)
-    ..cubicTo(r, top + h * 0.78, cx + w * 0.22, top + h * 0.92, cx, top + h)
-    ..cubicTo(
-        cx - w * 0.22, top + h * 0.92, l, top + h * 0.78, l, top + h * 0.5)
-    ..close();
-}
-
-void _star(Canvas canvas, Offset c, double r, Paint p) {
-  final path = Path();
-  for (var i = 0; i < 10; i++) {
-    final rr = i.isEven ? r : r * 0.45;
-    final a = -math.pi / 2 + i * math.pi / 5;
-    final pt = c + Offset(math.cos(a), math.sin(a)) * rr;
-    if (i == 0) {
-      path.moveTo(pt.dx, pt.dy);
-    } else {
-      path.lineTo(pt.dx, pt.dy);
-    }
-  }
-  path.close();
-  canvas.drawPath(path, p);
-}
-
-void _sparkle(Canvas canvas, Offset c, double r, Color color) {
-  canvas.drawPath(
-      Path()
-        ..moveTo(c.dx, c.dy - r * 2)
-        ..quadraticBezierTo(c.dx, c.dy, c.dx + r * 2, c.dy)
-        ..quadraticBezierTo(c.dx, c.dy, c.dx, c.dy + r * 2)
-        ..quadraticBezierTo(c.dx, c.dy, c.dx - r * 2, c.dy)
-        ..quadraticBezierTo(c.dx, c.dy, c.dx, c.dy - r * 2)
-        ..close(),
-      Paint()..color = color);
-}
-
-class _LogoBack extends CustomPainter {
-  _LogoBack({required this.t, required this.showTitle});
+class _BadgePainter extends CustomPainter {
+  _BadgePainter(
+      {required this.intro,
+      required this.t,
+      required this.showTitle,
+      required this.onlySquishies});
+  final double intro;
   final double t;
   final bool showTitle;
+  final bool onlySquishies;
+
+  static const _confetti = [
+    Color(0xFFFFB3C7),
+    Color(0xFF9ED8F0),
+    Color(0xFFC9B6FF),
+    Color(0xFFFFD27A),
+    Color(0xFF9EE6C4)
+  ];
+
+  Path _scallop(Offset c, double r, int bumps, double depth) {
+    final path = Path();
+    const steps = 360;
+    for (var i = 0; i <= steps; i++) {
+      final a = -math.pi / 2 + i / steps * 2 * math.pi;
+      final rr = r *
+          (1 - depth + depth * math.pow(math.cos(a * bumps / 2).abs(), 0.6));
+      final pt = c + Offset(math.cos(a), math.sin(a)) * rr;
+      i == 0 ? path.moveTo(pt.dx, pt.dy) : path.lineTo(pt.dx, pt.dy);
+    }
+    return path..close();
+  }
 
   @override
   void paint(Canvas canvas, Size size) {
     final s = size.width;
-    final c = Offset(s * 0.5, s * 0.5);
-    // Soft golden halo.
-    canvas.drawCircle(
-        c,
-        s * 0.48,
-        Paint()
-          ..shader = RadialGradient(
-                  colors: [const Color(0x55FFE27A), const Color(0x00FFE27A)])
-              .createShader(Rect.fromCircle(center: c, radius: s * 0.48)));
-
-    // Crossed sword (quest) and broom (chore).
-    _sword(canvas, s);
-    _broom(canvas, s);
-
-    // Shield.
-    final shield = _shieldPath(s, showTitle);
-    canvas.drawPath(
-        shield.shift(Offset(0, s * 0.015)),
-        Paint()
-          ..color = const Color(0x55000000)
-          ..maskFilter = MaskFilter.blur(BlurStyle.normal, s * 0.015));
-    canvas.drawPath(
-        shield,
-        _grad(shield.getBounds(), _goldColors,
-            begin: Alignment.topLeft, end: Alignment.bottomRight));
-    final inner = _shieldPath(s, showTitle, inset: s * 0.03);
-    canvas.drawPath(
-        inner,
-        _grad(inner.getBounds(),
-            const [Color(0xFF8A6CFF), Color(0xFF5B3CC4), Color(0xFF34207F)],
-            stops: const [0, 0.5, 1]));
-    canvas.save();
-    canvas.clipPath(inner);
-    // Quartered diamond pattern + light sweep.
-    final b = inner.getBounds();
-    final p = Paint()..color = const Color(0x1AFFFFFF);
-    for (var y = b.top; y < b.bottom; y += s * 0.06) {
-      for (var x = b.left + ((y - b.top) / (s * 0.06)).round() % 2 * s * 0.03;
-          x < b.right;
-          x += s * 0.06) {
-        canvas.drawPath(
-            Path()
-              ..moveTo(x, y - s * 0.012)
-              ..lineTo(x + s * 0.008, y)
-              ..lineTo(x, y + s * 0.012)
-              ..lineTo(x - s * 0.008, y)
-              ..close(),
-            p);
+    final c = Offset(s / 2, s / 2);
+    if (!onlySquishies) {
+      final outer = _scallop(c, s * 0.49, 14, 0.06);
+      canvas.drawPath(
+          outer.shift(Offset(0, s * 0.01)),
+          Paint()
+            ..color = const Color(0x332A5A4A)
+            ..maskFilter = MaskFilter.blur(BlurStyle.normal, s * 0.01));
+      canvas.drawPath(outer, Paint()..color = Colors.white);
+      final mint = _scallop(c, s * 0.475, 14, 0.06);
+      canvas.drawPath(
+          mint,
+          Paint()
+            ..shader = const RadialGradient(
+                    colors: [Color(0xFFCDEEE0), Color(0xFFA6DCC6)],
+                    stops: [0.75, 1])
+                .createShader(Rect.fromCircle(center: c, radius: s * 0.48)));
+      canvas.drawPath(
+          mint,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = s * 0.006
+            ..color = const Color(0xFF86C7AF));
+      final inner = _scallop(c, s * 0.42, 14, 0.055);
+      canvas.drawPath(inner, Paint()..color = Colors.white);
+      final butter = _scallop(c, s * 0.405, 14, 0.055);
+      canvas.drawPath(
+          butter,
+          Paint()
+            ..shader = const RadialGradient(colors: [
+              Color(0xFFFFFBE6),
+              Color(0xFFFFF1BF),
+              Color(0xFFFFE7A3)
+            ], stops: [
+              0,
+              0.65,
+              1
+            ]).createShader(Rect.fromCircle(center: c, radius: s * 0.41)));
+      canvas.save();
+      canvas.clipPath(butter);
+      // Confetti, dots and twinkles.
+      final rnd = math.Random(12);
+      for (var i = 0; i < 70; i++) {
+        final pt = Offset(s * (0.12 + rnd.nextDouble() * 0.76),
+            s * (0.1 + rnd.nextDouble() * 0.8));
+        final col = _confetti[i % _confetti.length];
+        if (i % 3 == 0) {
+          canvas.save();
+          canvas.translate(pt.dx, pt.dy);
+          canvas.rotate(rnd.nextDouble() * math.pi);
+          canvas.drawRRect(
+              RRect.fromRectAndRadius(
+                  Rect.fromCenter(
+                      center: Offset.zero, width: s * 0.022, height: s * 0.008),
+                  Radius.circular(s * 0.004)),
+              Paint()..color = col.withOpacity(0.8));
+          canvas.restore();
+        } else {
+          canvas.drawCircle(
+              pt,
+              s * (0.003 + rnd.nextDouble() * 0.004),
+              Paint()
+                ..color = (i.isEven ? const Color(0xFFF5C76A) : col)
+                    .withOpacity(0.7));
+        }
+      }
+      canvas.restore();
+      final stars = [
+        const Offset(0.2, 0.2),
+        const Offset(0.8, 0.22),
+        const Offset(0.33, 0.14),
+        const Offset(0.7, 0.13)
+      ];
+      for (var i = 0; i < stars.length; i++) {
+        final tw = 0.75 + 0.25 * math.sin(t * 2 * math.pi * 2 + i * 1.7);
+        final pos = Offset(stars[i].dx * s, stars[i].dy * s);
+        if (i.isEven) {
+          _star(canvas, pos, s * 0.028 * tw, const Color(0xFFFFD86B));
+        } else {
+          _twinkle(canvas, pos, s * 0.016 * tw, const Color(0xFFF5C76A));
+        }
       }
     }
+
+    // The three squishie friends hop in one by one.
+    final groundY = onlySquishies ? s * 0.7 : (showTitle ? s * 0.56 : s * 0.7);
+    final scale = onlySquishies ? 0.95 : (showTitle ? 0.82 : 0.84);
+    final unit = s * scale;
+    double hop(int i) {
+      final k = ((intro - 0.25 - i * 0.12) / 0.3).clamp(0.0, 1.0);
+      final idle = math.sin(t * 2 * math.pi + i * 1.9) * unit * 0.006;
+      return (1 - Curves.bounceOut.transform(k)) * -unit * 0.25 + idle;
+    }
+
+    double vis(int i) => ((intro - 0.25 - i * 0.12) / 0.08).clamp(0.0, 1.0);
+    // Soft ground shadow.
+    if (!onlySquishies) {
+      canvas.drawOval(
+          Rect.fromCenter(
+              center: Offset(s / 2, groundY + unit * 0.01),
+              width: unit * 0.78,
+              height: unit * 0.05),
+          Paint()..color = const Color(0x55F2B46A));
+    }
+    final cx = s / 2;
+    if (vis(0) > 0)
+      _bao(canvas, Offset(cx - unit * 0.29, groundY + hop(0)), unit * 0.29,
+          const Color(0xFFF7C3CE), const Color(0xFF8A4560),
+          happyEyes: true);
+    if (vis(2) > 0)
+      _bao(canvas, Offset(cx + unit * 0.29, groundY + hop(2)), unit * 0.29,
+          const Color(0xFFC6B3EA), const Color(0xFF4B3C8A),
+          happyEyes: false);
+    if (vis(1) > 0)
+      _gyoza(canvas, Offset(cx + unit * 0.01, groundY + hop(1)), unit * 0.28);
+
+    if (!onlySquishies && showTitle) {
+      _doodles(canvas, s);
+    }
+  }
+
+  void _face(Canvas canvas, Offset c, double u, {required bool happy}) {
+    const ink = Color(0xFF2A1F3D);
+    for (final d in [-1.0, 1.0]) {
+      final e = c + Offset(d * u * 0.2, 0);
+      if (happy) {
+        canvas.drawArc(
+            Rect.fromCenter(center: e, width: u * 0.14, height: u * 0.12),
+            math.pi * 1.1,
+            math.pi * 0.8,
+            false,
+            Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = u * 0.03
+              ..strokeCap = StrokeCap.round
+              ..color = ink);
+      } else {
+        canvas.drawOval(
+            Rect.fromCenter(center: e, width: u * 0.1, height: u * 0.12),
+            Paint()..color = ink);
+        canvas.drawCircle(e + Offset(-u * 0.018, -u * 0.025), u * 0.022,
+            Paint()..color = Colors.white);
+        canvas.drawCircle(e + Offset(u * 0.02, u * 0.022), u * 0.01,
+            Paint()..color = Colors.white.withOpacity(0.85));
+      }
+      canvas.drawOval(
+          Rect.fromCenter(
+              center: e + Offset(d * u * 0.06, u * 0.1),
+              width: u * 0.12,
+              height: u * 0.07),
+          Paint()..color = const Color(0xFFFF8FA8).withOpacity(0.55));
+    }
+    final m = c + Offset(0, u * 0.07);
+    final mouth = Path()
+      ..moveTo(m.dx - u * 0.07, m.dy - u * 0.01)
+      ..quadraticBezierTo(
+          m.dx, m.dy + u * 0.1, m.dx + u * 0.07, m.dy - u * 0.01)
+      ..close();
+    canvas.drawPath(mouth, Paint()..color = const Color(0xFF6B2A3A));
+    canvas.drawOval(
+        Rect.fromCenter(
+            center: m + Offset(0, u * 0.035),
+            width: u * 0.06,
+            height: u * 0.03),
+        Paint()..color = const Color(0xFFFF7F92));
+  }
+
+  /// Round soup-dumpling (bao) with a pinched, pleated top knot.
+  void _bao(Canvas canvas, Offset base, double u, Color color, Color line,
+      {required bool happyEyes}) {
+    final w = u * 1.0;
+    final h = u * 0.95;
+    final top = base.dy - h;
+    final body = Path()
+      ..moveTo(base.dx - w * 0.38, base.dy)
+      ..cubicTo(base.dx - w * 0.62, base.dy - h * 0.05, base.dx - w * 0.6,
+          top + h * 0.38, base.dx - w * 0.32, top + h * 0.2)
+      ..quadraticBezierTo(
+          base.dx - w * 0.14, top + h * 0.1, base.dx - w * 0.08, top + h * 0.02)
+      ..quadraticBezierTo(
+          base.dx, top - h * 0.04, base.dx + w * 0.08, top + h * 0.02)
+      ..quadraticBezierTo(
+          base.dx + w * 0.14, top + h * 0.1, base.dx + w * 0.32, top + h * 0.2)
+      ..cubicTo(base.dx + w * 0.6, top + h * 0.38, base.dx + w * 0.62,
+          base.dy - h * 0.05, base.dx + w * 0.38, base.dy)
+      ..close();
+    final b = body.getBounds();
+    canvas.drawPath(
+        body,
+        Paint()
+          ..shader = RadialGradient(
+              center: const Alignment(-0.3, -0.25),
+              radius: 0.95,
+              colors: [
+                Color.lerp(color, Colors.white, 0.45)!,
+                color,
+                Color.lerp(color, line, 0.18)!
+              ],
+              stops: const [
+                0,
+                0.6,
+                1
+              ]).createShader(b));
+    // Pleats.
+    final pleat = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = u * 0.018
+      ..strokeCap = StrokeCap.round
+      ..color = Color.lerp(color, line, 0.45)!;
+    for (final dx in [-0.12, -0.04, 0.04, 0.12]) {
+      canvas.drawPath(
+          Path()
+            ..moveTo(base.dx + dx * w * 0.5, top + h * 0.04)
+            ..quadraticBezierTo(base.dx + dx * w * 1.4, top + h * 0.16,
+                base.dx + dx * w * 2.2, top + h * 0.28),
+          pleat);
+    }
+    canvas.drawPath(
+        body,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = u * 0.03
+          ..strokeJoin = StrokeJoin.round
+          ..color = line);
+    _twinkle(canvas, Offset(b.left + w * 0.2, top + h * 0.42), u * 0.035,
+        Colors.white);
+    _face(canvas, Offset(base.dx, base.dy - h * 0.42), u, happy: happyEyes);
+  }
+
+  /// Crescent gyoza standing upright: a fat half-moon with a ruffled,
+  /// crimped outer edge on the left and a smooth inner curve on the right.
+  void _gyoza(Canvas canvas, Offset base, double u) {
+    const color = Color(0xFF9FD3E6);
+    const line = Color(0xFF2F5E85);
+    final r = u * 0.62;
+    final oc = Offset(base.dx - u * 0.02, base.dy - r * 0.98);
+    final outer = Path()..addOval(Rect.fromCircle(center: oc, radius: r));
+    // Ruffles: small bumps along the left/top outer arc.
+    for (var i = 0; i <= 10; i++) {
+      final a = math.pi * (0.62 + 0.86 * i / 10);
+      outer.addOval(Rect.fromCircle(
+          center: oc + Offset(math.cos(a), math.sin(a)) * r * 0.96,
+          radius: r * 0.13));
+    }
+    final merged = Path.combine(PathOperation.union, outer,
+        Path()..addOval(Rect.fromCircle(center: oc, radius: r)));
+    final cut = Path()
+      ..addOval(Rect.fromCircle(
+          center: oc + Offset(r * 0.78, -r * 0.05), radius: r * 0.72));
+    final floor = Path()
+      ..addRect(Rect.fromLTRB(
+          oc.dx - r * 2, base.dy, oc.dx + r * 2, base.dy + r * 2));
+    var body = Path.combine(PathOperation.difference, merged, cut);
+    body = Path.combine(PathOperation.difference, body, floor);
+    final b = body.getBounds();
+    canvas.drawPath(
+        body,
+        Paint()
+          ..shader = RadialGradient(
+              center: const Alignment(-0.35, -0.3),
+              radius: 1.0,
+              colors: [
+                Color.lerp(color, Colors.white, 0.45)!,
+                color,
+                Color.lerp(color, line, 0.2)!
+              ],
+              stops: const [
+                0,
+                0.6,
+                1
+              ]).createShader(b));
+    // Crimp lines just inside the ruffled edge.
+    final crimp = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = u * 0.016
+      ..strokeCap = StrokeCap.round
+      ..color = Color.lerp(color, line, 0.4)!;
+    for (var i = 1; i < 10; i++) {
+      final a = math.pi * (0.62 + 0.86 * i / 10) + math.pi * 0.043;
+      final dir = Offset(math.cos(a), math.sin(a));
+      canvas.drawLine(oc + dir * r * 0.94, oc + dir * r * 0.78, crimp);
+    }
+    canvas.drawPath(
+        body,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = u * 0.03
+          ..strokeJoin = StrokeJoin.round
+          ..color = line);
+    _twinkle(canvas, Offset(oc.dx - r * 0.45, oc.dy - r * 0.45), u * 0.04,
+        Colors.white);
+    _face(canvas, Offset(oc.dx - r * 0.18, oc.dy + r * 0.12), u * 0.9,
+        happy: false);
+  }
+
+  void _doodles(Canvas canvas, double s) {
+    final y = s * 0.88;
+    // Broom.
+    canvas.save();
+    canvas.translate(s * 0.27, y);
+    canvas.rotate(0.5);
+    canvas.drawLine(
+        Offset(0, -s * 0.05),
+        Offset(0, s * 0.01),
+        Paint()
+          ..color = const Color(0xFFB98A55)
+          ..strokeWidth = s * 0.008
+          ..strokeCap = StrokeCap.round);
     canvas.drawPath(
         Path()
-          ..moveTo(b.left, b.top)
-          ..lineTo(b.left + b.width * 0.45, b.top)
-          ..lineTo(b.left, b.top + b.height * 0.55)
+          ..moveTo(-s * 0.012, s * 0.008)
+          ..lineTo(s * 0.012, s * 0.008)
+          ..lineTo(s * 0.02, s * 0.04)
+          ..lineTo(-s * 0.02, s * 0.04)
           ..close(),
-        Paint()..color = const Color(0x18FFFFFF));
+        Paint()..color = const Color(0xFFF2C46B));
     canvas.restore();
-    canvas.drawPath(
-        inner,
+    // Checklist.
+    final card = Rect.fromCenter(
+        center: Offset(s * 0.38, y + s * 0.01),
+        width: s * 0.045,
+        height: s * 0.055);
+    canvas.drawRRect(RRect.fromRectAndRadius(card, Radius.circular(s * 0.006)),
+        Paint()..color = Colors.white);
+    canvas.drawRRect(
+        RRect.fromRectAndRadius(card, Radius.circular(s * 0.006)),
         Paint()
           ..style = PaintingStyle.stroke
-          ..strokeWidth = s * 0.006
-          ..color = const Color(0xAAFFF6C2));
-  }
-
-  void _sword(Canvas canvas, double s) {
-    canvas.save();
-    canvas.translate(s * 0.5, s * 0.52);
-    canvas.rotate(math.pi / 4);
-    final blade = Rect.fromLTWH(-s * 0.032, -s * 0.56, s * 0.064, s * 0.72);
-    canvas.drawRRect(
-        RRect.fromRectAndCorners(blade,
-            topLeft: Radius.circular(s * 0.03),
-            topRight: Radius.circular(s * 0.03)),
-        _grad(blade,
-            const [Color(0xFFFFFFFF), Color(0xFFC9D2E0), Color(0xFF8D99AE)],
-            begin: Alignment.centerLeft, end: Alignment.centerRight));
-    canvas.drawLine(
-        Offset(0, -s * 0.53),
-        Offset(0, s * 0.15),
-        Paint()
-          ..color = const Color(0x88FFFFFF)
-          ..strokeWidth = s * 0.008);
-    canvas.drawRRect(
-        RRect.fromRectAndRadius(
-            Rect.fromCenter(
-                center: Offset(0, s * 0.2), width: s * 0.22, height: s * 0.045),
-            Radius.circular(s * 0.02)),
-        _grad(
-            Rect.fromLTWH(-s * 0.1, s * 0.18, s * 0.2, s * 0.04), _goldColors));
-    canvas.drawRRect(
-        RRect.fromRectAndRadius(
-            Rect.fromLTWH(-s * 0.02, s * 0.22, s * 0.04, s * 0.2),
-            Radius.circular(s * 0.015)),
-        Paint()..color = const Color(0xFF7A4A21));
-    canvas.drawCircle(
-        Offset(0, s * 0.43),
-        s * 0.034,
-        _grad(Rect.fromCircle(center: Offset(0, s * 0.43), radius: s * 0.034),
-            _goldColors));
-    canvas.restore();
-  }
-
-  void _broom(Canvas canvas, double s) {
-    canvas.save();
-    canvas.translate(s * 0.5, s * 0.52);
-    canvas.rotate(-math.pi / 4);
-    canvas.drawRRect(
-        RRect.fromRectAndRadius(
-            Rect.fromLTWH(-s * 0.02, -s * 0.56, s * 0.04, s * 0.74),
-            Radius.circular(s * 0.018)),
-        _grad(Rect.fromLTWH(-s * 0.02, -s * 0.56, s * 0.04, s * 0.74),
-            const [Color(0xFFC98B4F), Color(0xFF8B5A2B)],
-            begin: Alignment.centerLeft, end: Alignment.centerRight));
-    final straw = Path()
-      ..moveTo(-s * 0.05, s * 0.18)
-      ..lineTo(s * 0.05, s * 0.16)
-      ..quadraticBezierTo(s * 0.15, s * 0.32, s * 0.14, s * 0.46)
-      ..lineTo(-s * 0.14, s * 0.46)
-      ..quadraticBezierTo(-s * 0.15, s * 0.32, -s * 0.05, s * 0.16)
-      ..close();
-    canvas.drawPath(straw,
-        _grad(straw.getBounds(), const [Color(0xFFFFE27A), Color(0xFFE0A93A)]));
-    final line = Paint()
-      ..color = const Color(0x66A0662A)
-      ..strokeWidth = s * 0.006;
-    for (var i = -4; i <= 4; i++) {
+          ..strokeWidth = s * 0.003
+          ..color = const Color(0xFF8AA6C8));
+    for (var i = 0; i < 3; i++) {
+      final yy = card.top + card.height * (0.28 + i * 0.24);
+      canvas.drawRect(
+          Rect.fromCenter(
+              center: Offset(card.left + card.width * 0.25, yy),
+              width: s * 0.007,
+              height: s * 0.007),
+          Paint()..color = _confetti[i]);
       canvas.drawLine(
-          Offset(i * s * 0.01, s * 0.18), Offset(i * s * 0.03, s * 0.45), line);
+          Offset(card.left + card.width * 0.42, yy),
+          Offset(card.right - card.width * 0.15, yy),
+          Paint()
+            ..color = const Color(0xFF9EB4D0)
+            ..strokeWidth = s * 0.003);
     }
-    canvas.drawRect(Rect.fromLTWH(-s * 0.055, s * 0.15, s * 0.11, s * 0.03),
-        Paint()..color = const Color(0xFFD7263D));
+    // Bubbles.
+    for (final b in [
+      const Offset(0.5, 0.895),
+      const Offset(0.522, 0.875),
+      const Offset(0.515, 0.905)
+    ]) {
+      final r = s * (b.dy > 0.9 ? 0.009 : 0.014);
+      canvas.drawCircle(Offset(b.dx * s, b.dy * s), r,
+          Paint()..color = const Color(0xFFBFE6F5));
+      canvas.drawCircle(
+          Offset(b.dx * s, b.dy * s),
+          r,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = s * 0.0025
+            ..color = const Color(0xFF7FB8D6));
+      canvas.drawCircle(Offset(b.dx * s - r * 0.35, b.dy * s - r * 0.35),
+          r * 0.25, Paint()..color = Colors.white);
+    }
+    // Soap bar.
+    canvas.save();
+    canvas.translate(s * 0.63, y + s * 0.01);
+    canvas.rotate(-0.25);
+    final soap = Rect.fromCenter(
+        center: Offset.zero, width: s * 0.055, height: s * 0.035);
+    canvas.drawRRect(RRect.fromRectAndRadius(soap, Radius.circular(s * 0.01)),
+        Paint()..color = const Color(0xFFFFE3B0));
+    canvas.drawRRect(
+        RRect.fromRectAndRadius(soap, Radius.circular(s * 0.01)),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = s * 0.003
+          ..color = const Color(0xFFE0B070));
     canvas.restore();
+    // Hearts + star.
+    _heart(canvas, Offset(s * 0.73, y - s * 0.005), s * 0.017,
+        const Color(0xFFA8E0C0));
+    _heart(canvas, Offset(s * 0.79, y - s * 0.01), s * 0.015,
+        const Color(0xFFFFB6C8));
+    _star(canvas, Offset(s * 0.19, y - s * 0.015), s * 0.02,
+        const Color(0xFFFFE07A));
+  }
+
+  void _star(Canvas canvas, Offset c, double r, Color color) {
+    final path = Path();
+    for (var i = 0; i < 10; i++) {
+      final rr = i.isEven ? r : r * 0.5;
+      final a = -math.pi / 2 + i * math.pi / 5;
+      final pt = c + Offset(math.cos(a), math.sin(a)) * rr;
+      i == 0 ? path.moveTo(pt.dx, pt.dy) : path.lineTo(pt.dx, pt.dy);
+    }
+    path.close();
+    canvas.drawPath(path, Paint()..color = color);
+    canvas.drawPath(
+        path,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = r * 0.12
+          ..strokeJoin = StrokeJoin.round
+          ..color = Color.lerp(color, Colors.brown, 0.25)!);
+  }
+
+  void _twinkle(Canvas canvas, Offset c, double r, Color color) {
+    canvas.drawPath(
+        Path()
+          ..moveTo(c.dx, c.dy - r * 2)
+          ..quadraticBezierTo(c.dx, c.dy, c.dx + r * 2, c.dy)
+          ..quadraticBezierTo(c.dx, c.dy, c.dx, c.dy + r * 2)
+          ..quadraticBezierTo(c.dx, c.dy, c.dx - r * 2, c.dy)
+          ..quadraticBezierTo(c.dx, c.dy, c.dx, c.dy - r * 2)
+          ..close(),
+        Paint()..color = color);
+  }
+
+  void _heart(Canvas canvas, Offset c, double r, Color color) {
+    final p = Path()
+      ..moveTo(c.dx, c.dy + r * 0.9)
+      ..cubicTo(c.dx - r * 1.6, c.dy - r * 0.2, c.dx - r * 0.7, c.dy - r * 1.3,
+          c.dx, c.dy - r * 0.45)
+      ..cubicTo(c.dx + r * 0.7, c.dy - r * 1.3, c.dx + r * 1.6, c.dy - r * 0.2,
+          c.dx, c.dy + r * 0.9)
+      ..close();
+    canvas.drawPath(p, Paint()..color = color);
+    canvas.drawPath(
+        p,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = r * 0.15
+          ..color = Color.lerp(color, Colors.black, 0.25)!);
   }
 
   @override
-  bool shouldRepaint(covariant _LogoBack old) =>
-      old.t != t || old.showTitle != showTitle;
+  bool shouldRepaint(covariant _BadgePainter old) =>
+      old.intro != intro ||
+      old.t != t ||
+      old.showTitle != showTitle ||
+      old.onlySquishies != onlySquishies;
 }
 
-class _LogoFront extends CustomPainter {
-  _LogoFront({required this.t, required this.showTitle});
-  final double t;
-  final bool showTitle;
-
+/// A small outlined orange star beside the tagline.
+class _StarDot extends CustomPainter {
   @override
-  void paint(Canvas canvas, Size s0) {
-    final s = s0.width;
-    _crown(canvas, Offset(s * 0.5, s * (showTitle ? 0.19 : 0.21)), s * 0.3);
-    final coinY = s * (showTitle ? 0.68 : 0.76);
-    _coin(canvas, Offset(s * 0.29, coinY), s * 0.06);
-    _coin(canvas, Offset(s * 0.71, coinY), s * 0.06);
-    if (showTitle) _ribbon(canvas, s);
-    final pts = [
-      const Offset(0.16, 0.24),
-      const Offset(0.86, 0.3),
-      const Offset(0.12, 0.6),
-      const Offset(0.9, 0.62),
-      const Offset(0.78, 0.12)
-    ];
-    for (var i = 0; i < pts.length; i++) {
-      final tw = 0.6 + 0.4 * math.sin(t * 2 * math.pi * 2 + i * 1.4);
-      _sparkle(canvas, Offset(pts[i].dx * s, pts[i].dy * s), s * 0.018 * tw,
-          i.isEven ? const Color(0xFFFFE27A) : Colors.white);
+  void paint(Canvas canvas, Size size) {
+    final c = size.center(Offset.zero);
+    final r = size.shortestSide * 0.48;
+    final path = Path();
+    for (var i = 0; i < 10; i++) {
+      final rr = i.isEven ? r : r * 0.5;
+      final a = -math.pi / 2 + i * math.pi / 5;
+      final pt = c + Offset(math.cos(a), math.sin(a)) * rr;
+      i == 0 ? path.moveTo(pt.dx, pt.dy) : path.lineTo(pt.dx, pt.dy);
     }
-  }
-
-  void _crown(Canvas canvas, Offset c, double w) {
-    final h = w * 0.6;
-    final crown = Path()
-      ..moveTo(c.dx - w * 0.42, c.dy + h * 0.35)
-      ..lineTo(c.dx - w * 0.5, c.dy - h * 0.45)
-      ..lineTo(c.dx - w * 0.25, c.dy - h * 0.05)
-      ..lineTo(c.dx, c.dy - h * 0.62)
-      ..lineTo(c.dx + w * 0.25, c.dy - h * 0.05)
-      ..lineTo(c.dx + w * 0.5, c.dy - h * 0.45)
-      ..lineTo(c.dx + w * 0.42, c.dy + h * 0.35)
-      ..close();
-    canvas.drawPath(crown.shift(Offset(0, w * 0.03)),
-        Paint()..color = const Color(0x55000000));
+    path.close();
     canvas.drawPath(
-        crown,
-        _grad(crown.getBounds(), _goldColors,
-            begin: Alignment.topLeft, end: Alignment.bottomRight));
-    canvas.drawPath(
-        crown,
+        path,
         Paint()
           ..style = PaintingStyle.stroke
-          ..strokeWidth = w * 0.025
-          ..color = const Color(0xFFB07A12));
-    canvas.drawRRect(
-        RRect.fromRectAndRadius(
-            Rect.fromCenter(
-                center: Offset(c.dx, c.dy + h * 0.28),
-                width: w * 0.86,
-                height: h * 0.18),
-            Radius.circular(h * 0.06)),
-        _grad(Rect.fromLTWH(c.dx - w, c.dy, w * 2, h),
-            const [Color(0xFFFFE27A), Color(0xFFD99A1A)]));
-    for (final dx in [-0.5, 0.0, 0.5]) {
-      final tip = Offset(c.dx + dx * w, c.dy - h * (dx == 0 ? 0.62 : 0.45));
-      canvas.drawCircle(
-          tip, w * 0.055, Paint()..color = const Color(0xFFFFF6C2));
-    }
-    canvas.drawCircle(Offset(c.dx, c.dy + h * 0.06), w * 0.07,
-        Paint()..color = const Color(0xFFE23D5C));
-    canvas.drawCircle(Offset(c.dx - w * 0.25, c.dy + h * 0.12), w * 0.045,
-        Paint()..color = const Color(0xFF3D8BE2));
-    canvas.drawCircle(Offset(c.dx + w * 0.25, c.dy + h * 0.12), w * 0.045,
-        Paint()..color = const Color(0xFF1FA67A));
-    canvas.drawCircle(Offset(c.dx - w * 0.02, c.dy + h * 0.03), w * 0.02,
-        Paint()..color = Colors.white.withOpacity(0.8));
-  }
-
-  void _coin(Canvas canvas, Offset c, double r) {
-    canvas.drawCircle(
-        c + Offset(0, r * 0.12), r, Paint()..color = const Color(0xFFB07A12));
-    canvas.drawCircle(
-        c,
-        r,
-        _grad(Rect.fromCircle(center: c, radius: r), _goldColors,
-            begin: Alignment.topLeft, end: Alignment.bottomRight));
-    canvas.drawCircle(
-        c,
-        r * 0.72,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = r * 0.1
-          ..color = const Color(0x99B07A12));
-    _star(canvas, c, r * 0.42, Paint()..color = const Color(0xFFB07A12));
-    canvas.drawCircle(c + Offset(-r * 0.4, -r * 0.4), r * 0.16,
-        Paint()..color = Colors.white.withOpacity(0.8));
-  }
-
-  void _ribbon(Canvas canvas, double s) {
-    final y = s * 0.8;
-    final hh = s * 0.13;
-    final l = s * 0.08, r = s * 0.92;
-    // Tails.
-    for (final dir in [-1.0, 1.0]) {
-      final x = dir < 0 ? l : r;
-      final tail = Path()
-        ..moveTo(x - dir * s * 0.02, y - hh * 0.25)
-        ..lineTo(x + dir * s * 0.07, y - hh * 0.2)
-        ..lineTo(x + dir * s * 0.035, y + hh * 0.2)
-        ..lineTo(x + dir * s * 0.07, y + hh * 0.62)
-        ..lineTo(x - dir * s * 0.02, y + hh * 0.55)
-        ..close();
-      canvas.drawPath(tail, Paint()..color = const Color(0xFF8A1530));
-    }
-    final band = Path()
-      ..moveTo(l, y - hh / 2)
-      ..quadraticBezierTo(s * 0.5, y - hh / 2 - s * 0.04, r, y - hh / 2)
-      ..lineTo(r, y + hh / 2)
-      ..quadraticBezierTo(s * 0.5, y + hh / 2 - s * 0.04, l, y + hh / 2)
-      ..close();
-    canvas.drawPath(band.shift(Offset(0, s * 0.01)),
-        Paint()..color = const Color(0x55000000));
-    canvas.drawPath(
-        band,
-        _grad(band.getBounds(),
-            const [Color(0xFFE2486A), Color(0xFFB8283F), Color(0xFF8A1530)]));
-    canvas.drawPath(
-        band,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = s * 0.008
-          ..color = const Color(0xFFF7C948));
+          ..strokeWidth = r * 0.35
+          ..strokeJoin = StrokeJoin.round
+          ..color = Colors.white);
+    canvas.drawPath(path, Paint()..color = const Color(0xFFF08A2E));
   }
 
   @override
-  bool shouldRepaint(covariant _LogoFront old) =>
-      old.t != t || old.showTitle != showTitle;
+  bool shouldRepaint(covariant _StarDot oldDelegate) => false;
 }

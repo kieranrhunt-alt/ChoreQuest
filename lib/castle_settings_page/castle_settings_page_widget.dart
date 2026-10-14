@@ -1,14 +1,19 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/ff_builtin_enums.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'castle_settings_page_model.dart';
@@ -26,10 +31,17 @@ class CastleSettingsPageWidget extends StatefulWidget {
       _CastleSettingsPageWidgetState();
 }
 
-class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget> {
+class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget>
+    with TickerProviderStateMixin {
   late CastleSettingsPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  var hasContainerTriggered1 = false;
+  var hasContainerTriggered2 = false;
+  var hasContainerTriggered3 = false;
+  var hasContainerTriggered4 = false;
+  var hasContainerTriggered5 = false;
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -38,6 +50,150 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget> {
 
     _model.familyRenameTextController ??= TextEditingController();
     _model.familyRenameFocusNode ??= FocusNode();
+
+    animationsMap.addAll({
+      'containerOnActionTriggerAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation3': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation4': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation5': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
   }
 
   @override
@@ -150,7 +306,7 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            font: GoogleFonts.cinzel(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineSmall
@@ -179,7 +335,7 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodySmall
@@ -205,6 +361,128 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget> {
                                   ].divide(SizedBox(height: 2.0)),
                                 ),
                               ),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  if (animationsMap[
+                                          'containerOnActionTriggerAnimation1'] !=
+                                      null) {
+                                    safeSetState(
+                                        () => hasContainerTriggered1 = true);
+                                    SchedulerBinding.instance.addPostFrameCallback(
+                                        (_) async => await animationsMap[
+                                                'containerOnActionTriggerAnimation1']!
+                                            .controller
+                                            .forward(from: 0.0));
+                                  }
+                                  if (functions.memberRole(
+                                          FFAppState().members.toList(),
+                                          FFAppState().currentMemberId) ==
+                                      'parent') {
+                                    context.pushNamed(
+                                        ThroneRoomPageWidget.routeName);
+                                  } else {
+                                    context.pushNamed(
+                                        HeroHomePageWidget.routeName);
+                                  }
+                                },
+                                child: Container(
+                                  height: 44.0,
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 0.0,
+                                        color: Color(0xFFB8740A),
+                                        offset: Offset(
+                                          0.0,
+                                          4.0,
+                                        ),
+                                        spreadRadius: 0.0,
+                                      )
+                                    ],
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color(0xFFFFF6C4),
+                                        Color(0xFFFFD54F),
+                                        Color(0xFFFFC22E),
+                                        Color(0xFFF0A30A)
+                                      ],
+                                      stops: [0.0, 0.48, 0.52, 1.0],
+                                      begin: AlignmentDirectional(1.0, 0.0),
+                                      end: AlignmentDirectional(-1.0, 0),
+                                    ),
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    border: Border.all(
+                                      color: Color(0xD9FFFFFF),
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10.0, 0.0, 10.0, 0.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          (FFMainAxisAlignment.center)
+                                              .flutterValue,
+                                      crossAxisAlignment:
+                                          (FFCrossAxisAlignment.center)
+                                              .flutterValue,
+                                      textBaseline: TextBaseline.alphabetic,
+                                      children: [
+                                        Container(
+                                          width: 26.0,
+                                          height: 26.0,
+                                          child: Container(
+                                            child:
+                                                custom_widgets.ChoreQuestLogo(
+                                              showTitle: false,
+                                              animate: false,
+                                              titleFontFamily: '',
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Throne Room',
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelSmall
+                                              .override(
+                                                font: GoogleFonts.comicNeue(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelSmall
+                                                          .fontStyle,
+                                                ),
+                                                color: Color(0xFF3A2400),
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelSmall
+                                                        .fontStyle,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ).animateOnActionTrigger(
+                                  animationsMap[
+                                      'containerOnActionTriggerAnimation1']!,
+                                  hasBeenTriggered: hasContainerTriggered1),
                             ].divide(SizedBox(width: 10.0)),
                           ),
                         ),
@@ -244,7 +522,7 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleLarge
                                     .override(
-                                      font: GoogleFonts.cinzel(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleLarge
                                             .fontWeight,
@@ -268,7 +546,7 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .fontWeight,
@@ -290,6 +568,11 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget> {
                               TextFormField(
                                 controller: _model.familyRenameTextController,
                                 focusNode: _model.familyRenameFocusNode,
+                                onChanged: (_) => EasyDebounce.debounce(
+                                  '_model.familyRenameTextController',
+                                  Duration(milliseconds: 250),
+                                  () => safeSetState(() {}),
+                                ),
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'New kingdom name',
@@ -341,45 +624,158 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget> {
                                     .familyRenameTextControllerValidator
                                     .asValidator(context),
                               ),
-                              FFButtonWidget(
-                                onPressed: () async {
-                                  if (functions.notEmpty(_model
-                                      .familyRenameTextController.text)!) {
-                                    FFAppState().family = FamilyStruct(
-                                      id: FFAppState().family.id,
-                                      name: _model
-                                          .familyRenameTextController.text,
-                                    );
-                                    safeSetState(() {});
-                                    safeSetState(() {
-                                      _model.familyRenameTextController
-                                          ?.clear();
-                                    });
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'Kingdom name saved',
-                                          style: TextStyle(),
-                                        ),
-                                        duration: Duration(milliseconds: 4000),
+                              Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 0.0,
+                                      color: Color(0xFFB8740A),
+                                      offset: Offset(
+                                        0.0,
+                                        5.0,
                                       ),
-                                    );
-                                  }
-                                },
-                                text: '💾 Save name',
-                                options: FFButtonOptions(
-                                  height: 48.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).tertiary,
-                                  textStyle: TextStyle(
-                                    color: Color(0xFF2A1B4D),
+                                      spreadRadius: 0.0,
+                                    )
+                                  ],
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFFFFF6C4),
+                                      Color(0xFFFFD54F),
+                                      Color(0xFFFFC22E),
+                                      Color(0xFFF0A30A)
+                                    ],
+                                    stops: [0.0, 0.48, 0.52, 1.0],
+                                    begin: AlignmentDirectional(1.0, 0.0),
+                                    end: AlignmentDirectional(-1.0, 0),
                                   ),
-                                  borderRadius: BorderRadius.circular(18.0),
+                                  borderRadius: BorderRadius.circular(22.0),
+                                  border: Border.all(
+                                    color: Color(0xD9FFFFFF),
+                                    width: 2.5,
+                                  ),
                                 ),
-                              ),
+                                child: FFButtonWidget(
+                                  onPressed: ((String? a0) {
+                                    return (a0 ?? '').trim().isEmpty;
+                                  }(_model.familyRenameTextController.text))!
+                                      ? null
+                                      : () async {
+                                          if (animationsMap[
+                                                  'containerOnActionTriggerAnimation2'] !=
+                                              null) {
+                                            safeSetState(() =>
+                                                hasContainerTriggered2 = true);
+                                            SchedulerBinding.instance
+                                                .addPostFrameCallback((_) async =>
+                                                    await animationsMap[
+                                                            'containerOnActionTriggerAnimation2']!
+                                                        .controller
+                                                        .forward(from: 0.0));
+                                          }
+                                          if (functions.notEmpty(_model
+                                              .familyRenameTextController
+                                              .text)!) {
+                                            FFAppState().family = FamilyStruct(
+                                              id: FFAppState().family.id,
+                                              name: _model
+                                                  .familyRenameTextController
+                                                  .text,
+                                            );
+                                            safeSetState(() {});
+                                            safeSetState(() {
+                                              _model.familyRenameTextController
+                                                  ?.clear();
+                                            });
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Kingdom name saved',
+                                                  style: GoogleFonts.comicNeue(
+                                                    color: Colors.white,
+                                                    fontSize: 16.0,
+                                                  ),
+                                                ),
+                                                duration: Duration(
+                                                    milliseconds: 4000),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                  text: '💾 Save name',
+                                  options: FFButtonOptions(
+                                    height: 48.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: Color(0x00FFFFFF),
+                                    textStyle: GoogleFonts.comicNeue(
+                                      color: Color(0xFF3A2400),
+                                      fontSize: 17.0,
+                                    ),
+                                    elevation: 0.0,
+                                    borderRadius: BorderRadius.circular(22.0),
+                                    disabledColor: Color(0xC7EEE8F7),
+                                    disabledTextColor: Color(0xFF6E6880),
+                                  ),
+                                ),
+                              ).animateOnActionTrigger(
+                                  animationsMap[
+                                      'containerOnActionTriggerAnimation2']!,
+                                  hasBeenTriggered: hasContainerTriggered2),
+                              if (((String? a0) {
+                                    return (a0 ?? '').trim().isEmpty;
+                                  }(_model.familyRenameTextController.text)) ??
+                                  true)
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFFFE3EA),
+                                    borderRadius: BorderRadius.circular(14.0),
+                                    border: Border.all(
+                                      color: Color(0xFFC42646),
+                                      width: 1.5,
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        12.0, 8.0, 12.0, 8.0),
+                                    child: Text(
+                                      ((String? a0) {
+                                        return '✋ Still needed: ' +
+                                            [
+                                              if ((a0 ?? '').trim().isEmpty)
+                                                'New kingdom name'
+                                            ].join(', ');
+                                      }(_model
+                                          .familyRenameTextController.text))!,
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            font: GoogleFonts.comicNeue(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontStyle,
+                                            ),
+                                            color: Color(0xFF7E1028),
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                          ),
+                                    ),
+                                  ),
+                                ),
                             ].divide(SizedBox(height: 10.0)),
                           ),
                         ),
@@ -419,7 +815,7 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleLarge
                                     .override(
-                                      font: GoogleFonts.cinzel(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleLarge
                                             .fontWeight,
@@ -441,7 +837,7 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .fontWeight,
@@ -460,67 +856,142 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget> {
                                           .fontStyle,
                                     ),
                               ),
-                              FFButtonWidget(
-                                onPressed: () async {
-                                  context
-                                      .pushNamed(KnightsPageWidget.routeName);
-                                },
-                                text: 'Knights & Royals',
-                                icon: Icon(
-                                  Icons.group,
-                                  size: 20.0,
-                                ),
-                                options: FFButtonOptions(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  iconColor:
-                                      FlutterFlowTheme.of(context).primary,
-                                  color: Colors.transparent,
-                                  textStyle: TextStyle(
-                                    color: FlutterFlowTheme.of(context).primary,
+                              Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 0.0,
+                                      color: Color(0xFF4A1FA0),
+                                      offset: Offset(
+                                        0.0,
+                                        5.0,
+                                      ),
+                                      spreadRadius: 0.0,
+                                    )
+                                  ],
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFFD9C2FF),
+                                      Color(0xFF9A5CF0),
+                                      Color(0xFF8446E6),
+                                      Color(0xFF6A2FCC)
+                                    ],
+                                    stops: [0.0, 0.48, 0.52, 1.0],
+                                    begin: AlignmentDirectional(1.0, 0.0),
+                                    end: AlignmentDirectional(-1.0, 0),
                                   ),
-                                  elevation: 0.0,
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 1.0,
+                                  borderRadius: BorderRadius.circular(22.0),
+                                  border: Border.all(
+                                    color: Color(0xD9FFFFFF),
+                                    width: 2.5,
                                   ),
-                                  borderRadius: BorderRadius.circular(14.0),
                                 ),
-                              ),
-                              FFButtonWidget(
-                                onPressed: () async {
-                                  if (Navigator.of(context).canPop()) {
-                                    context.pop();
-                                  }
-                                  context
-                                      .pushNamed(GatehousePageWidget.routeName);
-                                },
-                                text: 'Switch profile',
-                                icon: Icon(
-                                  Icons.switch_account,
-                                  size: 20.0,
-                                ),
-                                options: FFButtonOptions(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  iconColor:
-                                      FlutterFlowTheme.of(context).primary,
-                                  color: Colors.transparent,
-                                  textStyle: TextStyle(
-                                    color: FlutterFlowTheme.of(context).primary,
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    if (animationsMap[
+                                            'containerOnActionTriggerAnimation3'] !=
+                                        null) {
+                                      safeSetState(
+                                          () => hasContainerTriggered3 = true);
+                                      SchedulerBinding.instance
+                                          .addPostFrameCallback((_) async =>
+                                              await animationsMap[
+                                                      'containerOnActionTriggerAnimation3']!
+                                                  .controller
+                                                  .forward(from: 0.0));
+                                    }
+
+                                    context
+                                        .pushNamed(KnightsPageWidget.routeName);
+                                  },
+                                  text: '🛡️ Knights & Royals',
+                                  options: FFButtonOptions(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: Color(0x00FFFFFF),
+                                    textStyle: GoogleFonts.comicNeue(
+                                      color: Colors.white,
+                                      fontSize: 17.0,
+                                    ),
+                                    elevation: 0.0,
+                                    borderRadius: BorderRadius.circular(22.0),
                                   ),
-                                  elevation: 0.0,
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(14.0),
                                 ),
-                              ),
+                              ).animateOnActionTrigger(
+                                  animationsMap[
+                                      'containerOnActionTriggerAnimation3']!,
+                                  hasBeenTriggered: hasContainerTriggered3),
+                              Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 0.0,
+                                      color: Color(0xFF1F66A8),
+                                      offset: Offset(
+                                        0.0,
+                                        5.0,
+                                      ),
+                                      spreadRadius: 0.0,
+                                    )
+                                  ],
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFFE2F4FF),
+                                      Color(0xFF8CD0FF),
+                                      Color(0xFF66BDF7),
+                                      Color(0xFF3E9BE0)
+                                    ],
+                                    stops: [0.0, 0.48, 0.52, 1.0],
+                                    begin: AlignmentDirectional(1.0, 0.0),
+                                    end: AlignmentDirectional(-1.0, 0),
+                                  ),
+                                  borderRadius: BorderRadius.circular(22.0),
+                                  border: Border.all(
+                                    color: Color(0xD9FFFFFF),
+                                    width: 2.5,
+                                  ),
+                                ),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    if (animationsMap[
+                                            'containerOnActionTriggerAnimation4'] !=
+                                        null) {
+                                      safeSetState(
+                                          () => hasContainerTriggered4 = true);
+                                      SchedulerBinding.instance
+                                          .addPostFrameCallback((_) async =>
+                                              await animationsMap[
+                                                      'containerOnActionTriggerAnimation4']!
+                                                  .controller
+                                                  .forward(from: 0.0));
+                                    }
+                                    if (Navigator.of(context).canPop()) {
+                                      context.pop();
+                                    }
+                                    context.pushNamed(
+                                        GatehousePageWidget.routeName);
+                                  },
+                                  text: '🔄 Switch profile',
+                                  options: FFButtonOptions(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: Color(0x00FFFFFF),
+                                    textStyle: GoogleFonts.comicNeue(
+                                      color: Color(0xFF0B2E4F),
+                                      fontSize: 17.0,
+                                    ),
+                                    elevation: 0.0,
+                                    borderRadius: BorderRadius.circular(22.0),
+                                  ),
+                                ),
+                              ).animateOnActionTrigger(
+                                  animationsMap[
+                                      'containerOnActionTriggerAnimation4']!,
+                                  hasBeenTriggered: hasContainerTriggered4),
                             ].divide(SizedBox(height: 10.0)),
                           ),
                         ),
@@ -560,7 +1031,7 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleLarge
                                     .override(
-                                      font: GoogleFonts.cinzel(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleLarge
                                             .fontWeight,
@@ -582,7 +1053,7 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .fontWeight,
@@ -605,76 +1076,117 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget> {
                           ),
                         ),
                       ),
-                      FFButtonWidget(
-                        onPressed: () async {
-                          var confirmDialogResponse = await showDialog<bool>(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    title: Text('Reset everything?'),
-                                    content: Text(
-                                        'This deletes the kingdom, profiles, quests, ledger, rewards, and squishies on this device.'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(
-                                            alertDialogContext, false),
-                                        child: Text('Cancel'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(
-                                            alertDialogContext, true),
-                                        child: Text('Reset'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ) ??
-                              false;
-                          if (confirmDialogResponse) {
-                            FFAppState().family = FamilyStruct();
-                            safeSetState(() {});
-                            FFAppState().members = [];
-                            safeSetState(() {});
-                            FFAppState().quests = [];
-                            safeSetState(() {});
-                            FFAppState().submissions = [];
-                            safeSetState(() {});
-                            FFAppState().transactions = [];
-                            safeSetState(() {});
-                            FFAppState().rewards = [];
-                            safeSetState(() {});
-                            FFAppState().redemptions = [];
-                            safeSetState(() {});
-                            FFAppState().avatarItems = [];
-                            safeSetState(() {});
-                            FFAppState().wardrobe = [];
-                            safeSetState(() {});
-                            FFAppState().currentMemberId = '';
-                            safeSetState(() {});
-                            if (Navigator.of(context).canPop()) {
-                              context.pop();
-                            }
-                            context.pushNamed(FoundKingdomPageWidget.routeName);
-                          }
-                        },
-                        text: 'Reset all kingdom data',
-                        icon: Icon(
-                          Icons.restart_alt,
-                          size: 20.0,
-                        ),
-                        options: FFButtonOptions(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          iconColor: Colors.white,
-                          color: FlutterFlowTheme.of(context).error,
-                          textStyle: TextStyle(
-                            color: Colors.white,
+                      Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 0.0,
+                              color: Color(0xFF7E1028),
+                              offset: Offset(
+                                0.0,
+                                5.0,
+                              ),
+                              spreadRadius: 0.0,
+                            )
+                          ],
+                          gradient: LinearGradient(
+                            colors: [
+                              Color(0xFFFFB3C3),
+                              Color(0xFFE64A6C),
+                              Color(0xFFD23356),
+                              Color(0xFFB01E40)
+                            ],
+                            stops: [0.0, 0.48, 0.52, 1.0],
+                            begin: AlignmentDirectional(1.0, 0.0),
+                            end: AlignmentDirectional(-1.0, 0),
                           ),
-                          borderRadius: BorderRadius.circular(14.0),
+                          borderRadius: BorderRadius.circular(22.0),
+                          border: Border.all(
+                            color: Color(0xD9FFFFFF),
+                            width: 2.5,
+                          ),
                         ),
-                      ),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            if (animationsMap[
+                                    'containerOnActionTriggerAnimation5'] !=
+                                null) {
+                              safeSetState(() => hasContainerTriggered5 = true);
+                              SchedulerBinding.instance.addPostFrameCallback(
+                                  (_) async => await animationsMap[
+                                          'containerOnActionTriggerAnimation5']!
+                                      .controller
+                                      .forward(from: 0.0));
+                            }
+                            var confirmDialogResponse = await showDialog<bool>(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Reset everything?'),
+                                      content: Text(
+                                          'This deletes the kingdom, profiles, quests, ledger, rewards, and squishies on this device.'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () => Navigator.pop(
+                                              alertDialogContext, false),
+                                          child: Text('Cancel'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () => Navigator.pop(
+                                              alertDialogContext, true),
+                                          child: Text('Reset'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ) ??
+                                false;
+                            if (confirmDialogResponse) {
+                              FFAppState().family = FamilyStruct();
+                              safeSetState(() {});
+                              FFAppState().members = [];
+                              safeSetState(() {});
+                              FFAppState().quests = [];
+                              safeSetState(() {});
+                              FFAppState().submissions = [];
+                              safeSetState(() {});
+                              FFAppState().transactions = [];
+                              safeSetState(() {});
+                              FFAppState().rewards = [];
+                              safeSetState(() {});
+                              FFAppState().redemptions = [];
+                              safeSetState(() {});
+                              FFAppState().avatarItems = [];
+                              safeSetState(() {});
+                              FFAppState().wardrobe = [];
+                              safeSetState(() {});
+                              FFAppState().currentMemberId = '';
+                              safeSetState(() {});
+                              if (Navigator.of(context).canPop()) {
+                                context.pop();
+                              }
+                              context
+                                  .pushNamed(FoundKingdomPageWidget.routeName);
+                            }
+                          },
+                          text: '♻️ Reset all kingdom data',
+                          options: FFButtonOptions(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: Color(0x00FFFFFF),
+                            textStyle: GoogleFonts.comicNeue(
+                              color: Colors.white,
+                              fontSize: 17.0,
+                            ),
+                            elevation: 0.0,
+                            borderRadius: BorderRadius.circular(22.0),
+                          ),
+                        ),
+                      ).animateOnActionTrigger(
+                          animationsMap['containerOnActionTriggerAnimation5']!,
+                          hasBeenTriggered: hasContainerTriggered5),
                     ].divide(SizedBox(height: 14.0)),
                   ),
                 ),

@@ -164,7 +164,7 @@ List<AvatarItemStruct>? upgradeCatalog(List<AvatarItemStruct>? items) {
   };
   final list = List<AvatarItemStruct>.from(items ?? <AvatarItemStruct>[]);
   if (list.isEmpty || list.any((i) => !cats.contains(i.category)))
-    return starter;
+    return addHolidayItems(starter);
   final have = list.map((i) => i.id).toSet();
   if (!have.contains('k_dye') && !have.contains('sp_0')) {
     for (final s in starter) {
@@ -175,5 +175,5 @@ List<AvatarItemStruct>? upgradeCatalog(List<AvatarItemStruct>? items) {
               s.id == 'k_dye')) list.add(s);
     }
   }
-  return list;
+  return addHolidayItems(list);
 }

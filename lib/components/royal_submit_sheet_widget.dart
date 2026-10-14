@@ -1,11 +1,15 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/ff_builtin_enums.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'royal_submit_sheet_model.dart';
@@ -26,8 +30,12 @@ class RoyalSubmitSheetWidget extends StatefulWidget {
   State<RoyalSubmitSheetWidget> createState() => _RoyalSubmitSheetWidgetState();
 }
 
-class _RoyalSubmitSheetWidgetState extends State<RoyalSubmitSheetWidget> {
+class _RoyalSubmitSheetWidgetState extends State<RoyalSubmitSheetWidget>
+    with TickerProviderStateMixin {
   late RoyalSubmitSheetModel _model;
+
+  var hasContainerTriggered = false;
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void setState(VoidCallback callback) {
@@ -42,6 +50,42 @@ class _RoyalSubmitSheetWidgetState extends State<RoyalSubmitSheetWidget> {
 
     _model.photoUrlFieldTextController ??= TextEditingController();
     _model.photoUrlFieldFocusNode ??= FocusNode();
+
+    animationsMap.addAll({
+      'containerOnActionTriggerAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
   }
 
   @override
@@ -74,7 +118,7 @@ class _RoyalSubmitSheetWidgetState extends State<RoyalSubmitSheetWidget> {
             Text(
               '📸 Show your brave deed!',
               style: FlutterFlowTheme.of(context).headlineSmall.override(
-                    font: GoogleFonts.cinzel(
+                    font: GoogleFonts.comicNeue(
                       fontWeight:
                           FlutterFlowTheme.of(context).headlineSmall.fontWeight,
                       fontStyle:
@@ -90,7 +134,7 @@ class _RoyalSubmitSheetWidgetState extends State<RoyalSubmitSheetWidget> {
             Text(
               'This quest asks for a photo. Paste a photo link (optional).',
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    font: GoogleFonts.nunito(
+                    font: GoogleFonts.comicNeue(
                       fontWeight:
                           FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                       fontStyle:
@@ -158,46 +202,97 @@ class _RoyalSubmitSheetWidgetState extends State<RoyalSubmitSheetWidget> {
               validator: _model.photoUrlFieldTextControllerValidator
                   .asValidator(context),
             ),
-            FFButtonWidget(
-              onPressed: () async {
-                FFAppState().quests = functions
-                    .submitQuest(FFAppState().quests.toList(), widget!.questId,
-                        widget!.kidId, _model.photoUrlFieldTextController.text)!
-                    .toList()
-                    .cast<QuestStruct>();
-                safeSetState(() {});
-                FFAppState().submissions = functions
-                    .addSubmission(
-                        FFAppState().submissions.toList(),
-                        widget!.questId,
-                        widget!.kidId,
-                        _model.photoUrlFieldTextController.text)!
-                    .toList()
-                    .cast<SubmissionStruct>();
-                safeSetState(() {});
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      'Quest complete! 🎉 A ruler will check it soon.',
-                      style: TextStyle(),
+            Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 0.0,
+                    color: Color(0xFFB8740A),
+                    offset: Offset(
+                      0.0,
+                      5.0,
                     ),
-                    duration: Duration(milliseconds: 4000),
-                  ),
-                );
-              },
-              text: '🏆 Quest complete!',
-              options: FFButtonOptions(
-                height: 56.0,
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                color: FlutterFlowTheme.of(context).tertiary,
-                textStyle: TextStyle(
-                  color: Color(0xFF2A1B4D),
+                    spreadRadius: 0.0,
+                  )
+                ],
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFFFFF6C4),
+                    Color(0xFFFFD54F),
+                    Color(0xFFFFC22E),
+                    Color(0xFFF0A30A)
+                  ],
+                  stops: [0.0, 0.48, 0.52, 1.0],
+                  begin: AlignmentDirectional(1.0, 0.0),
+                  end: AlignmentDirectional(-1.0, 0),
                 ),
-                borderRadius: BorderRadius.circular(18.0),
+                borderRadius: BorderRadius.circular(22.0),
+                border: Border.all(
+                  color: Color(0xD9FFFFFF),
+                  width: 2.5,
+                ),
               ),
-            ),
+              child: FFButtonWidget(
+                onPressed: () async {
+                  if (animationsMap['containerOnActionTriggerAnimation'] !=
+                      null) {
+                    safeSetState(() => hasContainerTriggered = true);
+                    SchedulerBinding.instance.addPostFrameCallback((_) async =>
+                        await animationsMap[
+                                'containerOnActionTriggerAnimation']!
+                            .controller
+                            .forward(from: 0.0));
+                  }
+                  FFAppState().quests = functions
+                      .submitQuest(
+                          FFAppState().quests.toList(),
+                          widget!.questId,
+                          widget!.kidId,
+                          _model.photoUrlFieldTextController.text)!
+                      .toList()
+                      .cast<QuestStruct>();
+                  safeSetState(() {});
+                  FFAppState().submissions = functions
+                      .addSubmission(
+                          FFAppState().submissions.toList(),
+                          widget!.questId,
+                          widget!.kidId,
+                          _model.photoUrlFieldTextController.text)!
+                      .toList()
+                      .cast<SubmissionStruct>();
+                  safeSetState(() {});
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Quest complete! 🎉 A ruler will check it soon.',
+                        style: GoogleFonts.comicNeue(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                        ),
+                      ),
+                      duration: Duration(milliseconds: 4000),
+                    ),
+                  );
+                },
+                text: '🏆 Quest complete!',
+                options: FFButtonOptions(
+                  height: 56.0,
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  iconPadding:
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: Color(0x00FFFFFF),
+                  textStyle: GoogleFonts.comicNeue(
+                    color: Color(0xFF3A2400),
+                    fontSize: 17.0,
+                  ),
+                  elevation: 0.0,
+                  borderRadius: BorderRadius.circular(22.0),
+                ),
+              ),
+            ).animateOnActionTrigger(
+                animationsMap['containerOnActionTriggerAnimation']!,
+                hasBeenTriggered: hasContainerTriggered),
           ].divide(SizedBox(height: 14.0)),
         ),
       ),

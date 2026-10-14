@@ -85,7 +85,7 @@ class _SplashPageWidgetState extends State<SplashPageWidget> {
                 height: double.infinity,
                 child: Container(
                   child: custom_widgets.KingdomBackdrop(
-                    scene: 'castle',
+                    scene: 'butter',
                     animate: true,
                   ),
                 ),
@@ -94,7 +94,7 @@ class _SplashPageWidgetState extends State<SplashPageWidget> {
                 width: double.infinity,
                 height: double.infinity,
                 decoration: BoxDecoration(
-                  color: Color(0x553E2490),
+                  color: Color(0x14FFFFFF),
                 ),
               ),
               Column(
@@ -116,20 +116,20 @@ class _SplashPageWidgetState extends State<SplashPageWidget> {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: Color(0xCC3E2490),
+                      color: Color(0xF2FFFFFF),
                       borderRadius: BorderRadius.circular(999.0),
                       border: Border.all(
-                        color: FlutterFlowTheme.of(context).tertiary,
-                        width: 1.5,
+                        color: Color(0xFF86C7AF),
+                        width: 2.0,
                       ),
                     ),
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(18.0, 8.0, 18.0, 8.0),
                       child: Text(
-                        'Build habits. Make chores a quest.',
+                        'Welcome to the Squishie Kingdom!',
                         style: FlutterFlowTheme.of(context).titleSmall.override(
-                              font: GoogleFonts.nunito(
+                              font: GoogleFonts.comicNeue(
                                 fontWeight: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .fontWeight,
@@ -137,7 +137,7 @@ class _SplashPageWidgetState extends State<SplashPageWidget> {
                                     .titleSmall
                                     .fontStyle,
                               ),
-                              color: Colors.white,
+                              color: Color(0xFF2B5797),
                               letterSpacing: 0.0,
                               fontWeight: FlutterFlowTheme.of(context)
                                   .titleSmall
@@ -160,9 +160,9 @@ class _SplashPageWidgetState extends State<SplashPageWidget> {
                     animateFromLastPercent: true,
                   ),
                   Text(
-                    'Opening the castle gates…',
+                    'Opening the Squishie Kingdom gates…',
                     style: FlutterFlowTheme.of(context).bodySmall.override(
-                          font: GoogleFonts.nunito(
+                          font: GoogleFonts.comicNeue(
                             fontWeight: FlutterFlowTheme.of(context)
                                 .bodySmall
                                 .fontWeight,
@@ -170,7 +170,7 @@ class _SplashPageWidgetState extends State<SplashPageWidget> {
                                 .bodySmall
                                 .fontStyle,
                           ),
-                          color: Colors.white,
+                          color: Color(0xFF2B5797),
                           letterSpacing: 0.0,
                           fontWeight:
                               FlutterFlowTheme.of(context).bodySmall.fontWeight,

@@ -1,13 +1,18 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/ff_builtin_enums.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'my_treasure_page_model.dart';
@@ -24,15 +29,54 @@ class MyTreasurePageWidget extends StatefulWidget {
   State<MyTreasurePageWidget> createState() => _MyTreasurePageWidgetState();
 }
 
-class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget> {
+class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget>
+    with TickerProviderStateMixin {
   late MyTreasurePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  var hasContainerTriggered = false;
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => MyTreasurePageModel());
+
+    animationsMap.addAll({
+      'containerOnActionTriggerAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
   }
 
   @override
@@ -145,7 +189,7 @@ class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            font: GoogleFonts.cinzel(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineSmall
@@ -174,7 +218,7 @@ class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodySmall
@@ -200,6 +244,128 @@ class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget> {
                                   ].divide(SizedBox(height: 2.0)),
                                 ),
                               ),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  if (animationsMap[
+                                          'containerOnActionTriggerAnimation'] !=
+                                      null) {
+                                    safeSetState(
+                                        () => hasContainerTriggered = true);
+                                    SchedulerBinding.instance.addPostFrameCallback(
+                                        (_) async => await animationsMap[
+                                                'containerOnActionTriggerAnimation']!
+                                            .controller
+                                            .forward(from: 0.0));
+                                  }
+                                  if (functions.memberRole(
+                                          FFAppState().members.toList(),
+                                          FFAppState().currentMemberId) ==
+                                      'parent') {
+                                    context.pushNamed(
+                                        ThroneRoomPageWidget.routeName);
+                                  } else {
+                                    context.pushNamed(
+                                        HeroHomePageWidget.routeName);
+                                  }
+                                },
+                                child: Container(
+                                  height: 44.0,
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 0.0,
+                                        color: Color(0xFFB8740A),
+                                        offset: Offset(
+                                          0.0,
+                                          4.0,
+                                        ),
+                                        spreadRadius: 0.0,
+                                      )
+                                    ],
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color(0xFFFFF6C4),
+                                        Color(0xFFFFD54F),
+                                        Color(0xFFFFC22E),
+                                        Color(0xFFF0A30A)
+                                      ],
+                                      stops: [0.0, 0.48, 0.52, 1.0],
+                                      begin: AlignmentDirectional(1.0, 0.0),
+                                      end: AlignmentDirectional(-1.0, 0),
+                                    ),
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    border: Border.all(
+                                      color: Color(0xD9FFFFFF),
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10.0, 0.0, 10.0, 0.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          (FFMainAxisAlignment.center)
+                                              .flutterValue,
+                                      crossAxisAlignment:
+                                          (FFCrossAxisAlignment.center)
+                                              .flutterValue,
+                                      textBaseline: TextBaseline.alphabetic,
+                                      children: [
+                                        Container(
+                                          width: 26.0,
+                                          height: 26.0,
+                                          child: Container(
+                                            child:
+                                                custom_widgets.ChoreQuestLogo(
+                                              showTitle: false,
+                                              animate: false,
+                                              titleFontFamily: '',
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Throne Room',
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelSmall
+                                              .override(
+                                                font: GoogleFonts.comicNeue(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelSmall
+                                                          .fontStyle,
+                                                ),
+                                                color: Color(0xFF3A2400),
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelSmall
+                                                        .fontStyle,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ).animateOnActionTrigger(
+                                  animationsMap[
+                                      'containerOnActionTriggerAnimation']!,
+                                  hasBeenTriggered: hasContainerTriggered),
                             ].divide(SizedBox(width: 10.0)),
                           ),
                         ),
@@ -274,7 +440,7 @@ class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleLarge
                                           .override(
-                                            font: GoogleFonts.cinzel(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleLarge
@@ -305,7 +471,7 @@ class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .headlineMedium
                                           .override(
-                                            font: GoogleFonts.cinzel(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineMedium
@@ -332,7 +498,7 @@ class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodySmall
@@ -397,7 +563,7 @@ class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .fontWeight,
@@ -441,7 +607,7 @@ class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.nunito(
+                                    font: GoogleFonts.comicNeue(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -522,7 +688,7 @@ class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .titleMedium
                                               .override(
-                                                font: GoogleFonts.nunito(
+                                                font: GoogleFonts.comicNeue(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -552,7 +718,7 @@ class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .override(
-                                              font: GoogleFonts.nunito(
+                                              font: GoogleFonts.comicNeue(
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
                                                         .titleSmall
@@ -620,7 +786,7 @@ class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .fontWeight,
@@ -664,7 +830,7 @@ class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.nunito(
+                                    font: GoogleFonts.comicNeue(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -742,7 +908,7 @@ class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
-                                                font: GoogleFonts.cinzel(
+                                                font: GoogleFonts.comicNeue(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -781,35 +947,34 @@ class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget> {
                                             Text(
                                               itemItem.reason,
                                               maxLines: 2,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        font:
-                                                            GoogleFonts.nunito(
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleSmall
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleSmall
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .fontStyle,
-                                                      ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleSmall
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                             Text(
@@ -819,7 +984,7 @@ class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget> {
                                                       context)
                                                   .bodySmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -859,7 +1024,7 @@ class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
-                                                font: GoogleFonts.cinzel(
+                                                font: GoogleFonts.comicNeue(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -893,7 +1058,7 @@ class _MyTreasurePageWidgetState extends State<MyTreasurePageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
-                                                font: GoogleFonts.cinzel(
+                                                font: GoogleFonts.comicNeue(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)

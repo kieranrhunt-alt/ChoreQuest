@@ -16,21 +16,21 @@ import '/flutter_flow/ff_builtin_enums.dart';
 String? categoryLabel(String? category) {
   switch (category) {
     case 'species':
-      return 'Squishy';
+      return 'Squishie';
     case 'color':
       return 'Color';
     case 'texture':
       return 'Texture';
     case 'fill':
-      return 'Fill-in';
+      return 'Filler';
     case 'hat':
-      return 'Headgear';
+      return 'Head';
     case 'gear':
-      return 'Gear';
+      return 'Arm';
     case 'background':
       return 'Realm';
     case 'effect':
-      return 'Magic';
+      return 'Aura';
     case 'kit':
       return 'Magic Kit';
   }

@@ -1,16 +1,19 @@
 import '/backend/schema/structs/index.dart';
 import '/components/quest_photo_sheet_widget.dart';
 import '/flutter_flow/ff_builtin_enums.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'hero_home_page_model.dart';
@@ -27,10 +30,17 @@ class HeroHomePageWidget extends StatefulWidget {
   State<HeroHomePageWidget> createState() => _HeroHomePageWidgetState();
 }
 
-class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
+class _HeroHomePageWidgetState extends State<HeroHomePageWidget>
+    with TickerProviderStateMixin {
   late HeroHomePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  var hasContainerTriggered1 = false;
+  var hasContainerTriggered2 = false;
+  var hasContainerTriggered3 = false;
+  var hasContainerTriggered4 = false;
+  var hasContainerTriggered5 = false;
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -80,14 +90,161 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              '✨ New treasure unlocked! Visit the Squishy Studio to wear it.',
-              style: TextStyle(),
+              '✨ New treasure unlocked! Visit the Squishie Studio to wear it.',
+              style: GoogleFonts.comicNeue(
+                color: Colors.white,
+                fontSize: 16.0,
+              ),
             ),
             duration: Duration(milliseconds: 4000),
           ),
         );
       }
     });
+
+    animationsMap.addAll({
+      'containerOnActionTriggerAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation3': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation4': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation5': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
   }
 
   @override
@@ -218,7 +375,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            font: GoogleFonts.cinzel(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineSmall
@@ -262,7 +419,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .titleMedium
                                               .override(
-                                                font: GoogleFonts.nunito(
+                                                font: GoogleFonts.comicNeue(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -298,7 +455,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodySmall
@@ -362,29 +519,49 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
+                                if (animationsMap[
+                                        'containerOnActionTriggerAnimation1'] !=
+                                    null) {
+                                  safeSetState(
+                                      () => hasContainerTriggered1 = true);
+                                  SchedulerBinding.instance.addPostFrameCallback(
+                                      (_) async => await animationsMap[
+                                              'containerOnActionTriggerAnimation1']!
+                                          .controller
+                                          .forward(from: 0.0));
+                                }
+
                                 context.pushNamed(
                                     SquishyStudioPageWidget.routeName);
                               },
                               child: Container(
                                 height: 96.0,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).primary,
                                   boxShadow: [
                                     BoxShadow(
-                                      blurRadius: 12.0,
-                                      color: Color(0x40000000),
+                                      blurRadius: 0.0,
+                                      color: Color(0xFF4A1FA0),
                                       offset: Offset(
                                         0.0,
-                                        4.0,
+                                        5.0,
                                       ),
                                       spreadRadius: 0.0,
                                     )
                                   ],
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFFC6A6FF),
+                                      Color(0xFF8A55F0),
+                                      Color(0xFF6A35D0)
+                                    ],
+                                    stops: [0.0, 0.45, 1.0],
+                                    begin: AlignmentDirectional(1.0, 0.0),
+                                    end: AlignmentDirectional(-1.0, 0),
+                                  ),
                                   borderRadius: BorderRadius.circular(22.0),
                                   border: Border.all(
-                                    color:
-                                        FlutterFlowTheme.of(context).tertiary,
-                                    width: 2.0,
+                                    color: Color(0xD9FFFFFF),
+                                    width: 2.5,
                                   ),
                                 ),
                                 child: Column(
@@ -401,7 +578,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .headlineMedium
                                           .override(
-                                            font: GoogleFonts.cinzel(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineMedium
@@ -423,12 +600,12 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                           ),
                                     ),
                                     Text(
-                                      'Squishy Studio',
+                                      'Squishie Studio',
                                       maxLines: 1,
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -453,7 +630,10 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                   ].divide(SizedBox(height: 4.0)),
                                 ),
                               ),
-                            ),
+                            ).animateOnActionTrigger(
+                                animationsMap[
+                                    'containerOnActionTriggerAnimation1']!,
+                                hasBeenTriggered: hasContainerTriggered1),
                           ),
                           Expanded(
                             flex: 1,
@@ -463,29 +643,49 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
+                                if (animationsMap[
+                                        'containerOnActionTriggerAnimation2'] !=
+                                    null) {
+                                  safeSetState(
+                                      () => hasContainerTriggered2 = true);
+                                  SchedulerBinding.instance.addPostFrameCallback(
+                                      (_) async => await animationsMap[
+                                              'containerOnActionTriggerAnimation2']!
+                                          .controller
+                                          .forward(from: 0.0));
+                                }
+
                                 context
                                     .pushNamed(SquishyShopPageWidget.routeName);
                               },
                               child: Container(
                                 height: 96.0,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFB8336A),
                                   boxShadow: [
                                     BoxShadow(
-                                      blurRadius: 12.0,
-                                      color: Color(0x40000000),
+                                      blurRadius: 0.0,
+                                      color: Color(0xFF7E1450),
                                       offset: Offset(
                                         0.0,
-                                        4.0,
+                                        5.0,
                                       ),
                                       spreadRadius: 0.0,
                                     )
                                   ],
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFFFFA6CF),
+                                      Color(0xFFD6438E),
+                                      Color(0xFFB52A72)
+                                    ],
+                                    stops: [0.0, 0.45, 1.0],
+                                    begin: AlignmentDirectional(1.0, 0.0),
+                                    end: AlignmentDirectional(-1.0, 0),
+                                  ),
                                   borderRadius: BorderRadius.circular(22.0),
                                   border: Border.all(
-                                    color:
-                                        FlutterFlowTheme.of(context).tertiary,
-                                    width: 2.0,
+                                    color: Color(0xD9FFFFFF),
+                                    width: 2.5,
                                   ),
                                 ),
                                 child: Column(
@@ -502,7 +702,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .headlineMedium
                                           .override(
-                                            font: GoogleFonts.cinzel(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineMedium
@@ -524,12 +724,12 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                           ),
                                     ),
                                     Text(
-                                      'Squishy Shop',
+                                      'Squishie Shop',
                                       maxLines: 1,
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -554,7 +754,10 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                   ].divide(SizedBox(height: 4.0)),
                                 ),
                               ),
-                            ),
+                            ).animateOnActionTrigger(
+                                animationsMap[
+                                    'containerOnActionTriggerAnimation2']!,
+                                hasBeenTriggered: hasContainerTriggered2),
                           ),
                         ].divide(SizedBox(width: 10.0)),
                       ),
@@ -574,29 +777,49 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
+                                if (animationsMap[
+                                        'containerOnActionTriggerAnimation3'] !=
+                                    null) {
+                                  safeSetState(
+                                      () => hasContainerTriggered3 = true);
+                                  SchedulerBinding.instance.addPostFrameCallback(
+                                      (_) async => await animationsMap[
+                                              'containerOnActionTriggerAnimation3']!
+                                          .controller
+                                          .forward(from: 0.0));
+                                }
+
                                 context
                                     .pushNamed(MyTreasurePageWidget.routeName);
                               },
                               child: Container(
                                 height: 96.0,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFC7861A),
                                   boxShadow: [
                                     BoxShadow(
-                                      blurRadius: 12.0,
-                                      color: Color(0x40000000),
+                                      blurRadius: 0.0,
+                                      color: Color(0xFF6A3F00),
                                       offset: Offset(
                                         0.0,
-                                        4.0,
+                                        5.0,
                                       ),
                                       spreadRadius: 0.0,
                                     )
                                   ],
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFFE7A94A),
+                                      Color(0xFFB87410),
+                                      Color(0xFF955A00)
+                                    ],
+                                    stops: [0.0, 0.45, 1.0],
+                                    begin: AlignmentDirectional(1.0, 0.0),
+                                    end: AlignmentDirectional(-1.0, 0),
+                                  ),
                                   borderRadius: BorderRadius.circular(22.0),
                                   border: Border.all(
-                                    color:
-                                        FlutterFlowTheme.of(context).tertiary,
-                                    width: 2.0,
+                                    color: Color(0xD9FFFFFF),
+                                    width: 2.5,
                                   ),
                                 ),
                                 child: Column(
@@ -613,7 +836,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .headlineMedium
                                           .override(
-                                            font: GoogleFonts.cinzel(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineMedium
@@ -640,7 +863,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -665,7 +888,10 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                   ].divide(SizedBox(height: 4.0)),
                                 ),
                               ),
-                            ),
+                            ).animateOnActionTrigger(
+                                animationsMap[
+                                    'containerOnActionTriggerAnimation3']!,
+                                hasBeenTriggered: hasContainerTriggered3),
                           ),
                           Expanded(
                             flex: 1,
@@ -675,29 +901,49 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
+                                if (animationsMap[
+                                        'containerOnActionTriggerAnimation4'] !=
+                                    null) {
+                                  safeSetState(
+                                      () => hasContainerTriggered4 = true);
+                                  SchedulerBinding.instance.addPostFrameCallback(
+                                      (_) async => await animationsMap[
+                                              'containerOnActionTriggerAnimation4']!
+                                          .controller
+                                          .forward(from: 0.0));
+                                }
+
                                 context.pushNamed(
                                     RewardMarketPageWidget.routeName);
                               },
                               child: Container(
                                 height: 96.0,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).error,
                                   boxShadow: [
                                     BoxShadow(
-                                      blurRadius: 12.0,
-                                      color: Color(0x40000000),
+                                      blurRadius: 0.0,
+                                      color: Color(0xFF7E1028),
                                       offset: Offset(
                                         0.0,
-                                        4.0,
+                                        5.0,
                                       ),
                                       spreadRadius: 0.0,
                                     )
                                   ],
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFFFF9CB0),
+                                      Color(0xFFD63452),
+                                      Color(0xFFB5203E)
+                                    ],
+                                    stops: [0.0, 0.45, 1.0],
+                                    begin: AlignmentDirectional(1.0, 0.0),
+                                    end: AlignmentDirectional(-1.0, 0),
+                                  ),
                                   borderRadius: BorderRadius.circular(22.0),
                                   border: Border.all(
-                                    color:
-                                        FlutterFlowTheme.of(context).tertiary,
-                                    width: 2.0,
+                                    color: Color(0xD9FFFFFF),
+                                    width: 2.5,
                                   ),
                                 ),
                                 child: Column(
@@ -714,7 +960,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .headlineMedium
                                           .override(
-                                            font: GoogleFonts.cinzel(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineMedium
@@ -736,12 +982,12 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                           ),
                                     ),
                                     Text(
-                                      'Rewards',
+                                      'Treasure Quest',
                                       maxLines: 1,
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -766,7 +1012,10 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                   ].divide(SizedBox(height: 4.0)),
                                 ),
                               ),
-                            ),
+                            ).animateOnActionTrigger(
+                                animationsMap[
+                                    'containerOnActionTriggerAnimation4']!,
+                                hasBeenTriggered: hasContainerTriggered4),
                           ),
                           Expanded(
                             flex: 1,
@@ -776,29 +1025,49 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
+                                if (animationsMap[
+                                        'containerOnActionTriggerAnimation5'] !=
+                                    null) {
+                                  safeSetState(
+                                      () => hasContainerTriggered5 = true);
+                                  SchedulerBinding.instance.addPostFrameCallback(
+                                      (_) async => await animationsMap[
+                                              'containerOnActionTriggerAnimation5']!
+                                          .controller
+                                          .forward(from: 0.0));
+                                }
+
                                 context.pushNamed(
                                     QuestCalendarPageWidget.routeName);
                               },
                               child: Container(
                                 height: 96.0,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).secondary,
                                   boxShadow: [
                                     BoxShadow(
-                                      blurRadius: 12.0,
-                                      color: Color(0x40000000),
+                                      blurRadius: 0.0,
+                                      color: Color(0xFF0B5545),
                                       offset: Offset(
                                         0.0,
-                                        4.0,
+                                        5.0,
                                       ),
                                       spreadRadius: 0.0,
                                     )
                                   ],
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFF8FE3CF),
+                                      Color(0xFF1E9A80),
+                                      Color(0xFF137A64)
+                                    ],
+                                    stops: [0.0, 0.45, 1.0],
+                                    begin: AlignmentDirectional(1.0, 0.0),
+                                    end: AlignmentDirectional(-1.0, 0),
+                                  ),
                                   borderRadius: BorderRadius.circular(22.0),
                                   border: Border.all(
-                                    color:
-                                        FlutterFlowTheme.of(context).tertiary,
-                                    width: 2.0,
+                                    color: Color(0xD9FFFFFF),
+                                    width: 2.5,
                                   ),
                                 ),
                                 child: Column(
@@ -815,7 +1084,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .headlineMedium
                                           .override(
-                                            font: GoogleFonts.cinzel(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineMedium
@@ -842,7 +1111,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -867,7 +1136,10 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                   ].divide(SizedBox(height: 4.0)),
                                 ),
                               ),
-                            ),
+                            ).animateOnActionTrigger(
+                                animationsMap[
+                                    'containerOnActionTriggerAnimation5']!,
+                                hasBeenTriggered: hasContainerTriggered5),
                           ),
                         ].divide(SizedBox(width: 10.0)),
                       ),
@@ -907,7 +1179,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .fontWeight,
@@ -951,7 +1223,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.nunito(
+                                    font: GoogleFonts.comicNeue(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -1070,35 +1342,34 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                             child: Text(
                                               functions
                                                   .questEmoji(itemItem.title)!,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineMedium
-                                                      .override(
-                                                        font:
-                                                            GoogleFonts.cinzel(
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .headlineMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .headlineMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .headlineMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .headlineMedium
-                                                                .fontStyle,
-                                                      ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .headlineMedium
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .headlineMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .headlineMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .headlineMedium
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .headlineMedium
+                                                            .fontStyle,
+                                                  ),
                                             ),
                                           ),
                                           Expanded(
@@ -1121,8 +1392,8 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                                           context)
                                                       .headlineSmall
                                                       .override(
-                                                        font:
-                                                            GoogleFonts.cinzel(
+                                                        font: GoogleFonts
+                                                            .comicNeue(
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -1162,7 +1433,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                                         .bodyMedium
                                                         .override(
                                                           font: GoogleFonts
-                                                              .nunito(
+                                                              .comicNeue(
                                                             fontWeight:
                                                                 FlutterFlowTheme.of(
                                                                         context)
@@ -1238,7 +1509,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                                         .titleLarge
                                                         .override(
                                                           font: GoogleFonts
-                                                              .cinzel(
+                                                              .comicNeue(
                                                             fontWeight:
                                                                 FlutterFlowTheme.of(
                                                                         context)
@@ -1271,7 +1542,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                                         .titleLarge
                                                         .override(
                                                           font: GoogleFonts
-                                                              .cinzel(
+                                                              .comicNeue(
                                                             fontWeight:
                                                                 FlutterFlowTheme.of(
                                                                         context)
@@ -1336,8 +1607,8 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                                           context)
                                                       .labelMedium
                                                       .override(
-                                                        font:
-                                                            GoogleFonts.nunito(
+                                                        font: GoogleFonts
+                                                            .comicNeue(
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -1389,7 +1660,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                                         .labelMedium
                                                         .override(
                                                           font: GoogleFonts
-                                                              .nunito(
+                                                              .comicNeue(
                                                             fontWeight:
                                                                 FlutterFlowTheme.of(
                                                                         context)
@@ -1442,7 +1713,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                                         .labelMedium
                                                         .override(
                                                           font: GoogleFonts
-                                                              .nunito(
+                                                              .comicNeue(
                                                             fontWeight:
                                                                 FlutterFlowTheme.of(
                                                                         context)
@@ -1492,7 +1763,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                                         .labelMedium
                                                         .override(
                                                           font: GoogleFonts
-                                                              .nunito(
+                                                              .comicNeue(
                                                             fontWeight:
                                                                 FlutterFlowTheme.of(
                                                                         context)
@@ -1540,166 +1811,232 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                               ((String? n) {
                                                 return '💬 The ruler says: $n';
                                               }(itemItem.parentNote))!,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font:
-                                                            GoogleFonts.nunito(
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
                                             ),
                                           ),
                                         ),
                                       if (functions.kidQuestAction(itemItem) ==
                                           'accept')
-                                        FFButtonWidget(
-                                          onPressed: () async {
-                                            FFAppState().quests = functions
-                                                .claimQuest(
-                                                    FFAppState()
-                                                        .quests
-                                                        .toList(),
-                                                    itemItem.id,
-                                                    FFAppState()
-                                                        .currentMemberId)!
-                                                .toList()
-                                                .cast<QuestStruct>();
-                                            safeSetState(() {});
-                                            _model.acceptKey =
-                                                _model.acceptKey! + 1;
-                                            safeSetState(() {});
-                                          },
-                                          text: '⚔️ Accept this quest!',
-                                          options: FFButtonOptions(
-                                            height: 58.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            textStyle: TextStyle(
-                                              color: Colors.white,
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 0.0,
+                                                color: Color(0xFF4A1FA0),
+                                                offset: Offset(
+                                                  0.0,
+                                                  5.0,
+                                                ),
+                                                spreadRadius: 0.0,
+                                              )
+                                            ],
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                Color(0xFFD9C2FF),
+                                                Color(0xFF9A5CF0),
+                                                Color(0xFF8446E6),
+                                                Color(0xFF6A2FCC)
+                                              ],
+                                              stops: [0.0, 0.48, 0.52, 1.0],
+                                              begin: AlignmentDirectional(
+                                                  1.0, 0.0),
+                                              end:
+                                                  AlignmentDirectional(-1.0, 0),
                                             ),
                                             borderRadius:
-                                                BorderRadius.circular(18.0),
+                                                BorderRadius.circular(22.0),
+                                            border: Border.all(
+                                              color: Color(0xD9FFFFFF),
+                                              width: 2.5,
+                                            ),
                                           ),
-                                        ),
-                                      if (functions.kidQuestAction(itemItem) ==
-                                          'submit')
-                                        FFButtonWidget(
-                                          onPressed: () async {
-                                            if (itemItem.requiresPhoto ==
-                                                true) {
-                                              await showModalBottomSheet(
-                                                isScrollControlled: true,
-                                                context: context,
-                                                builder: (context) {
-                                                  return GestureDetector(
-                                                    onTap: () {
-                                                      FocusScope.of(context)
-                                                          .unfocus();
-                                                      FocusManager
-                                                          .instance.primaryFocus
-                                                          ?.unfocus();
-                                                    },
-                                                    child: Padding(
-                                                      padding: MediaQuery
-                                                          .viewInsetsOf(
-                                                              context),
-                                                      child:
-                                                          QuestPhotoSheetWidget(
-                                                        questId: itemItem.id,
-                                                        kidId: FFAppState()
-                                                            .currentMemberId,
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              ).then((value) =>
-                                                  safeSetState(() {}));
-
-                                              if (functions.questStatus(
-                                                      FFAppState()
-                                                          .quests
-                                                          .toList(),
-                                                      itemItem.id) ==
-                                                  'submitted') {
-                                                _model.coinKey =
-                                                    _model.coinKey! + 1;
-                                                safeSetState(() {});
-                                              }
-                                            } else {
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
                                               FFAppState().quests = functions
-                                                  .submitQuest(
+                                                  .claimQuest(
                                                       FFAppState()
                                                           .quests
                                                           .toList(),
                                                       itemItem.id,
                                                       FFAppState()
-                                                          .currentMemberId,
-                                                      '')!
+                                                          .currentMemberId)!
                                                   .toList()
                                                   .cast<QuestStruct>();
                                               safeSetState(() {});
-                                              FFAppState().submissions =
-                                                  functions
-                                                      .addSubmission(
-                                                          FFAppState()
-                                                              .submissions
-                                                              .toList(),
-                                                          itemItem.id,
-                                                          FFAppState()
-                                                              .currentMemberId,
-                                                          '')!
-                                                      .toList()
-                                                      .cast<SubmissionStruct>();
+                                              _model.acceptKey =
+                                                  _model.acceptKey! + 1;
                                               safeSetState(() {});
-                                              _model.coinKey =
-                                                  _model.coinKey! + 1;
-                                              safeSetState(() {});
-                                            }
-                                          },
-                                          text: '🏆 Quest complete!',
-                                          options: FFButtonOptions(
-                                            height: 58.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .tertiary,
-                                            textStyle: TextStyle(
-                                              color: Color(0xFF2A1B4D),
+                                            },
+                                            text: '⚔️ Accept this quest!',
+                                            options: FFButtonOptions(
+                                              height: 58.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color: Color(0x00FFFFFF),
+                                              textStyle: GoogleFonts.comicNeue(
+                                                color: Colors.white,
+                                                fontSize: 17.0,
+                                              ),
+                                              elevation: 0.0,
+                                              borderRadius:
+                                                  BorderRadius.circular(22.0),
+                                            ),
+                                          ),
+                                        ),
+                                      if (functions.kidQuestAction(itemItem) ==
+                                          'submit')
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 0.0,
+                                                color: Color(0xFFB8740A),
+                                                offset: Offset(
+                                                  0.0,
+                                                  5.0,
+                                                ),
+                                                spreadRadius: 0.0,
+                                              )
+                                            ],
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                Color(0xFFFFF6C4),
+                                                Color(0xFFFFD54F),
+                                                Color(0xFFFFC22E),
+                                                Color(0xFFF0A30A)
+                                              ],
+                                              stops: [0.0, 0.48, 0.52, 1.0],
+                                              begin: AlignmentDirectional(
+                                                  1.0, 0.0),
+                                              end:
+                                                  AlignmentDirectional(-1.0, 0),
                                             ),
                                             borderRadius:
-                                                BorderRadius.circular(18.0),
+                                                BorderRadius.circular(22.0),
+                                            border: Border.all(
+                                              color: Color(0xD9FFFFFF),
+                                              width: 2.5,
+                                            ),
+                                          ),
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              if (itemItem.requiresPhoto ==
+                                                  true) {
+                                                await showModalBottomSheet(
+                                                  isScrollControlled: true,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return GestureDetector(
+                                                      onTap: () {
+                                                        FocusScope.of(context)
+                                                            .unfocus();
+                                                        FocusManager.instance
+                                                            .primaryFocus
+                                                            ?.unfocus();
+                                                      },
+                                                      child: Padding(
+                                                        padding: MediaQuery
+                                                            .viewInsetsOf(
+                                                                context),
+                                                        child:
+                                                            QuestPhotoSheetWidget(
+                                                          questId: itemItem.id,
+                                                          kidId: FFAppState()
+                                                              .currentMemberId,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ).then((value) =>
+                                                    safeSetState(() {}));
+
+                                                if (functions.questStatus(
+                                                        FFAppState()
+                                                            .quests
+                                                            .toList(),
+                                                        itemItem.id) ==
+                                                    'submitted') {
+                                                  _model.coinKey =
+                                                      _model.coinKey! + 1;
+                                                  safeSetState(() {});
+                                                }
+                                              } else {
+                                                FFAppState().quests = functions
+                                                    .submitQuest(
+                                                        FFAppState()
+                                                            .quests
+                                                            .toList(),
+                                                        itemItem.id,
+                                                        FFAppState()
+                                                            .currentMemberId,
+                                                        '')!
+                                                    .toList()
+                                                    .cast<QuestStruct>();
+                                                safeSetState(() {});
+                                                FFAppState().submissions =
+                                                    functions
+                                                        .addSubmission(
+                                                            FFAppState()
+                                                                .submissions
+                                                                .toList(),
+                                                            itemItem.id,
+                                                            FFAppState()
+                                                                .currentMemberId,
+                                                            '')!
+                                                        .toList()
+                                                        .cast<
+                                                            SubmissionStruct>();
+                                                safeSetState(() {});
+                                                _model.coinKey =
+                                                    _model.coinKey! + 1;
+                                                safeSetState(() {});
+                                              }
+                                            },
+                                            text: '🏆 Quest complete!',
+                                            options: FFButtonOptions(
+                                              height: 58.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color: Color(0x00FFFFFF),
+                                              textStyle: GoogleFonts.comicNeue(
+                                                color: Color(0xFF3A2400),
+                                                fontSize: 17.0,
+                                              ),
+                                              elevation: 0.0,
+                                              borderRadius:
+                                                  BorderRadius.circular(22.0),
+                                            ),
                                           ),
                                         ),
                                       if (functions.kidQuestAction(itemItem) ==
@@ -1721,7 +2058,7 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                                                       context)
                                                   .titleMedium
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1768,6 +2105,12 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                   child: custom_widgets.CelebrationOverlay(
                     acceptKey: _model.acceptKey,
                     coinKey: _model.coinKey,
+                    heroLook: functions.avatarLook(
+                        FFAppState().members.toList(),
+                        FFAppState().wardrobe.toList(),
+                        FFAppState().avatarItems.toList(),
+                        FFAppState().currentMemberId,
+                        ''),
                   ),
                 ),
               ),

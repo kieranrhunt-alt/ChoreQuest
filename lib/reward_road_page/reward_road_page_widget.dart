@@ -1,13 +1,18 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/ff_builtin_enums.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'reward_road_page_model.dart';
@@ -30,15 +35,82 @@ class RewardRoadPageWidget extends StatefulWidget {
   State<RewardRoadPageWidget> createState() => _RewardRoadPageWidgetState();
 }
 
-class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
+class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget>
+    with TickerProviderStateMixin {
   late RewardRoadPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  var hasContainerTriggered1 = false;
+  var hasContainerTriggered2 = false;
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => RewardRoadPageModel());
+
+    animationsMap.addAll({
+      'containerOnActionTriggerAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: false,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 90.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.08, 0.86),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 90.0.ms,
+            duration: 100.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.94, 1.2),
+          ),
+          ScaleEffect(
+            curve: Curves.easeOut,
+            delay: 190.0.ms,
+            duration: 110.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(0.985, 0.97),
+          ),
+        ],
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
   }
 
   @override
@@ -152,7 +224,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            font: GoogleFonts.cinzel(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineSmall
@@ -184,7 +256,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodySmall
@@ -210,6 +282,128 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                   ].divide(SizedBox(height: 2.0)),
                                 ),
                               ),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  if (animationsMap[
+                                          'containerOnActionTriggerAnimation1'] !=
+                                      null) {
+                                    safeSetState(
+                                        () => hasContainerTriggered1 = true);
+                                    SchedulerBinding.instance.addPostFrameCallback(
+                                        (_) async => await animationsMap[
+                                                'containerOnActionTriggerAnimation1']!
+                                            .controller
+                                            .forward(from: 0.0));
+                                  }
+                                  if (functions.memberRole(
+                                          FFAppState().members.toList(),
+                                          FFAppState().currentMemberId) ==
+                                      'parent') {
+                                    context.pushNamed(
+                                        ThroneRoomPageWidget.routeName);
+                                  } else {
+                                    context.pushNamed(
+                                        HeroHomePageWidget.routeName);
+                                  }
+                                },
+                                child: Container(
+                                  height: 44.0,
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 0.0,
+                                        color: Color(0xFFB8740A),
+                                        offset: Offset(
+                                          0.0,
+                                          4.0,
+                                        ),
+                                        spreadRadius: 0.0,
+                                      )
+                                    ],
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color(0xFFFFF6C4),
+                                        Color(0xFFFFD54F),
+                                        Color(0xFFFFC22E),
+                                        Color(0xFFF0A30A)
+                                      ],
+                                      stops: [0.0, 0.48, 0.52, 1.0],
+                                      begin: AlignmentDirectional(1.0, 0.0),
+                                      end: AlignmentDirectional(-1.0, 0),
+                                    ),
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    border: Border.all(
+                                      color: Color(0xD9FFFFFF),
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10.0, 0.0, 10.0, 0.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          (FFMainAxisAlignment.center)
+                                              .flutterValue,
+                                      crossAxisAlignment:
+                                          (FFCrossAxisAlignment.center)
+                                              .flutterValue,
+                                      textBaseline: TextBaseline.alphabetic,
+                                      children: [
+                                        Container(
+                                          width: 26.0,
+                                          height: 26.0,
+                                          child: Container(
+                                            child:
+                                                custom_widgets.ChoreQuestLogo(
+                                              showTitle: false,
+                                              animate: false,
+                                              titleFontFamily: '',
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Throne Room',
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelSmall
+                                              .override(
+                                                font: GoogleFonts.comicNeue(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelSmall
+                                                          .fontStyle,
+                                                ),
+                                                color: Color(0xFF3A2400),
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelSmall
+                                                        .fontStyle,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ).animateOnActionTrigger(
+                                  animationsMap[
+                                      'containerOnActionTriggerAnimation1']!,
+                                  hasBeenTriggered: hasContainerTriggered1),
                             ].divide(SizedBox(width: 10.0)),
                           ),
                         ),
@@ -272,7 +466,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .headlineMedium
                                       .override(
-                                        font: GoogleFonts.cinzel(
+                                        font: GoogleFonts.comicNeue(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .headlineMedium
@@ -311,7 +505,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleLarge
                                           .override(
-                                            font: GoogleFonts.cinzel(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleLarge
@@ -352,7 +546,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -384,7 +578,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
-                                            font: GoogleFonts.nunito(
+                                            font: GoogleFonts.comicNeue(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodySmall
@@ -509,7 +703,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleMedium
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleMedium
                                             .fontWeight,
@@ -617,9 +811,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .nunito(
+                                                                font: GoogleFonts
+                                                                    .comicNeue(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
@@ -652,7 +845,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .labelSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -761,9 +954,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .nunito(
+                                                                font: GoogleFonts
+                                                                    .comicNeue(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
@@ -796,7 +988,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .labelSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -905,9 +1097,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .nunito(
+                                                                font: GoogleFonts
+                                                                    .comicNeue(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
@@ -940,7 +1131,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .labelSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1049,9 +1240,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .nunito(
+                                                                font: GoogleFonts
+                                                                    .comicNeue(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
@@ -1084,7 +1274,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .labelSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1193,9 +1383,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .nunito(
+                                                                font: GoogleFonts
+                                                                    .comicNeue(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
@@ -1228,7 +1417,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .labelSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1337,9 +1526,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .nunito(
+                                                                font: GoogleFonts
+                                                                    .comicNeue(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
@@ -1372,7 +1560,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .labelSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1481,9 +1669,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .nunito(
+                                                                font: GoogleFonts
+                                                                    .comicNeue(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
@@ -1516,7 +1703,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .labelSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1625,9 +1812,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .nunito(
+                                                                font: GoogleFonts
+                                                                    .comicNeue(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
@@ -1660,7 +1846,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .labelSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1769,9 +1955,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .nunito(
+                                                                font: GoogleFonts
+                                                                    .comicNeue(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
@@ -1804,7 +1989,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .labelSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1913,9 +2098,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .nunito(
+                                                                font: GoogleFonts
+                                                                    .comicNeue(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
@@ -1948,7 +2132,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .labelSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -2057,9 +2241,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .nunito(
+                                                                font: GoogleFonts
+                                                                    .comicNeue(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
@@ -2092,7 +2275,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .labelSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -2201,9 +2384,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .nunito(
+                                                                font: GoogleFonts
+                                                                    .comicNeue(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
@@ -2236,7 +2418,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .labelSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -2345,9 +2527,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .nunito(
+                                                                font: GoogleFonts
+                                                                    .comicNeue(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
@@ -2380,7 +2561,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .labelSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -2489,9 +2670,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .nunito(
+                                                                font: GoogleFonts
+                                                                    .comicNeue(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
@@ -2524,7 +2704,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .labelSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -2633,9 +2813,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .nunito(
+                                                                font: GoogleFonts
+                                                                    .comicNeue(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
@@ -2668,7 +2847,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .labelSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -2777,9 +2956,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .nunito(
+                                                                font: GoogleFonts
+                                                                    .comicNeue(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
@@ -2812,7 +2990,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .labelSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -2921,9 +3099,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .nunito(
+                                                                font: GoogleFonts
+                                                                    .comicNeue(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
@@ -2956,7 +3133,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .labelSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -3065,9 +3242,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .nunito(
+                                                                font: GoogleFonts
+                                                                    .comicNeue(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
@@ -3100,7 +3276,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .labelSmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -3137,27 +3313,42 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                           ),
                         ),
                       ),
-                      Text(
-                        'Earn gold to move forward. Purple “?” chests hide surprises — reach them to reveal what is inside!',
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodySmall.override(
-                              font: GoogleFonts.nunito(
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .bodySmall
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodySmall
-                                    .fontStyle,
-                              ),
-                              color: Color(0xFF2A1B4D),
-                              letterSpacing: 0.0,
-                              fontWeight: FlutterFlowTheme.of(context)
-                                  .bodySmall
-                                  .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodySmall
-                                  .fontStyle,
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            12.0, 6.0, 12.0, 6.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xEBFFFCF5),
+                            borderRadius: BorderRadius.circular(14.0),
+                            border: Border.all(
+                              color: Color(0x99F2B53A),
+                              width: 1.0,
                             ),
+                          ),
+                          child: Text(
+                            'Earn gold to move forward. Purple “?” chests hide surprises — reach them to reveal what is inside!',
+                            textAlign: TextAlign.center,
+                            style:
+                                FlutterFlowTheme.of(context).bodySmall.override(
+                                      font: GoogleFonts.comicNeue(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .fontStyle,
+                                      ),
+                                      color: Color(0xFF2A1B4D),
+                                      letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodySmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodySmall
+                                          .fontStyle,
+                                    ),
+                          ),
+                        ),
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
@@ -3195,7 +3386,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      font: GoogleFonts.nunito(
+                                      font: GoogleFonts.comicNeue(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .fontWeight,
@@ -3255,7 +3446,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.nunito(
+                                    font: GoogleFonts.comicNeue(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -3364,7 +3555,8 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                         context)
                                                     .headlineMedium
                                                     .override(
-                                                      font: GoogleFonts.cinzel(
+                                                      font:
+                                                          GoogleFonts.comicNeue(
                                                         fontWeight:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -3422,35 +3614,34 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                             Text(
                                               itemItem.label,
                                               maxLines: 1,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleMedium
-                                                      .override(
-                                                        font:
-                                                            GoogleFonts.nunito(
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleMedium
-                                                                .fontStyle,
-                                                      ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleMedium
+                                                  .override(
+                                                    font: GoogleFonts.comicNeue(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleMedium
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleMedium
+                                                            .fontStyle,
+                                                  ),
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                             Text(
@@ -3461,7 +3652,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                                       context)
                                                   .bodySmall
                                                   .override(
-                                                    font: GoogleFonts.nunito(
+                                                    font: GoogleFonts.comicNeue(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -3498,7 +3689,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .titleSmall
                                               .override(
-                                                font: GoogleFonts.nunito(
+                                                font: GoogleFonts.comicNeue(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -3525,106 +3716,144 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                               ),
                                         ),
                                       if (!itemItem.claimed)
-                                        FFButtonWidget(
-                                          onPressed: () async {
-                                            if (itemItem.kind == 'item') {
-                                              FFAppState().wardrobe = functions
-                                                  .grantItem(
-                                                      FFAppState()
-                                                          .wardrobe
-                                                          .toList(),
-                                                      FFAppState()
-                                                          .currentMemberId,
-                                                      itemItem.itemId,
-                                                      'board')!
-                                                  .toList()
-                                                  .cast<WardrobeEntryStruct>();
-                                              safeSetState(() {});
-                                              FFAppState().transactions =
-                                                  functions
-                                                      .addTx(
-                                                          FFAppState()
-                                                              .transactions
-                                                              .toList(),
-                                                          FFAppState()
-                                                              .currentMemberId,
-                                                          0,
-                                                          (String? l) {
-                                                            return 'Reward Road surprise: $l';
-                                                          }(itemItem.label))!
-                                                      .toList()
-                                                      .cast<
-                                                          BuckTransactionStruct>();
-                                              safeSetState(() {});
-                                            } else {
-                                              FFAppState().transactions =
-                                                  functions
-                                                      .addTx(
-                                                          FFAppState()
-                                                              .transactions
-                                                              .toList(),
-                                                          FFAppState()
-                                                              .currentMemberId,
-                                                          itemItem.gold,
-                                                          (String? l) {
-                                                            return 'Reward Road surprise: $l';
-                                                          }(itemItem.label))!
-                                                      .toList()
-                                                      .cast<
-                                                          BuckTransactionStruct>();
-                                              safeSetState(() {});
-                                            }
-
-                                            FFAppState().boardClaims = functions
-                                                .addBoardClaim(
-                                                    FFAppState()
-                                                        .boardClaims
-                                                        .toList(),
-                                                    FFAppState()
-                                                        .currentMemberId,
-                                                    widget!.rewardId,
-                                                    functions.boardRound(
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 0.0,
+                                                color: Color(0xFF167A5A),
+                                                offset: Offset(
+                                                  0.0,
+                                                  5.0,
+                                                ),
+                                                spreadRadius: 0.0,
+                                              )
+                                            ],
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                Color(0xFFD4FFEF),
+                                                Color(0xFF5EE0B5),
+                                                Color(0xFF3FD0A0),
+                                                Color(0xFF22AE80)
+                                              ],
+                                              stops: [0.0, 0.48, 0.52, 1.0],
+                                              begin: AlignmentDirectional(
+                                                  1.0, 0.0),
+                                              end:
+                                                  AlignmentDirectional(-1.0, 0),
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(22.0),
+                                            border: Border.all(
+                                              color: Color(0xD9FFFFFF),
+                                              width: 2.5,
+                                            ),
+                                          ),
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              if (itemItem.kind == 'item') {
+                                                FFAppState().wardrobe = functions
+                                                    .grantItem(
                                                         FFAppState()
-                                                            .redemptions
+                                                            .wardrobe
                                                             .toList(),
                                                         FFAppState()
                                                             .currentMemberId,
-                                                        widget!.rewardId),
-                                                    itemItem.space)!
-                                                .toList()
-                                                .cast<BoardClaimStruct>();
-                                            safeSetState(() {});
-                                            _model.burstCount =
-                                                _model.burstCount! + 1;
-                                            safeSetState(() {});
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  '🎉 Surprise claimed! It is logged in your treasure history.',
-                                                  style: TextStyle(),
+                                                        itemItem.itemId,
+                                                        'board')!
+                                                    .toList()
+                                                    .cast<
+                                                        WardrobeEntryStruct>();
+                                                safeSetState(() {});
+                                                FFAppState().transactions =
+                                                    functions
+                                                        .addTx(
+                                                            FFAppState()
+                                                                .transactions
+                                                                .toList(),
+                                                            FFAppState()
+                                                                .currentMemberId,
+                                                            0,
+                                                            (String? l) {
+                                                              return 'Reward Road surprise: $l';
+                                                            }(itemItem.label))!
+                                                        .toList()
+                                                        .cast<
+                                                            BuckTransactionStruct>();
+                                                safeSetState(() {});
+                                              } else {
+                                                FFAppState().transactions =
+                                                    functions
+                                                        .addTx(
+                                                            FFAppState()
+                                                                .transactions
+                                                                .toList(),
+                                                            FFAppState()
+                                                                .currentMemberId,
+                                                            itemItem.gold,
+                                                            (String? l) {
+                                                              return 'Reward Road surprise: $l';
+                                                            }(itemItem.label))!
+                                                        .toList()
+                                                        .cast<
+                                                            BuckTransactionStruct>();
+                                                safeSetState(() {});
+                                              }
+
+                                              FFAppState().boardClaims = functions
+                                                  .addBoardClaim(
+                                                      FFAppState()
+                                                          .boardClaims
+                                                          .toList(),
+                                                      FFAppState()
+                                                          .currentMemberId,
+                                                      widget!.rewardId,
+                                                      functions.boardRound(
+                                                          FFAppState()
+                                                              .redemptions
+                                                              .toList(),
+                                                          FFAppState()
+                                                              .currentMemberId,
+                                                          widget!.rewardId),
+                                                      itemItem.space)!
+                                                  .toList()
+                                                  .cast<BoardClaimStruct>();
+                                              safeSetState(() {});
+                                              _model.burstCount =
+                                                  _model.burstCount! + 1;
+                                              safeSetState(() {});
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    '🎉 Surprise claimed! It is logged in your treasure history.',
+                                                    style:
+                                                        GoogleFonts.comicNeue(
+                                                      color: Colors.white,
+                                                      fontSize: 16.0,
+                                                    ),
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds: 4000),
                                                 ),
-                                                duration: Duration(
-                                                    milliseconds: 4000),
+                                              );
+                                            },
+                                            text: '🎁 Claim!',
+                                            options: FFButtonOptions(
+                                              height: 42.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color: Color(0x00FFFFFF),
+                                              textStyle: GoogleFonts.comicNeue(
+                                                color: Color(0xFF0E3B2E),
+                                                fontSize: 17.0,
                                               ),
-                                            );
-                                          },
-                                          text: 'Claim!',
-                                          options: FFButtonOptions(
-                                            height: 42.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .tertiary,
-                                            textStyle: TextStyle(
-                                              color: Color(0xFF2A1B4D),
+                                              elevation: 0.0,
+                                              borderRadius:
+                                                  BorderRadius.circular(22.0),
                                             ),
-                                            borderRadius:
-                                                BorderRadius.circular(14.0),
                                           ),
                                         ),
                                     ].divide(SizedBox(width: 12.0)),
@@ -3653,7 +3882,7 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .titleMedium
                                   .override(
-                                    font: GoogleFonts.nunito(
+                                    font: GoogleFonts.comicNeue(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleMedium
                                           .fontWeight,
@@ -3679,81 +3908,134 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget> {
                                   FFAppState().rewards.toList(),
                                   widget!.rewardId)) ??
                           true)
-                        FFButtonWidget(
-                          onPressed: () async {
-                            if (functions.canAfford(
-                                FFAppState().transactions.toList(),
-                                FFAppState().currentMemberId,
-                                functions.rewardCost(
-                                    FFAppState().rewards.toList(),
-                                    widget!.rewardId))!) {
-                              FFAppState().redemptions = functions
-                                  .buyRewardRedemption(
-                                      FFAppState().redemptions.toList(),
-                                      widget!.rewardId,
-                                      FFAppState().currentMemberId,
-                                      functions.rewardText(
-                                          FFAppState().rewards.toList(),
-                                          widget!.rewardId,
-                                          'title'),
-                                      functions.rewardCost(
-                                          FFAppState().rewards.toList(),
-                                          widget!.rewardId))!
-                                  .toList()
-                                  .cast<RedemptionStruct>();
-                              safeSetState(() {});
-                              FFAppState().transactions = functions
-                                  .buyRewardTx(
-                                      FFAppState().transactions.toList(),
-                                      FFAppState().currentMemberId,
-                                      functions.rewardText(
-                                          FFAppState().rewards.toList(),
-                                          widget!.rewardId,
-                                          'title'),
-                                      functions.rewardCost(
-                                          FFAppState().rewards.toList(),
-                                          widget!.rewardId))!
-                                  .toList()
-                                  .cast<BuckTransactionStruct>();
-                              safeSetState(() {});
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    '🎉 Reward unlocked! Show a ruler to enjoy it.',
-                                    style: TextStyle(),
-                                  ),
-                                  duration: Duration(milliseconds: 4000),
+                        Container(
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 0.0,
+                                color: Color(0xFFB8740A),
+                                offset: Offset(
+                                  0.0,
+                                  5.0,
                                 ),
-                              );
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Keep questing — you need more gold! 💪',
-                                    style: TextStyle(),
-                                  ),
-                                  duration: Duration(milliseconds: 4000),
-                                ),
-                              );
-                            }
-
-                            _model.burstCount = _model.burstCount! + 1;
-                            safeSetState(() {});
-                          },
-                          text: '🏆 Buy this reward!',
-                          options: FFButtonOptions(
-                            height: 54.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).tertiary,
-                            textStyle: TextStyle(
-                              color: Color(0xFF2A1B4D),
+                                spreadRadius: 0.0,
+                              )
+                            ],
+                            gradient: LinearGradient(
+                              colors: [
+                                Color(0xFFFFF6C4),
+                                Color(0xFFFFD54F),
+                                Color(0xFFFFC22E),
+                                Color(0xFFF0A30A)
+                              ],
+                              stops: [0.0, 0.48, 0.52, 1.0],
+                              begin: AlignmentDirectional(1.0, 0.0),
+                              end: AlignmentDirectional(-1.0, 0),
                             ),
-                            borderRadius: BorderRadius.circular(18.0),
+                            borderRadius: BorderRadius.circular(22.0),
+                            border: Border.all(
+                              color: Color(0xD9FFFFFF),
+                              width: 2.5,
+                            ),
                           ),
-                        ),
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              if (animationsMap[
+                                      'containerOnActionTriggerAnimation2'] !=
+                                  null) {
+                                safeSetState(
+                                    () => hasContainerTriggered2 = true);
+                                SchedulerBinding.instance.addPostFrameCallback(
+                                    (_) async => await animationsMap[
+                                            'containerOnActionTriggerAnimation2']!
+                                        .controller
+                                        .forward(from: 0.0));
+                              }
+                              if (functions.canAfford(
+                                  FFAppState().transactions.toList(),
+                                  FFAppState().currentMemberId,
+                                  functions.rewardCost(
+                                      FFAppState().rewards.toList(),
+                                      widget!.rewardId))!) {
+                                FFAppState().redemptions = functions
+                                    .buyRewardRedemption(
+                                        FFAppState().redemptions.toList(),
+                                        widget!.rewardId,
+                                        FFAppState().currentMemberId,
+                                        functions.rewardText(
+                                            FFAppState().rewards.toList(),
+                                            widget!.rewardId,
+                                            'title'),
+                                        functions.rewardCost(
+                                            FFAppState().rewards.toList(),
+                                            widget!.rewardId))!
+                                    .toList()
+                                    .cast<RedemptionStruct>();
+                                safeSetState(() {});
+                                FFAppState().transactions = functions
+                                    .buyRewardTx(
+                                        FFAppState().transactions.toList(),
+                                        FFAppState().currentMemberId,
+                                        functions.rewardText(
+                                            FFAppState().rewards.toList(),
+                                            widget!.rewardId,
+                                            'title'),
+                                        functions.rewardCost(
+                                            FFAppState().rewards.toList(),
+                                            widget!.rewardId))!
+                                    .toList()
+                                    .cast<BuckTransactionStruct>();
+                                safeSetState(() {});
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      '🎉 Reward unlocked! Show a ruler to enjoy it.',
+                                      style: GoogleFonts.comicNeue(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
+                                    duration: Duration(milliseconds: 4000),
+                                  ),
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Keep questing — you need more gold! 💪',
+                                      style: GoogleFonts.comicNeue(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
+                                    duration: Duration(milliseconds: 4000),
+                                  ),
+                                );
+                              }
+
+                              _model.burstCount = _model.burstCount! + 1;
+                              safeSetState(() {});
+                            },
+                            text: '🏆 Buy this reward!',
+                            options: FFButtonOptions(
+                              height: 54.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: Color(0x00FFFFFF),
+                              textStyle: GoogleFonts.comicNeue(
+                                color: Color(0xFF3A2400),
+                                fontSize: 17.0,
+                              ),
+                              elevation: 0.0,
+                              borderRadius: BorderRadius.circular(22.0),
+                            ),
+                          ),
+                        ).animateOnActionTrigger(
+                            animationsMap[
+                                'containerOnActionTriggerAnimation2']!,
+                            hasBeenTriggered: hasContainerTriggered2),
                     ].divide(SizedBox(height: 14.0)),
                   ),
                 ),

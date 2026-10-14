@@ -144,22 +144,22 @@ class LightModeTheme extends FlutterFlowTheme {
   @Deprecated('Use tertiary instead')
   Color get tertiaryColor => tertiary;
 
-  late Color primary = const Color(0xFF5B3CC4);
-  late Color secondary = const Color(0xFF1FA67A);
-  late Color tertiary = const Color(0xFFF2B53A);
-  late Color alternate = const Color(0xFFE6D9BD);
+  late Color primary = const Color(0xFF7B3FE4);
+  late Color secondary = const Color(0xFFC42A7A);
+  late Color tertiary = const Color(0xFFFFC93C);
+  late Color alternate = const Color(0xFFE9DDFB);
   late Color primaryText = const Color(0xFF2A1B4D);
-  late Color secondaryText = const Color(0xFF6B5E80);
-  late Color primaryBackground = const Color(0xFFF7F1E3);
-  late Color secondaryBackground = const Color(0xFFFFFCF5);
-  late Color accent1 = const Color(0xFFEDE7FF);
-  late Color accent2 = const Color(0xFFDFF5EC);
-  late Color accent3 = const Color(0xFFFFF0C9);
-  late Color accent4 = const Color(0xFFFCE1E4);
-  late Color success = const Color(0xFF1FA67A);
+  late Color secondaryText = const Color(0xFF5E4B7A);
+  late Color primaryBackground = const Color(0xFFFFF4FA);
+  late Color secondaryBackground = const Color(0xFFFFFCFE);
+  late Color accent1 = const Color(0xFFEDE4FF);
+  late Color accent2 = const Color(0xFFDDF7EE);
+  late Color accent3 = const Color(0xFFFFF1C9);
+  late Color accent4 = const Color(0xFFFFE0EE);
+  late Color success = const Color(0xFF1E8A63);
   late Color warning = const Color(0xFFF2B53A);
-  late Color error = const Color(0xFFD94848);
-  late Color info = const Color(0xFF5B3CC4);
+  late Color error = const Color(0xFFC42646);
+  late Color info = const Color(0xFF3A7BD5);
 }
 
 abstract class Typography {
@@ -215,109 +215,109 @@ class ThemeTypography extends Typography {
 
   final FlutterFlowTheme theme;
 
-  String get displayLargeFamily => 'Cinzel';
+  String get displayLargeFamily => 'Comic Neue';
   bool get displayLargeIsCustom => false;
-  TextStyle get displayLarge => GoogleFonts.cinzel(
+  TextStyle get displayLarge => GoogleFonts.comicNeue(
         color: theme.primaryText,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.bold,
         fontSize: 64.0,
       );
-  String get displayMediumFamily => 'Cinzel';
+  String get displayMediumFamily => 'Comic Neue';
   bool get displayMediumIsCustom => false;
-  TextStyle get displayMedium => GoogleFonts.cinzel(
+  TextStyle get displayMedium => GoogleFonts.comicNeue(
         color: theme.primaryText,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.bold,
         fontSize: 44.0,
       );
-  String get displaySmallFamily => 'Cinzel';
+  String get displaySmallFamily => 'Comic Neue';
   bool get displaySmallIsCustom => false;
-  TextStyle get displaySmall => GoogleFonts.cinzel(
+  TextStyle get displaySmall => GoogleFonts.comicNeue(
         color: theme.primaryText,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.bold,
         fontSize: 36.0,
       );
-  String get headlineLargeFamily => 'Cinzel';
+  String get headlineLargeFamily => 'Comic Neue';
   bool get headlineLargeIsCustom => false;
-  TextStyle get headlineLarge => GoogleFonts.cinzel(
+  TextStyle get headlineLarge => GoogleFonts.comicNeue(
         color: theme.primaryText,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.bold,
         fontSize: 32.0,
       );
-  String get headlineMediumFamily => 'Cinzel';
+  String get headlineMediumFamily => 'Comic Neue';
   bool get headlineMediumIsCustom => false;
-  TextStyle get headlineMedium => GoogleFonts.cinzel(
+  TextStyle get headlineMedium => GoogleFonts.comicNeue(
         color: theme.primaryText,
         fontWeight: FontWeight.bold,
         fontSize: 26.0,
       );
-  String get headlineSmallFamily => 'Cinzel';
+  String get headlineSmallFamily => 'Comic Neue';
   bool get headlineSmallIsCustom => false;
-  TextStyle get headlineSmall => GoogleFonts.cinzel(
+  TextStyle get headlineSmall => GoogleFonts.comicNeue(
         color: theme.primaryText,
         fontWeight: FontWeight.bold,
         fontSize: 20.0,
       );
-  String get titleLargeFamily => 'Cinzel';
+  String get titleLargeFamily => 'Comic Neue';
   bool get titleLargeIsCustom => false;
-  TextStyle get titleLarge => GoogleFonts.cinzel(
+  TextStyle get titleLarge => GoogleFonts.comicNeue(
         color: theme.primaryText,
         fontWeight: FontWeight.bold,
         fontSize: 17.0,
       );
-  String get titleMediumFamily => 'Nunito';
+  String get titleMediumFamily => 'Comic Neue';
   bool get titleMediumIsCustom => false;
-  TextStyle get titleMedium => GoogleFonts.nunito(
+  TextStyle get titleMedium => GoogleFonts.comicNeue(
         color: theme.primaryText,
-        fontWeight: FontWeight.w800,
+        fontWeight: FontWeight.bold,
         fontSize: 16.0,
       );
-  String get titleSmallFamily => 'Nunito';
+  String get titleSmallFamily => 'Comic Neue';
   bool get titleSmallIsCustom => false;
-  TextStyle get titleSmall => GoogleFonts.nunito(
+  TextStyle get titleSmall => GoogleFonts.comicNeue(
         color: theme.primaryText,
-        fontWeight: FontWeight.w800,
+        fontWeight: FontWeight.bold,
         fontSize: 14.0,
       );
-  String get labelLargeFamily => 'Cinzel';
+  String get labelLargeFamily => 'Comic Neue';
   bool get labelLargeIsCustom => false;
-  TextStyle get labelLarge => GoogleFonts.cinzel(
+  TextStyle get labelLarge => GoogleFonts.comicNeue(
         color: theme.secondaryText,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.bold,
         fontSize: 16.0,
       );
-  String get labelMediumFamily => 'Nunito';
+  String get labelMediumFamily => 'Comic Neue';
   bool get labelMediumIsCustom => false;
-  TextStyle get labelMedium => GoogleFonts.nunito(
+  TextStyle get labelMedium => GoogleFonts.comicNeue(
         color: theme.secondaryText,
         fontWeight: FontWeight.bold,
         fontSize: 12.0,
       );
-  String get labelSmallFamily => 'Nunito';
+  String get labelSmallFamily => 'Comic Neue';
   bool get labelSmallIsCustom => false;
-  TextStyle get labelSmall => GoogleFonts.nunito(
+  TextStyle get labelSmall => GoogleFonts.comicNeue(
         color: theme.secondaryText,
         fontWeight: FontWeight.bold,
         fontSize: 11.0,
       );
-  String get bodyLargeFamily => 'Nunito';
+  String get bodyLargeFamily => 'Comic Neue';
   bool get bodyLargeIsCustom => false;
-  TextStyle get bodyLarge => GoogleFonts.nunito(
+  TextStyle get bodyLarge => GoogleFonts.comicNeue(
         color: theme.primaryText,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get bodyMediumFamily => 'Nunito';
+  String get bodyMediumFamily => 'Comic Neue';
   bool get bodyMediumIsCustom => false;
-  TextStyle get bodyMedium => GoogleFonts.nunito(
+  TextStyle get bodyMedium => GoogleFonts.comicNeue(
         color: theme.primaryText,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get bodySmallFamily => 'Nunito';
+  String get bodySmallFamily => 'Comic Neue';
   bool get bodySmallIsCustom => false;
-  TextStyle get bodySmall => GoogleFonts.nunito(
+  TextStyle get bodySmall => GoogleFonts.comicNeue(
         color: theme.primaryText,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.normal,
         fontSize: 12.0,
       );
 }
