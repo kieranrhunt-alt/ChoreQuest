@@ -195,13 +195,13 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                             children: [
                               FlutterFlowIconButton(
                                 borderRadius: 14.0,
-                                buttonSize: 40.0,
+                                buttonSize: 52.0,
                                 fillColor:
                                     FlutterFlowTheme.of(context).tertiary,
                                 icon: Icon(
                                   Icons.arrow_back_rounded,
                                   color: Color(0xFF2A1B4D),
-                                  size: 24.0,
+                                  size: 28.0,
                                 ),
                                 onPressed: () async {
                                   context.pop();
@@ -223,27 +223,37 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontStyle,
-                                            ),
-                                            color: Colors.white,
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontStyle,
+                                        font: GoogleFonts.sniglet(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineSmall
+                                                  .fontStyle,
+                                        ),
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .fontStyle,
+                                        shadows: [
+                                          Shadow(
+                                            color: Color(0xFF4A1FA0),
+                                            offset: Offset(0.0, 3.0),
+                                            blurRadius: 0.0,
                                           ),
+                                          Shadow(
+                                            color: Color(0x66FF9ECF),
+                                            offset: Offset(0.0, 0.0),
+                                            blurRadius: 8.0,
+                                          )
+                                        ],
+                                      ),
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     Text(
@@ -252,7 +262,7 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodySmall
@@ -307,7 +317,7 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                   }
                                 },
                                 child: Container(
-                                  height: 44.0,
+                                  height: 56.0,
                                   decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
@@ -368,7 +378,7 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .labelSmall
                                               .override(
-                                                font: GoogleFonts.comicNeue(
+                                                font: GoogleFonts.sniglet(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -442,7 +452,7 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -494,7 +504,7 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -547,7 +557,7 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -599,7 +609,7 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -652,7 +662,7 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -704,7 +714,7 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -757,7 +767,7 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -809,7 +819,7 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -859,7 +869,7 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.comicNeue(
+                                    font: GoogleFonts.sniglet(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -992,8 +1002,7 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                                         context)
                                                     .titleMedium
                                                     .override(
-                                                      font:
-                                                          GoogleFonts.comicNeue(
+                                                      font: GoogleFonts.sniglet(
                                                         fontWeight:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1036,8 +1045,7 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                                         context)
                                                     .bodySmall
                                                     .override(
-                                                      font:
-                                                          GoogleFonts.comicNeue(
+                                                      font: GoogleFonts.sniglet(
                                                         fontWeight:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1078,8 +1086,8 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                                           context)
                                                       .labelMedium
                                                       .override(
-                                                        font: GoogleFonts
-                                                            .comicNeue(
+                                                        font:
+                                                            GoogleFonts.sniglet(
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -1119,8 +1127,8 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                                           context)
                                                       .labelMedium
                                                       .override(
-                                                        font: GoogleFonts
-                                                            .comicNeue(
+                                                        font:
+                                                            GoogleFonts.sniglet(
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -1160,8 +1168,8 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                                           context)
                                                       .bodySmall
                                                       .override(
-                                                        font: GoogleFonts
-                                                            .comicNeue(
+                                                        font:
+                                                            GoogleFonts.sniglet(
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -1211,7 +1219,7 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                                       context)
                                                   .titleMedium
                                                   .override(
-                                                    font: GoogleFonts.comicNeue(
+                                                    font: GoogleFonts.sniglet(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1238,13 +1246,13 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                                                   ),
                                             ),
                                             FlutterFlowIconButton(
-                                              buttonSize: 40.0,
+                                              buttonSize: 52.0,
                                               icon: Icon(
                                                 Icons.delete_outline,
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .error,
-                                                size: 22.0,
+                                                size: 28.0,
                                               ),
                                               onPressed: () async {
                                                 var confirmDialogResponse =
@@ -1303,6 +1311,18 @@ class _RoyalQuestBoardPageWidgetState extends State<RoyalQuestBoardPageWidget>
                             },
                           );
                         },
+                      ),
+                      Container(
+                        height: 250.0,
+                        child: Container(
+                          child: custom_widgets.SquishieNav(
+                            current: 'RoyalQuestBoardPage',
+                            mode: 'dock',
+                            role: functions.memberRole(
+                                FFAppState().members.toList(),
+                                FFAppState().currentMemberId),
+                          ),
+                        ),
                       ),
                     ].divide(SizedBox(height: 14.0)),
                   ),

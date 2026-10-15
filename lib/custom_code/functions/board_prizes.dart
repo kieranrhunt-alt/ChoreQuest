@@ -53,11 +53,38 @@ List<BoardPrizeStruct>? boardPrizes(
           i.category != 'species')
       .toList()
     ..sort((a, b) => a.id.compareTo(b.id));
-  var bal = 0;
-  for (final t in transactions ?? <BuckTransactionStruct>[]) {
-    if (t.kidId == kid) bal += t.amount;
+  var tqActive = '';
+  var tqStart = -1;
+  final txList = transactions ?? <BuckTransactionStruct>[];
+  String tqRid(String id) {
+    final b = id.substring(4);
+    final cut = b.lastIndexOf('_');
+    return cut <= 0 ? b : b.substring(0, cut);
   }
-  final pos = ((bal < 0 ? 0 : (bal > c ? c : bal)) / c * spaces).floor();
+
+  for (var i = 0; i < txList.length; i++) {
+    final t = txList[i];
+    if (t.kidId != kid) continue;
+    if (t.id.startsWith('tqs_')) {
+      tqActive = tqRid(t.id);
+      tqStart = i;
+    } else if ((t.id.startsWith('tqq_') || t.id.startsWith('tqd_')) &&
+        tqRid(t.id) == tqActive) {
+      tqActive = '';
+      tqStart = -1;
+    }
+  }
+  var earned = 0;
+  if (tqActive == rid && tqStart >= 0) {
+    for (var i = tqStart + 1; i < txList.length; i++) {
+      if (txList[i].kidId == kid && txList[i].amount > 0)
+        earned += txList[i].amount;
+    }
+  }
+  final pos = tqActive == rid && tqStart >= 0
+      ? ((earned > c ? c : earned) / c * spaces).floor()
+      : -1;
+
   var species = 'bunny';
   var color = '';
   for (final m in members ?? <MemberStruct>[]) {

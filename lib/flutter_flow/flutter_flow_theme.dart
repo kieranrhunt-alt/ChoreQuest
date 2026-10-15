@@ -215,107 +215,107 @@ class ThemeTypography extends Typography {
 
   final FlutterFlowTheme theme;
 
-  String get displayLargeFamily => 'Comic Neue';
+  String get displayLargeFamily => 'Sniglet';
   bool get displayLargeIsCustom => false;
-  TextStyle get displayLarge => GoogleFonts.comicNeue(
+  TextStyle get displayLarge => GoogleFonts.sniglet(
         color: theme.primaryText,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w800,
         fontSize: 64.0,
       );
-  String get displayMediumFamily => 'Comic Neue';
+  String get displayMediumFamily => 'Sniglet';
   bool get displayMediumIsCustom => false;
-  TextStyle get displayMedium => GoogleFonts.comicNeue(
+  TextStyle get displayMedium => GoogleFonts.sniglet(
         color: theme.primaryText,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w800,
         fontSize: 44.0,
       );
-  String get displaySmallFamily => 'Comic Neue';
+  String get displaySmallFamily => 'Sniglet';
   bool get displaySmallIsCustom => false;
-  TextStyle get displaySmall => GoogleFonts.comicNeue(
+  TextStyle get displaySmall => GoogleFonts.sniglet(
         color: theme.primaryText,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w800,
         fontSize: 36.0,
       );
-  String get headlineLargeFamily => 'Comic Neue';
+  String get headlineLargeFamily => 'Sniglet';
   bool get headlineLargeIsCustom => false;
-  TextStyle get headlineLarge => GoogleFonts.comicNeue(
+  TextStyle get headlineLarge => GoogleFonts.sniglet(
         color: theme.primaryText,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w800,
         fontSize: 32.0,
       );
-  String get headlineMediumFamily => 'Comic Neue';
+  String get headlineMediumFamily => 'Sniglet';
   bool get headlineMediumIsCustom => false;
-  TextStyle get headlineMedium => GoogleFonts.comicNeue(
+  TextStyle get headlineMedium => GoogleFonts.sniglet(
         color: theme.primaryText,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w800,
         fontSize: 26.0,
       );
-  String get headlineSmallFamily => 'Comic Neue';
+  String get headlineSmallFamily => 'Sniglet';
   bool get headlineSmallIsCustom => false;
-  TextStyle get headlineSmall => GoogleFonts.comicNeue(
+  TextStyle get headlineSmall => GoogleFonts.sniglet(
         color: theme.primaryText,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w800,
         fontSize: 20.0,
       );
-  String get titleLargeFamily => 'Comic Neue';
+  String get titleLargeFamily => 'Sniglet';
   bool get titleLargeIsCustom => false;
-  TextStyle get titleLarge => GoogleFonts.comicNeue(
+  TextStyle get titleLarge => GoogleFonts.sniglet(
         color: theme.primaryText,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w800,
         fontSize: 17.0,
       );
-  String get titleMediumFamily => 'Comic Neue';
+  String get titleMediumFamily => 'Sniglet';
   bool get titleMediumIsCustom => false;
-  TextStyle get titleMedium => GoogleFonts.comicNeue(
+  TextStyle get titleMedium => GoogleFonts.sniglet(
         color: theme.primaryText,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w800,
         fontSize: 16.0,
       );
-  String get titleSmallFamily => 'Comic Neue';
+  String get titleSmallFamily => 'Sniglet';
   bool get titleSmallIsCustom => false;
-  TextStyle get titleSmall => GoogleFonts.comicNeue(
+  TextStyle get titleSmall => GoogleFonts.sniglet(
         color: theme.primaryText,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w800,
         fontSize: 14.0,
       );
-  String get labelLargeFamily => 'Comic Neue';
+  String get labelLargeFamily => 'Sniglet';
   bool get labelLargeIsCustom => false;
-  TextStyle get labelLarge => GoogleFonts.comicNeue(
+  TextStyle get labelLarge => GoogleFonts.sniglet(
         color: theme.secondaryText,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w800,
         fontSize: 16.0,
       );
-  String get labelMediumFamily => 'Comic Neue';
+  String get labelMediumFamily => 'Sniglet';
   bool get labelMediumIsCustom => false;
-  TextStyle get labelMedium => GoogleFonts.comicNeue(
+  TextStyle get labelMedium => GoogleFonts.sniglet(
         color: theme.secondaryText,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w800,
         fontSize: 12.0,
       );
-  String get labelSmallFamily => 'Comic Neue';
+  String get labelSmallFamily => 'Sniglet';
   bool get labelSmallIsCustom => false;
-  TextStyle get labelSmall => GoogleFonts.comicNeue(
+  TextStyle get labelSmall => GoogleFonts.sniglet(
         color: theme.secondaryText,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w800,
         fontSize: 11.0,
       );
-  String get bodyLargeFamily => 'Comic Neue';
+  String get bodyLargeFamily => 'Sniglet';
   bool get bodyLargeIsCustom => false;
-  TextStyle get bodyLarge => GoogleFonts.comicNeue(
+  TextStyle get bodyLarge => GoogleFonts.sniglet(
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get bodyMediumFamily => 'Comic Neue';
+  String get bodyMediumFamily => 'Sniglet';
   bool get bodyMediumIsCustom => false;
-  TextStyle get bodyMedium => GoogleFonts.comicNeue(
+  TextStyle get bodyMedium => GoogleFonts.sniglet(
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get bodySmallFamily => 'Comic Neue';
+  String get bodySmallFamily => 'Sniglet';
   bool get bodySmallIsCustom => false;
-  TextStyle get bodySmall => GoogleFonts.comicNeue(
+  TextStyle get bodySmall => GoogleFonts.sniglet(
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,

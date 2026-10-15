@@ -129,7 +129,7 @@ class _SplashPageWidgetState extends State<SplashPageWidget> {
                       child: Text(
                         'Welcome to the Squishie Kingdom!',
                         style: FlutterFlowTheme.of(context).titleSmall.override(
-                              font: GoogleFonts.comicNeue(
+                              font: GoogleFonts.sniglet(
                                 fontWeight: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .fontWeight,
@@ -162,7 +162,7 @@ class _SplashPageWidgetState extends State<SplashPageWidget> {
                   Text(
                     'Opening the Squishie Kingdom gates…',
                     style: FlutterFlowTheme.of(context).bodySmall.override(
-                          font: GoogleFonts.comicNeue(
+                          font: GoogleFonts.sniglet(
                             fontWeight: FlutterFlowTheme.of(context)
                                 .bodySmall
                                 .fontWeight,

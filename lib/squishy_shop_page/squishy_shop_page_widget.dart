@@ -163,13 +163,13 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                             children: [
                               FlutterFlowIconButton(
                                 borderRadius: 14.0,
-                                buttonSize: 40.0,
+                                buttonSize: 52.0,
                                 fillColor:
                                     FlutterFlowTheme.of(context).tertiary,
                                 icon: Icon(
                                   Icons.arrow_back_rounded,
                                   color: Color(0xFF2A1B4D),
-                                  size: 24.0,
+                                  size: 28.0,
                                 ),
                                 onPressed: () async {
                                   context.pop();
@@ -191,27 +191,37 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontStyle,
-                                            ),
-                                            color: Colors.white,
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontStyle,
+                                        font: GoogleFonts.sniglet(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineSmall
+                                                  .fontStyle,
+                                        ),
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .fontStyle,
+                                        shadows: [
+                                          Shadow(
+                                            color: Color(0xFF4A1FA0),
+                                            offset: Offset(0.0, 3.0),
+                                            blurRadius: 0.0,
                                           ),
+                                          Shadow(
+                                            color: Color(0x66FF9ECF),
+                                            offset: Offset(0.0, 0.0),
+                                            blurRadius: 8.0,
+                                          )
+                                        ],
+                                      ),
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     Text(
@@ -224,7 +234,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodySmall
@@ -279,7 +289,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                   }
                                 },
                                 child: Container(
-                                  height: 44.0,
+                                  height: 56.0,
                                   decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
@@ -340,7 +350,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .labelSmall
                                               .override(
-                                                font: GoogleFonts.comicNeue(
+                                                font: GoogleFonts.sniglet(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -414,7 +424,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -466,7 +476,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -519,7 +529,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -571,7 +581,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -624,7 +634,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -676,7 +686,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -729,7 +739,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -781,7 +791,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -834,7 +844,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -886,7 +896,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -939,7 +949,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -991,7 +1001,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1044,7 +1054,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1096,7 +1106,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1149,7 +1159,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1201,7 +1211,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1254,7 +1264,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1306,7 +1316,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1359,7 +1369,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1411,7 +1421,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1563,8 +1573,8 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                                           context)
                                                       .labelSmall
                                                       .override(
-                                                        font: GoogleFonts
-                                                            .comicNeue(
+                                                        font:
+                                                            GoogleFonts.sniglet(
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -1601,7 +1611,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                         style: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .override(
-                                              font: GoogleFonts.comicNeue(
+                                              font: GoogleFonts.sniglet(
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
                                                         .titleSmall
@@ -1636,7 +1646,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                         style: FlutterFlowTheme.of(context)
                                             .labelSmall
                                             .override(
-                                              font: GoogleFonts.comicNeue(
+                                              font: GoogleFonts.sniglet(
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
                                                         .labelSmall
@@ -1698,8 +1708,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                                         context)
                                                     .labelSmall
                                                     .override(
-                                                      font:
-                                                          GoogleFonts.comicNeue(
+                                                      font: GoogleFonts.sniglet(
                                                         fontWeight:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1749,34 +1758,35 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                             padding: EdgeInsets.all(8.0),
                                             child: Text(
                                               '⏳ Waiting for ruler',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .labelMedium
-                                                  .override(
-                                                    font: GoogleFonts.comicNeue(
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelMedium
-                                                            .fontStyle,
-                                                  ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.sniglet(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
                                             ),
                                           ),
                                         ),
@@ -1849,7 +1859,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                                     content: Text(
                                                       '✨ Purchase requested! A ruler will approve it 🛍️',
                                                       style:
-                                                          GoogleFonts.comicNeue(
+                                                          GoogleFonts.sniglet(
                                                         color: Colors.white,
                                                         fontSize: 16.0,
                                                       ),
@@ -1865,7 +1875,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                                     content: Text(
                                                       'Not enough gold yet — keep questing! 💪',
                                                       style:
-                                                          GoogleFonts.comicNeue(
+                                                          GoogleFonts.sniglet(
                                                         color: Colors.white,
                                                         fontSize: 16.0,
                                                       ),
@@ -1880,15 +1890,16 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                               return 'Buy 🪙 $c';
                                             }(itemItem.buckCost))!,
                                             options: FFButtonOptions(
-                                              height: 42.0,
+                                              height: 58.0,
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               iconPadding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color: Color(0x00FFFFFF),
-                                              textStyle: GoogleFonts.comicNeue(
+                                              textStyle: GoogleFonts.sniglet(
                                                 color: Color(0xFF3A2400),
-                                                fontSize: 17.0,
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: 20.0,
                                               ),
                                               elevation: 0.0,
                                               borderRadius:
@@ -1903,6 +1914,18 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                             },
                           );
                         },
+                      ),
+                      Container(
+                        height: 250.0,
+                        child: Container(
+                          child: custom_widgets.SquishieNav(
+                            current: 'SquishyShopPage',
+                            mode: 'dock',
+                            role: functions.memberRole(
+                                FFAppState().members.toList(),
+                                FFAppState().currentMemberId),
+                          ),
+                        ),
                       ),
                     ].divide(SizedBox(height: 14.0)),
                   ),

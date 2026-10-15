@@ -76,7 +76,7 @@ class _CelebrationOverlayState extends State<CelebrationOverlay>
 
   TextStyle _font(double size, Color color,
           {Paint? stroke, FontWeight weight = FontWeight.w700}) =>
-      GoogleFonts.comicNeue(
+      GoogleFonts.sniglet(
         fontSize: size,
         fontWeight: weight,
         height: 1.0,

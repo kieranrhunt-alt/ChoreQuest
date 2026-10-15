@@ -83,7 +83,7 @@ class _ChoreQuestLogoState extends State<ChoreQuestLogo>
     final family = widget.titleFontFamily;
     if (family != null && family.isNotEmpty)
       return base.copyWith(fontFamily: family);
-    return GoogleFonts.comicNeue(textStyle: base);
+    return GoogleFonts.sniglet(textStyle: base);
   }
 
   Widget _outlined(

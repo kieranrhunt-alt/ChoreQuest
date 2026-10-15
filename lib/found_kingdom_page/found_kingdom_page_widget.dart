@@ -182,22 +182,34 @@ class _FoundKingdomPageWidgetState extends State<FoundKingdomPageWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .headlineMedium
                                     .override(
-                                      font: GoogleFonts.comicNeue(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .headlineMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .headlineMedium
-                                            .fontStyle,
-                                      ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .headlineMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .headlineMedium
-                                          .fontStyle,
+                                  font: GoogleFonts.sniglet(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .headlineMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .headlineMedium
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .headlineMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineMedium
+                                      .fontStyle,
+                                  shadows: [
+                                    Shadow(
+                                      color: Colors.white,
+                                      offset: Offset(0.0, -1.5),
+                                      blurRadius: 0.0,
                                     ),
+                                    Shadow(
+                                      color: Color(0x55B79CFF),
+                                      offset: Offset(0.0, 2.5),
+                                      blurRadius: 0.0,
+                                    )
+                                  ],
+                                ),
                               ),
                               Text(
                                 'Turn chores into Squishie Kingdom adventures!',
@@ -205,7 +217,7 @@ class _FoundKingdomPageWidgetState extends State<FoundKingdomPageWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      font: GoogleFonts.comicNeue(
+                                      font: GoogleFonts.sniglet(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .bodyLarge
                                             .fontWeight,
@@ -477,7 +489,7 @@ class _FoundKingdomPageWidgetState extends State<FoundKingdomPageWidget>
                                               SnackBar(
                                                 content: Text(
                                                   'Please name your kingdom',
-                                                  style: GoogleFonts.comicNeue(
+                                                  style: GoogleFonts.sniglet(
                                                     color: Colors.white,
                                                     fontSize: 16.0,
                                                   ),
@@ -495,8 +507,7 @@ class _FoundKingdomPageWidgetState extends State<FoundKingdomPageWidget>
                                                 SnackBar(
                                                   content: Text(
                                                     'Please enter your royal name',
-                                                    style:
-                                                        GoogleFonts.comicNeue(
+                                                    style: GoogleFonts.sniglet(
                                                       color: Colors.white,
                                                       fontSize: 16.0,
                                                     ),
@@ -551,8 +562,7 @@ class _FoundKingdomPageWidgetState extends State<FoundKingdomPageWidget>
                                                 SnackBar(
                                                   content: Text(
                                                     'Your kingdom is founded! Now add your heroes.',
-                                                    style:
-                                                        GoogleFonts.comicNeue(
+                                                    style: GoogleFonts.sniglet(
                                                       color: Colors.white,
                                                       fontSize: 16.0,
                                                     ),
@@ -572,15 +582,16 @@ class _FoundKingdomPageWidgetState extends State<FoundKingdomPageWidget>
                                         },
                                   text: '👑 Found our kingdom',
                                   options: FFButtonOptions(
-                                    height: 54.0,
+                                    height: 58.0,
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: Color(0x00FFFFFF),
-                                    textStyle: GoogleFonts.comicNeue(
+                                    textStyle: GoogleFonts.sniglet(
                                       color: Color(0xFF3A2400),
-                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 20.0,
                                     ),
                                     elevation: 0.0,
                                     borderRadius: BorderRadius.circular(22.0),
@@ -629,7 +640,7 @@ class _FoundKingdomPageWidgetState extends State<FoundKingdomPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall

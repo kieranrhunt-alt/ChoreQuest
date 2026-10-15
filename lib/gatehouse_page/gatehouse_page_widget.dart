@@ -1,6 +1,7 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/ff_builtin_enums.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_styled_border.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -234,27 +235,37 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .headlineMedium
                                           .override(
-                                            font: GoogleFonts.comicNeue(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineMedium
-                                                      .fontStyle,
-                                            ),
-                                            color: Colors.white,
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineMedium
-                                                    .fontStyle,
+                                        font: GoogleFonts.sniglet(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineMedium
+                                                  .fontStyle,
+                                        ),
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .headlineMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .headlineMedium
+                                            .fontStyle,
+                                        shadows: [
+                                          Shadow(
+                                            color: Color(0xFF4A1FA0),
+                                            offset: Offset(0.0, 3.0),
+                                            blurRadius: 0.0,
                                           ),
+                                          Shadow(
+                                            color: Color(0x66FF9ECF),
+                                            offset: Offset(0.0, 0.0),
+                                            blurRadius: 8.0,
+                                          )
+                                        ],
+                                      ),
                                     ),
                                     Text(
                                       FFAppState().family.name,
@@ -262,7 +273,7 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -300,51 +311,57 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget>
                             (FFCrossAxisAlignment.center).flutterValue,
                         textBaseline: TextBaseline.alphabetic,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).primary,
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 8.0,
-                                  color: Color(0x33000000),
-                                  offset: Offset(
-                                    0.0,
-                                    2.0,
-                                  ),
-                                  spreadRadius: 0.0,
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(999.0),
-                              border: Border.all(
-                                color: FlutterFlowTheme.of(context).tertiary,
-                                width: 1.5,
-                              ),
-                            ),
+                          Expanded(
+                            flex: 1,
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 7.0, 16.0, 7.0),
-                              child: Text(
-                                '⚔️ Who enters the castle?',
-                                style: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      font: GoogleFonts.comicNeue(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontStyle,
-                                      ),
-                                      color: Colors.white,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontStyle,
+                                  14.0, 8.0, 14.0, 8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xE6FFFCF5),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  border: FlutterFlowStyledBorder(
+                                    side: BorderSide(
+                                      color: Color(0xFF7B3FE4),
+                                      width: 6.0,
                                     ),
+                                    style: FlutterFlowDashStyle.solid,
+                                    showTop: false,
+                                    showRight: false,
+                                    showBottom: false,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 7.0, 16.0, 7.0),
+                                  child: Text(
+                                    '⚔️ Who enters the castle?',
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          font: GoogleFonts.sniglet(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                          ),
+                                          color: Color(0xFF2A1B4D),
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -390,24 +407,34 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget>
                                   style: FlutterFlowTheme.of(context)
                                       .titleLarge
                                       .override(
-                                        font: GoogleFonts.comicNeue(
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleLarge
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleLarge
-                                                  .fontStyle,
-                                        ),
-                                        letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .titleLarge
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .titleLarge
-                                            .fontStyle,
+                                    font: GoogleFonts.sniglet(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .fontStyle,
+                                    ),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleLarge
+                                        .fontStyle,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.white,
+                                        offset: Offset(0.0, -1.5),
+                                        blurRadius: 0.0,
                                       ),
+                                      Shadow(
+                                        color: Color(0x55B79CFF),
+                                        offset: Offset(0.0, 2.5),
+                                        blurRadius: 0.0,
+                                      )
+                                    ],
+                                  ),
                                 ),
                                 TextFormField(
                                   controller: _model.pinFieldTextController,
@@ -550,6 +577,7 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget>
                                           },
                                           text: '✖️ Cancel',
                                           options: FFButtonOptions(
+                                            height: 58.0,
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
@@ -557,9 +585,10 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget>
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             color: Color(0x00FFFFFF),
-                                            textStyle: GoogleFonts.comicNeue(
+                                            textStyle: GoogleFonts.sniglet(
                                               color: Color(0xFF3A2A6B),
-                                              fontSize: 17.0,
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 20.0,
                                             ),
                                             elevation: 0.0,
                                             borderRadius:
@@ -677,7 +706,7 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget>
                                                         content: Text(
                                                           'That PIN is not right. Try again!',
                                                           style: GoogleFonts
-                                                              .comicNeue(
+                                                              .sniglet(
                                                             color: Colors.white,
                                                             fontSize: 16.0,
                                                           ),
@@ -690,7 +719,7 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget>
                                                 },
                                           text: '🔓 Unlock',
                                           options: FFButtonOptions(
-                                            height: 48.0,
+                                            height: 58.0,
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
@@ -698,9 +727,10 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget>
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             color: Color(0x00FFFFFF),
-                                            textStyle: GoogleFonts.comicNeue(
+                                            textStyle: GoogleFonts.sniglet(
                                               color: Color(0xFF3A2400),
-                                              fontSize: 17.0,
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 20.0,
                                             ),
                                             elevation: 0.0,
                                             borderRadius:
@@ -745,7 +775,7 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget>
                                         style: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .override(
-                                              font: GoogleFonts.comicNeue(
+                                              font: GoogleFonts.sniglet(
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
                                                         .titleSmall
@@ -881,28 +911,38 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
-                                                font: GoogleFonts.comicNeue(
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleLarge
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleLarge
-                                                          .fontStyle,
-                                                ),
-                                                letterSpacing: 0.0,
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleLarge
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleLarge
-                                                        .fontStyle,
+                                            font: GoogleFonts.sniglet(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleLarge
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleLarge
+                                                      .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLarge
+                                                    .fontStyle,
+                                            shadows: [
+                                              Shadow(
+                                                color: Colors.white,
+                                                offset: Offset(0.0, -1.5),
+                                                blurRadius: 0.0,
                                               ),
+                                              Shadow(
+                                                color: Color(0x55B79CFF),
+                                                offset: Offset(0.0, 2.5),
+                                                blurRadius: 0.0,
+                                              )
+                                            ],
+                                          ),
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                         Text(
@@ -912,7 +952,7 @@ class _GatehousePageWidgetState extends State<GatehousePageWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .labelMedium
                                               .override(
-                                                font: GoogleFonts.comicNeue(
+                                                font: GoogleFonts.sniglet(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)

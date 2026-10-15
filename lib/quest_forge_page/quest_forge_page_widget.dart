@@ -2,6 +2,7 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/ff_builtin_enums.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_styled_border.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -259,13 +260,13 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                             children: [
                               FlutterFlowIconButton(
                                 borderRadius: 14.0,
-                                buttonSize: 40.0,
+                                buttonSize: 52.0,
                                 fillColor:
                                     FlutterFlowTheme.of(context).tertiary,
                                 icon: Icon(
                                   Icons.arrow_back_rounded,
                                   color: Color(0xFF2A1B4D),
-                                  size: 24.0,
+                                  size: 28.0,
                                 ),
                                 onPressed: () async {
                                   context.pop();
@@ -287,27 +288,37 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontStyle,
-                                            ),
-                                            color: Colors.white,
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontStyle,
+                                        font: GoogleFonts.sniglet(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineSmall
+                                                  .fontStyle,
+                                        ),
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .fontStyle,
+                                        shadows: [
+                                          Shadow(
+                                            color: Color(0xFF4A1FA0),
+                                            offset: Offset(0.0, 3.0),
+                                            blurRadius: 0.0,
                                           ),
+                                          Shadow(
+                                            color: Color(0x66FF9ECF),
+                                            offset: Offset(0.0, 0.0),
+                                            blurRadius: 8.0,
+                                          )
+                                        ],
+                                      ),
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     Text(
@@ -323,7 +334,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodySmall
@@ -378,7 +389,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                   }
                                 },
                                 child: Container(
-                                  height: 44.0,
+                                  height: 56.0,
                                   decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
@@ -439,7 +450,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .labelSmall
                                               .override(
-                                                font: GoogleFonts.comicNeue(
+                                                font: GoogleFonts.sniglet(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -632,51 +643,57 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                             (FFCrossAxisAlignment.center).flutterValue,
                         textBaseline: TextBaseline.alphabetic,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).primary,
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 8.0,
-                                  color: Color(0x33000000),
-                                  offset: Offset(
-                                    0.0,
-                                    2.0,
-                                  ),
-                                  spreadRadius: 0.0,
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(999.0),
-                              border: Border.all(
-                                color: FlutterFlowTheme.of(context).tertiary,
-                                width: 1.5,
-                              ),
-                            ),
+                          Expanded(
+                            flex: 1,
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 7.0, 16.0, 7.0),
-                              child: Text(
-                                '🪙 Reward',
-                                style: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      font: GoogleFonts.comicNeue(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontStyle,
-                                      ),
-                                      color: Colors.white,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontStyle,
+                                  14.0, 8.0, 14.0, 8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xE6FFFCF5),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  border: FlutterFlowStyledBorder(
+                                    side: BorderSide(
+                                      color: Color(0xFF7B3FE4),
+                                      width: 6.0,
                                     ),
+                                    style: FlutterFlowDashStyle.solid,
+                                    showTop: false,
+                                    showRight: false,
+                                    showBottom: false,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 7.0, 16.0, 7.0),
+                                  child: Text(
+                                    '🪙 Reward',
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          font: GoogleFonts.sniglet(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                          ),
+                                          color: Color(0xFF2A1B4D),
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -720,7 +737,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -772,7 +789,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -825,7 +842,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -877,7 +894,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -930,7 +947,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -982,7 +999,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1035,7 +1052,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1087,7 +1104,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1140,7 +1157,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1192,7 +1209,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1245,7 +1262,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1297,7 +1314,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -1429,7 +1446,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .titleMedium
                                     .override(
-                                      font: GoogleFonts.comicNeue(
+                                      font: GoogleFonts.sniglet(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleMedium
                                             .fontWeight,
@@ -1459,51 +1476,57 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                             (FFCrossAxisAlignment.center).flutterValue,
                         textBaseline: TextBaseline.alphabetic,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).primary,
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 8.0,
-                                  color: Color(0x33000000),
-                                  offset: Offset(
-                                    0.0,
-                                    2.0,
-                                  ),
-                                  spreadRadius: 0.0,
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(999.0),
-                              border: Border.all(
-                                color: FlutterFlowTheme.of(context).tertiary,
-                                width: 1.5,
-                              ),
-                            ),
+                          Expanded(
+                            flex: 1,
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 7.0, 16.0, 7.0),
-                              child: Text(
-                                '🛡️ Assign to',
-                                style: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      font: GoogleFonts.comicNeue(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontStyle,
-                                      ),
-                                      color: Colors.white,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontStyle,
+                                  14.0, 8.0, 14.0, 8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xE6FFFCF5),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  border: FlutterFlowStyledBorder(
+                                    side: BorderSide(
+                                      color: Color(0xFF7B3FE4),
+                                      width: 6.0,
                                     ),
+                                    style: FlutterFlowDashStyle.solid,
+                                    showTop: false,
+                                    showRight: false,
+                                    showBottom: false,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 7.0, 16.0, 7.0),
+                                  child: Text(
+                                    '🛡️ Assign to',
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          font: GoogleFonts.sniglet(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                          ),
+                                          color: Color(0xFF2A1B4D),
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -1544,7 +1567,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.comicNeue(
+                                          font: GoogleFonts.sniglet(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -1596,7 +1619,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.comicNeue(
+                                          font: GoogleFonts.sniglet(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -1675,7 +1698,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                                       context)
                                                   .titleSmall
                                                   .override(
-                                                    font: GoogleFonts.comicNeue(
+                                                    font: GoogleFonts.sniglet(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1735,7 +1758,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                                       context)
                                                   .titleSmall
                                                   .override(
-                                                    font: GoogleFonts.comicNeue(
+                                                    font: GoogleFonts.sniglet(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1779,51 +1802,57 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                             (FFCrossAxisAlignment.center).flutterValue,
                         textBaseline: TextBaseline.alphabetic,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).primary,
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 8.0,
-                                  color: Color(0x33000000),
-                                  offset: Offset(
-                                    0.0,
-                                    2.0,
-                                  ),
-                                  spreadRadius: 0.0,
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(999.0),
-                              border: Border.all(
-                                color: FlutterFlowTheme.of(context).tertiary,
-                                width: 1.5,
-                              ),
-                            ),
+                          Expanded(
+                            flex: 1,
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 7.0, 16.0, 7.0),
-                              child: Text(
-                                '🔁 Repeat',
-                                style: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      font: GoogleFonts.comicNeue(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontStyle,
-                                      ),
-                                      color: Colors.white,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontStyle,
+                                  14.0, 8.0, 14.0, 8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xE6FFFCF5),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  border: FlutterFlowStyledBorder(
+                                    side: BorderSide(
+                                      color: Color(0xFF7B3FE4),
+                                      width: 6.0,
                                     ),
+                                    style: FlutterFlowDashStyle.solid,
+                                    showTop: false,
+                                    showRight: false,
+                                    showBottom: false,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 7.0, 16.0, 7.0),
+                                  child: Text(
+                                    '🔁 Repeat',
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          font: GoogleFonts.sniglet(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                          ),
+                                          color: Color(0xFF2A1B4D),
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -1864,7 +1893,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.comicNeue(
+                                          font: GoogleFonts.sniglet(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -1916,7 +1945,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.comicNeue(
+                                          font: GoogleFonts.sniglet(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -1968,7 +1997,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.comicNeue(
+                                          font: GoogleFonts.sniglet(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -2020,7 +2049,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.comicNeue(
+                                          font: GoogleFonts.sniglet(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -2072,7 +2101,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.comicNeue(
+                                          font: GoogleFonts.sniglet(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -2124,7 +2153,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.comicNeue(
+                                          font: GoogleFonts.sniglet(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -2187,7 +2216,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                   style: FlutterFlowTheme.of(context)
                                       .bodySmall
                                       .override(
-                                        font: GoogleFonts.comicNeue(
+                                        font: GoogleFonts.sniglet(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .bodySmall
@@ -2229,7 +2258,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                         style: FlutterFlowTheme.of(context)
                                             .titleMedium
                                             .override(
-                                              font: GoogleFonts.comicNeue(
+                                              font: GoogleFonts.sniglet(
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
                                                         .titleMedium
@@ -2346,6 +2375,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                         },
                                         text: '📅 Date',
                                         options: FFButtonOptions(
+                                          height: 58.0,
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
@@ -2353,9 +2383,10 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
                                           color: Color(0x00FFFFFF),
-                                          textStyle: GoogleFonts.comicNeue(
+                                          textStyle: GoogleFonts.sniglet(
                                             color: Color(0xFF0B2E4F),
-                                            fontSize: 15.0,
+                                            fontWeight: FontWeight.w800,
+                                            fontSize: 20.0,
                                           ),
                                           elevation: 0.0,
                                           borderRadius:
@@ -2368,12 +2399,12 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                         hasBeenTriggered:
                                             hasContainerTriggered2),
                                     FlutterFlowIconButton(
-                                      buttonSize: 40.0,
+                                      buttonSize: 52.0,
                                       icon: Icon(
                                         Icons.clear,
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryText,
-                                        size: 22.0,
+                                        size: 28.0,
                                       ),
                                       onPressed: () async {
                                         _model.dueDate = null;
@@ -2417,12 +2448,24 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                   Container(
                                     width: 8.0,
                                   ),
-                                  Text(
-                                    '📸 Require photo proof',
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          font: GoogleFonts.comicNeue(
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      '📸 Require photo proof',
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            font: GoogleFonts.comicNeue(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -2432,16 +2475,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                                     .titleSmall
                                                     .fontStyle,
                                           ),
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .fontStyle,
-                                        ),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -2517,7 +2551,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                       SnackBar(
                                         content: Text(
                                           'Quest updated',
-                                          style: GoogleFonts.comicNeue(
+                                          style: GoogleFonts.sniglet(
                                             color: Colors.white,
                                             fontSize: 16.0,
                                           ),
@@ -2534,7 +2568,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                         SnackBar(
                                           content: Text(
                                             'Give the quest a title',
-                                            style: GoogleFonts.comicNeue(
+                                            style: GoogleFonts.sniglet(
                                               color: Colors.white,
                                               fontSize: 16.0,
                                             ),
@@ -2570,7 +2604,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                         SnackBar(
                                           content: Text(
                                             'Quest forged 🗺️',
-                                            style: GoogleFonts.comicNeue(
+                                            style: GoogleFonts.sniglet(
                                               color: Colors.white,
                                               fontSize: 16.0,
                                             ),
@@ -2585,15 +2619,16 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                                 },
                           text: '⚒️ Save quest',
                           options: FFButtonOptions(
-                            height: 54.0,
+                            height: 58.0,
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: Color(0x00FFFFFF),
-                            textStyle: GoogleFonts.comicNeue(
+                            textStyle: GoogleFonts.sniglet(
                               color: Color(0xFF3A2400),
-                              fontSize: 17.0,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 20.0,
                             ),
                             elevation: 0.0,
                             borderRadius: BorderRadius.circular(22.0),
@@ -2633,7 +2668,7 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                               style: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
-                                    font: GoogleFonts.comicNeue(
+                                    font: GoogleFonts.sniglet(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .fontWeight,
@@ -2653,6 +2688,18 @@ class _QuestForgePageWidgetState extends State<QuestForgePageWidget>
                             ),
                           ),
                         ),
+                      Container(
+                        height: 250.0,
+                        child: Container(
+                          child: custom_widgets.SquishieNav(
+                            current: 'QuestForgePage',
+                            mode: 'dock',
+                            role: functions.memberRole(
+                                FFAppState().members.toList(),
+                                FFAppState().currentMemberId),
+                          ),
+                        ),
+                      ),
                     ].divide(SizedBox(height: 14.0)),
                   ),
                 ),

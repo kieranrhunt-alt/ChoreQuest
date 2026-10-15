@@ -2,6 +2,7 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/ff_builtin_enums.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_styled_border.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -176,13 +177,13 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                             children: [
                               FlutterFlowIconButton(
                                 borderRadius: 14.0,
-                                buttonSize: 40.0,
+                                buttonSize: 52.0,
                                 fillColor:
                                     FlutterFlowTheme.of(context).tertiary,
                                 icon: Icon(
                                   Icons.arrow_back_rounded,
                                   color: Color(0xFF2A1B4D),
-                                  size: 24.0,
+                                  size: 28.0,
                                 ),
                                 onPressed: () async {
                                   context.pop();
@@ -204,27 +205,37 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontStyle,
-                                            ),
-                                            color: Colors.white,
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontStyle,
+                                        font: GoogleFonts.sniglet(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineSmall
+                                                  .fontStyle,
+                                        ),
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .fontStyle,
+                                        shadows: [
+                                          Shadow(
+                                            color: Color(0xFF4A1FA0),
+                                            offset: Offset(0.0, 3.0),
+                                            blurRadius: 0.0,
                                           ),
+                                          Shadow(
+                                            color: Color(0x66FF9ECF),
+                                            offset: Offset(0.0, 0.0),
+                                            blurRadius: 8.0,
+                                          )
+                                        ],
+                                      ),
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     Text(
@@ -233,7 +244,7 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodySmall
@@ -288,7 +299,7 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                                   }
                                 },
                                 child: Container(
-                                  height: 44.0,
+                                  height: 56.0,
                                   decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
@@ -349,7 +360,7 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .labelSmall
                                               .override(
-                                                font: GoogleFonts.comicNeue(
+                                                font: GoogleFonts.sniglet(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -417,13 +428,13 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                             children: [
                               FlutterFlowIconButton(
                                 borderRadius: 14.0,
-                                buttonSize: 46.0,
+                                buttonSize: 52.0,
                                 fillColor:
                                     FlutterFlowTheme.of(context).tertiary,
                                 icon: Icon(
                                   Icons.chevron_left,
                                   color: Color(0xFF2A1B4D),
-                                  size: 30.0,
+                                  size: 28.0,
                                 ),
                                 onPressed: () async {
                                   _model.day =
@@ -498,7 +509,7 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                                         style: FlutterFlowTheme.of(context)
                                             .labelMedium
                                             .override(
-                                              font: GoogleFonts.comicNeue(
+                                              font: GoogleFonts.sniglet(
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
                                                         .labelMedium
@@ -527,26 +538,38 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                                         style: FlutterFlowTheme.of(context)
                                             .headlineSmall
                                             .override(
-                                              font: GoogleFonts.comicNeue(
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .fontStyle,
-                                              ),
-                                              letterSpacing: 0.0,
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontStyle,
+                                          font: GoogleFonts.sniglet(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineSmall
+                                                    .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineSmall
+                                                  .fontStyle,
+                                          shadows: [
+                                            Shadow(
+                                              color: Colors.white,
+                                              offset: Offset(0.0, -1.5),
+                                              blurRadius: 0.0,
                                             ),
+                                            Shadow(
+                                              color: Color(0x55B79CFF),
+                                              offset: Offset(0.0, 2.5),
+                                              blurRadius: 0.0,
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -554,13 +577,13 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                               ),
                               FlutterFlowIconButton(
                                 borderRadius: 14.0,
-                                buttonSize: 46.0,
+                                buttonSize: 52.0,
                                 fillColor:
                                     FlutterFlowTheme.of(context).tertiary,
                                 icon: Icon(
                                   Icons.chevron_right,
                                   color: Color(0xFF2A1B4D),
-                                  size: 30.0,
+                                  size: 28.0,
                                 ),
                                 onPressed: () async {
                                   _model.day = functions.addDays(_model.day, 1);
@@ -605,7 +628,7 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                                   style: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        font: GoogleFonts.comicNeue(
+                                        font: GoogleFonts.sniglet(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .titleSmall
@@ -638,51 +661,57 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                             (FFCrossAxisAlignment.center).flutterValue,
                         textBaseline: TextBaseline.alphabetic,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).primary,
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 8.0,
-                                  color: Color(0x33000000),
-                                  offset: Offset(
-                                    0.0,
-                                    2.0,
-                                  ),
-                                  spreadRadius: 0.0,
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(999.0),
-                              border: Border.all(
-                                color: FlutterFlowTheme.of(context).tertiary,
-                                width: 1.5,
-                              ),
-                            ),
+                          Expanded(
+                            flex: 1,
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 7.0, 16.0, 7.0),
-                              child: Text(
-                                '📌 Due',
-                                style: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      font: GoogleFonts.comicNeue(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontStyle,
-                                      ),
-                                      color: Colors.white,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontStyle,
+                                  14.0, 8.0, 14.0, 8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xE6FFFCF5),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  border: FlutterFlowStyledBorder(
+                                    side: BorderSide(
+                                      color: Color(0xFF7B3FE4),
+                                      width: 6.0,
                                     ),
+                                    style: FlutterFlowDashStyle.solid,
+                                    showTop: false,
+                                    showRight: false,
+                                    showBottom: false,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 7.0, 16.0, 7.0),
+                                  child: Text(
+                                    '📌 Due',
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          font: GoogleFonts.sniglet(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                          ),
+                                          color: Color(0xFF2A1B4D),
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -715,7 +744,7 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.comicNeue(
+                                    font: GoogleFonts.sniglet(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -825,34 +854,35 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                                             Text(
                                               itemItem.title,
                                               maxLines: 1,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .titleMedium
-                                                  .override(
-                                                    font: GoogleFonts.comicNeue(
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleMedium
-                                                            .fontStyle,
-                                                  ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleMedium
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.sniglet(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleMedium
+                                                                .fontStyle,
+                                                      ),
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                             Text(
@@ -871,7 +901,7 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                                                       context)
                                                   .bodySmall
                                                   .override(
-                                                    font: GoogleFonts.comicNeue(
+                                                    font: GoogleFonts.sniglet(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -909,7 +939,7 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                                         style: FlutterFlowTheme.of(context)
                                             .titleMedium
                                             .override(
-                                              font: GoogleFonts.comicNeue(
+                                              font: GoogleFonts.sniglet(
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
                                                         .titleMedium
@@ -947,51 +977,57 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                             (FFCrossAxisAlignment.center).flutterValue,
                         textBaseline: TextBaseline.alphabetic,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).secondary,
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 8.0,
-                                  color: Color(0x33000000),
-                                  offset: Offset(
-                                    0.0,
-                                    2.0,
-                                  ),
-                                  spreadRadius: 0.0,
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(999.0),
-                              border: Border.all(
-                                color: FlutterFlowTheme.of(context).tertiary,
-                                width: 1.5,
-                              ),
-                            ),
+                          Expanded(
+                            flex: 1,
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 7.0, 16.0, 7.0),
-                              child: Text(
-                                '🏆 Conquered',
-                                style: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      font: GoogleFonts.comicNeue(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontStyle,
-                                      ),
-                                      color: Colors.white,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontStyle,
+                                  14.0, 8.0, 14.0, 8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xE6FFFCF5),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  border: FlutterFlowStyledBorder(
+                                    side: BorderSide(
+                                      color: Color(0xFF7B3FE4),
+                                      width: 6.0,
                                     ),
+                                    style: FlutterFlowDashStyle.solid,
+                                    showTop: false,
+                                    showRight: false,
+                                    showBottom: false,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 7.0, 16.0, 7.0),
+                                  child: Text(
+                                    '🏆 Conquered',
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          font: GoogleFonts.sniglet(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                          ),
+                                          color: Color(0xFF2A1B4D),
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -1024,7 +1060,7 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.comicNeue(
+                                    font: GoogleFonts.sniglet(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -1134,34 +1170,35 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                                             Text(
                                               itemItem.title,
                                               maxLines: 1,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .titleMedium
-                                                  .override(
-                                                    font: GoogleFonts.comicNeue(
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleMedium
-                                                            .fontStyle,
-                                                  ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleMedium
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.sniglet(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleMedium
+                                                                .fontStyle,
+                                                      ),
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                             Text(
@@ -1180,7 +1217,7 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                                                       context)
                                                   .bodySmall
                                                   .override(
-                                                    font: GoogleFonts.comicNeue(
+                                                    font: GoogleFonts.sniglet(
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1218,7 +1255,7 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                                         style: FlutterFlowTheme.of(context)
                                             .titleMedium
                                             .override(
-                                              font: GoogleFonts.comicNeue(
+                                              font: GoogleFonts.sniglet(
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
                                                         .titleMedium
@@ -1249,6 +1286,18 @@ class _QuestCalendarPageWidgetState extends State<QuestCalendarPageWidget>
                             },
                           );
                         },
+                      ),
+                      Container(
+                        height: 250.0,
+                        child: Container(
+                          child: custom_widgets.SquishieNav(
+                            current: 'QuestCalendarPage',
+                            mode: 'dock',
+                            role: functions.memberRole(
+                                FFAppState().members.toList(),
+                                FFAppState().currentMemberId),
+                          ),
+                        ),
                       ),
                     ].divide(SizedBox(height: 14.0)),
                   ),

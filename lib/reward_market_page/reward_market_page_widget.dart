@@ -161,13 +161,13 @@ class _RewardMarketPageWidgetState extends State<RewardMarketPageWidget>
                             children: [
                               FlutterFlowIconButton(
                                 borderRadius: 14.0,
-                                buttonSize: 40.0,
+                                buttonSize: 52.0,
                                 fillColor:
                                     FlutterFlowTheme.of(context).tertiary,
                                 icon: Icon(
                                   Icons.arrow_back_rounded,
                                   color: Color(0xFF2A1B4D),
-                                  size: 24.0,
+                                  size: 28.0,
                                 ),
                                 onPressed: () async {
                                   context.pop();
@@ -189,27 +189,37 @@ class _RewardMarketPageWidgetState extends State<RewardMarketPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontStyle,
-                                            ),
-                                            color: Colors.white,
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontStyle,
+                                        font: GoogleFonts.sniglet(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineSmall
+                                                  .fontStyle,
+                                        ),
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .fontStyle,
+                                        shadows: [
+                                          Shadow(
+                                            color: Color(0xFF4A1FA0),
+                                            offset: Offset(0.0, 3.0),
+                                            blurRadius: 0.0,
                                           ),
+                                          Shadow(
+                                            color: Color(0x66FF9ECF),
+                                            offset: Offset(0.0, 0.0),
+                                            blurRadius: 8.0,
+                                          )
+                                        ],
+                                      ),
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     Text(
@@ -222,7 +232,7 @@ class _RewardMarketPageWidgetState extends State<RewardMarketPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodySmall
@@ -277,7 +287,7 @@ class _RewardMarketPageWidgetState extends State<RewardMarketPageWidget>
                                   }
                                 },
                                 child: Container(
-                                  height: 44.0,
+                                  height: 56.0,
                                   decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
@@ -338,7 +348,7 @@ class _RewardMarketPageWidgetState extends State<RewardMarketPageWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .labelSmall
                                               .override(
-                                                font: GoogleFonts.comicNeue(
+                                                font: GoogleFonts.sniglet(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -392,7 +402,7 @@ class _RewardMarketPageWidgetState extends State<RewardMarketPageWidget>
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.comicNeue(
+                                    font: GoogleFonts.sniglet(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -424,7 +434,7 @@ class _RewardMarketPageWidgetState extends State<RewardMarketPageWidget>
                               crossAxisCount: 2,
                               crossAxisSpacing: 12.0,
                               mainAxisSpacing: 12.0,
-                              childAspectRatio: 0.62,
+                              childAspectRatio: 0.6,
                             ),
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
@@ -494,30 +504,38 @@ class _RewardMarketPageWidgetState extends State<RewardMarketPageWidget>
                                             style: FlutterFlowTheme.of(context)
                                                 .headlineMedium
                                                 .override(
-                                                  font: GoogleFonts.comicNeue(
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .headlineMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .headlineMedium
-                                                            .fontStyle,
-                                                  ),
-                                                  letterSpacing: 0.0,
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .headlineMedium
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .headlineMedium
-                                                          .fontStyle,
+                                              font: GoogleFonts.sniglet(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineMedium
+                                                        .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .headlineMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .headlineMedium
+                                                      .fontStyle,
+                                              shadows: [
+                                                Shadow(
+                                                  color: Colors.white,
+                                                  offset: Offset(0.0, -1.5),
+                                                  blurRadius: 0.0,
                                                 ),
+                                                Shadow(
+                                                  color: Color(0x55B79CFF),
+                                                  offset: Offset(0.0, 2.5),
+                                                  blurRadius: 0.0,
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
                                         Text(
@@ -527,7 +545,7 @@ class _RewardMarketPageWidgetState extends State<RewardMarketPageWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .titleMedium
                                               .override(
-                                                font: GoogleFonts.comicNeue(
+                                                font: GoogleFonts.sniglet(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -559,79 +577,78 @@ class _RewardMarketPageWidgetState extends State<RewardMarketPageWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
-                                                font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleLarge
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleLarge
+                                                      .fontStyle,
+                                            ),
+                                            color: Color(0xFF8A5A00),
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLarge
+                                                    .fontStyle,
+                                            shadows: [
+                                              Shadow(
+                                                color: Colors.white,
+                                                offset: Offset(0.0, -1.5),
+                                                blurRadius: 0.0,
+                                              ),
+                                              Shadow(
+                                                color: Color(0x55B79CFF),
+                                                offset: Offset(0.0, 2.5),
+                                                blurRadius: 0.0,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Text(
+                                          functions.tqCardStatus(
+                                              FFAppState()
+                                                  .transactions
+                                                  .toList(),
+                                              FFAppState().currentMemberId,
+                                              itemItem.id,
+                                              itemItem.buckCost)!,
+                                          textAlign: TextAlign.center,
+                                          maxLines: 2,
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .override(
+                                                font: GoogleFonts.sniglet(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .titleLarge
+                                                          .labelMedium
                                                           .fontWeight,
                                                   fontStyle:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .titleLarge
+                                                          .labelMedium
                                                           .fontStyle,
                                                 ),
-                                                color: Color(0xFFB07A12),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
                                                 letterSpacing: 0.0,
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
-                                                        .titleLarge
+                                                        .labelMedium
                                                         .fontWeight,
                                                 fontStyle:
                                                     FlutterFlowTheme.of(context)
-                                                        .titleLarge
+                                                        .labelMedium
                                                         .fontStyle,
                                               ),
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .accent1,
-                                            borderRadius:
-                                                BorderRadius.circular(999.0),
-                                          ),
-                                          alignment:
-                                              AlignmentDirectional(0.0, 0.0),
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8.0, 6.0, 8.0, 6.0),
-                                            child: Text(
-                                              '🗺️ Play the Reward Road',
-                                              maxLines: 1,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .labelSmall
-                                                  .override(
-                                                    font: GoogleFonts.comicNeue(
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelSmall
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelSmall
-                                                              .fontStyle,
-                                                    ),
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelSmall
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelSmall
-                                                            .fontStyle,
-                                                  ),
-                                            ),
-                                          ),
                                         ),
                                         Container(
                                           decoration: BoxDecoration(
@@ -641,7 +658,7 @@ class _RewardMarketPageWidgetState extends State<RewardMarketPageWidget>
                                                 color: Color(0xFFB8740A),
                                                 offset: Offset(
                                                   0.0,
-                                                  5.0,
+                                                  4.0,
                                                 ),
                                                 spreadRadius: 0.0,
                                               )
@@ -660,7 +677,7 @@ class _RewardMarketPageWidgetState extends State<RewardMarketPageWidget>
                                                   AlignmentDirectional(-1.0, 0),
                                             ),
                                             borderRadius:
-                                                BorderRadius.circular(22.0),
+                                                BorderRadius.circular(20.0),
                                             border: Border.all(
                                               color: Color(0xD9FFFFFF),
                                               width: 2.5,
@@ -668,88 +685,31 @@ class _RewardMarketPageWidgetState extends State<RewardMarketPageWidget>
                                           ),
                                           child: FFButtonWidget(
                                             onPressed: () async {
-                                              if (functions.canAfford(
-                                                  FFAppState()
-                                                      .transactions
-                                                      .toList(),
-                                                  FFAppState().currentMemberId,
-                                                  itemItem.buckCost)!) {
-                                                FFAppState().redemptions =
-                                                    functions
-                                                        .buyRewardRedemption(
-                                                            FFAppState()
-                                                                .redemptions
-                                                                .toList(),
-                                                            itemItem.id,
-                                                            FFAppState()
-                                                                .currentMemberId,
-                                                            itemItem.title,
-                                                            itemItem.buckCost)!
-                                                        .toList()
-                                                        .cast<
-                                                            RedemptionStruct>();
-                                                safeSetState(() {});
-                                                FFAppState().transactions = functions
-                                                    .buyRewardTx(
-                                                        FFAppState()
-                                                            .transactions
-                                                            .toList(),
-                                                        FFAppState()
-                                                            .currentMemberId,
-                                                        itemItem.title,
-                                                        itemItem.buckCost)!
-                                                    .toList()
-                                                    .cast<
-                                                        BuckTransactionStruct>();
-                                                safeSetState(() {});
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                      '🎉 Reward unlocked! Show a ruler to enjoy it.',
-                                                      style:
-                                                          GoogleFonts.comicNeue(
-                                                        color: Colors.white,
-                                                        fontSize: 16.0,
-                                                      ),
-                                                    ),
-                                                    duration: Duration(
-                                                        milliseconds: 4000),
+                                              context.pushNamed(
+                                                RewardRoadPageWidget.routeName,
+                                                queryParameters: {
+                                                  'rewardId': serializeParam(
+                                                    itemItem.id,
+                                                    ParamType.String,
                                                   ),
-                                                );
-                                              } else {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                      'Keep questing — you need more gold! 💪',
-                                                      style:
-                                                          GoogleFonts.comicNeue(
-                                                        color: Colors.white,
-                                                        fontSize: 16.0,
-                                                      ),
-                                                    ),
-                                                    duration: Duration(
-                                                        milliseconds: 4000),
-                                                  ),
-                                                );
-                                              }
+                                                }.withoutNulls,
+                                              );
                                             },
-                                            text: '🛒 Buy it!',
+                                            text: '🗺️ Play!',
                                             options: FFButtonOptions(
-                                              height: 44.0,
+                                              height: 58.0,
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               iconPadding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color: Color(0x00FFFFFF),
-                                              textStyle: GoogleFonts.comicNeue(
+                                              textStyle: GoogleFonts.sniglet(
                                                 color: Color(0xFF3A2400),
-                                                fontSize: 17.0,
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: 20.0,
                                               ),
-                                              elevation: 0.0,
                                               borderRadius:
-                                                  BorderRadius.circular(22.0),
+                                                  BorderRadius.circular(20.0),
                                             ),
                                           ),
                                         ),
@@ -761,6 +721,18 @@ class _RewardMarketPageWidgetState extends State<RewardMarketPageWidget>
                             },
                           );
                         },
+                      ),
+                      Container(
+                        height: 250.0,
+                        child: Container(
+                          child: custom_widgets.SquishieNav(
+                            current: 'RewardMarketPage',
+                            mode: 'dock',
+                            role: functions.memberRole(
+                                FFAppState().members.toList(),
+                                FFAppState().currentMemberId),
+                          ),
+                        ),
                       ),
                     ].divide(SizedBox(height: 14.0)),
                   ),

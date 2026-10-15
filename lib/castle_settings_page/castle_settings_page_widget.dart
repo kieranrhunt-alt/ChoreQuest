@@ -278,13 +278,13 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget>
                             children: [
                               FlutterFlowIconButton(
                                 borderRadius: 14.0,
-                                buttonSize: 40.0,
+                                buttonSize: 52.0,
                                 fillColor:
                                     FlutterFlowTheme.of(context).tertiary,
                                 icon: Icon(
                                   Icons.arrow_back_rounded,
                                   color: Color(0xFF2A1B4D),
-                                  size: 24.0,
+                                  size: 28.0,
                                 ),
                                 onPressed: () async {
                                   context.pop();
@@ -306,27 +306,37 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontStyle,
-                                            ),
-                                            color: Colors.white,
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontStyle,
+                                        font: GoogleFonts.sniglet(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineSmall
+                                                  .fontStyle,
+                                        ),
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .fontStyle,
+                                        shadows: [
+                                          Shadow(
+                                            color: Color(0xFF4A1FA0),
+                                            offset: Offset(0.0, 3.0),
+                                            blurRadius: 0.0,
                                           ),
+                                          Shadow(
+                                            color: Color(0x66FF9ECF),
+                                            offset: Offset(0.0, 0.0),
+                                            blurRadius: 8.0,
+                                          )
+                                        ],
+                                      ),
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     Text(
@@ -335,7 +345,7 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodySmall
@@ -390,7 +400,7 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget>
                                   }
                                 },
                                 child: Container(
-                                  height: 44.0,
+                                  height: 56.0,
                                   decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
@@ -451,7 +461,7 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .labelSmall
                                               .override(
-                                                font: GoogleFonts.comicNeue(
+                                                font: GoogleFonts.sniglet(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -522,22 +532,34 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .titleLarge
                                     .override(
-                                      font: GoogleFonts.comicNeue(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .titleLarge
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .titleLarge
-                                            .fontStyle,
-                                      ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .titleLarge
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleLarge
-                                          .fontStyle,
+                                  font: GoogleFonts.sniglet(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleLarge
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleLarge
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleLarge
+                                      .fontStyle,
+                                  shadows: [
+                                    Shadow(
+                                      color: Colors.white,
+                                      offset: Offset(0.0, -1.5),
+                                      blurRadius: 0.0,
                                     ),
+                                    Shadow(
+                                      color: Color(0x55B79CFF),
+                                      offset: Offset(0.0, 2.5),
+                                      blurRadius: 0.0,
+                                    )
+                                  ],
+                                ),
                               ),
                               Text(
                                 ((String? n) {
@@ -546,7 +568,7 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      font: GoogleFonts.comicNeue(
+                                      font: GoogleFonts.sniglet(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .fontWeight,
@@ -691,7 +713,7 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget>
                                               SnackBar(
                                                 content: Text(
                                                   'Kingdom name saved',
-                                                  style: GoogleFonts.comicNeue(
+                                                  style: GoogleFonts.sniglet(
                                                     color: Colors.white,
                                                     fontSize: 16.0,
                                                   ),
@@ -704,15 +726,16 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget>
                                         },
                                   text: '💾 Save name',
                                   options: FFButtonOptions(
-                                    height: 48.0,
+                                    height: 58.0,
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: Color(0x00FFFFFF),
-                                    textStyle: GoogleFonts.comicNeue(
+                                    textStyle: GoogleFonts.sniglet(
                                       color: Color(0xFF3A2400),
-                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 20.0,
                                     ),
                                     elevation: 0.0,
                                     borderRadius: BorderRadius.circular(22.0),
@@ -752,7 +775,7 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.comicNeue(
+                                            font: GoogleFonts.sniglet(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
@@ -815,29 +838,41 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .titleLarge
                                     .override(
-                                      font: GoogleFonts.comicNeue(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .titleLarge
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .titleLarge
-                                            .fontStyle,
-                                      ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .titleLarge
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleLarge
-                                          .fontStyle,
+                                  font: GoogleFonts.sniglet(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleLarge
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleLarge
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleLarge
+                                      .fontStyle,
+                                  shadows: [
+                                    Shadow(
+                                      color: Colors.white,
+                                      offset: Offset(0.0, -1.5),
+                                      blurRadius: 0.0,
                                     ),
+                                    Shadow(
+                                      color: Color(0x55B79CFF),
+                                      offset: Offset(0.0, 2.5),
+                                      blurRadius: 0.0,
+                                    )
+                                  ],
+                                ),
                               ),
                               Text(
                                 'Recruit heroes, set PINs, and see milestone progress in Knights & Royals.',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      font: GoogleFonts.comicNeue(
+                                      font: GoogleFonts.sniglet(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .fontWeight,
@@ -906,14 +941,16 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget>
                                   },
                                   text: '🛡️ Knights & Royals',
                                   options: FFButtonOptions(
+                                    height: 58.0,
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: Color(0x00FFFFFF),
-                                    textStyle: GoogleFonts.comicNeue(
+                                    textStyle: GoogleFonts.sniglet(
                                       color: Colors.white,
-                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 20.0,
                                     ),
                                     elevation: 0.0,
                                     borderRadius: BorderRadius.circular(22.0),
@@ -975,14 +1012,16 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget>
                                   },
                                   text: '🔄 Switch profile',
                                   options: FFButtonOptions(
+                                    height: 58.0,
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: Color(0x00FFFFFF),
-                                    textStyle: GoogleFonts.comicNeue(
+                                    textStyle: GoogleFonts.sniglet(
                                       color: Color(0xFF0B2E4F),
-                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 20.0,
                                     ),
                                     elevation: 0.0,
                                     borderRadius: BorderRadius.circular(22.0),
@@ -1031,29 +1070,41 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .titleLarge
                                     .override(
-                                      font: GoogleFonts.comicNeue(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .titleLarge
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .titleLarge
-                                            .fontStyle,
-                                      ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .titleLarge
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleLarge
-                                          .fontStyle,
+                                  font: GoogleFonts.sniglet(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleLarge
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleLarge
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleLarge
+                                      .fontStyle,
+                                  shadows: [
+                                    Shadow(
+                                      color: Colors.white,
+                                      offset: Offset(0.0, -1.5),
+                                      blurRadius: 0.0,
                                     ),
+                                    Shadow(
+                                      color: Color(0x55B79CFF),
+                                      offset: Offset(0.0, 2.5),
+                                      blurRadius: 0.0,
+                                    )
+                                  ],
+                                ),
                               ),
                               Text(
                                 '• No cash value — a parent-controlled family currency.\n• No automatic redemption — rulers approve every request.\n• No silent changes — every coin movement is in the ledger.',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      font: GoogleFonts.comicNeue(
+                                      font: GoogleFonts.sniglet(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .fontWeight,
@@ -1171,14 +1222,16 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget>
                           },
                           text: '♻️ Reset all kingdom data',
                           options: FFButtonOptions(
+                            height: 58.0,
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: Color(0x00FFFFFF),
-                            textStyle: GoogleFonts.comicNeue(
+                            textStyle: GoogleFonts.sniglet(
                               color: Colors.white,
-                              fontSize: 17.0,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 20.0,
                             ),
                             elevation: 0.0,
                             borderRadius: BorderRadius.circular(22.0),
@@ -1187,6 +1240,18 @@ class _CastleSettingsPageWidgetState extends State<CastleSettingsPageWidget>
                       ).animateOnActionTrigger(
                           animationsMap['containerOnActionTriggerAnimation5']!,
                           hasBeenTriggered: hasContainerTriggered5),
+                      Container(
+                        height: 250.0,
+                        child: Container(
+                          child: custom_widgets.SquishieNav(
+                            current: 'CastleSettingsPage',
+                            mode: 'dock',
+                            role: functions.memberRole(
+                                FFAppState().members.toList(),
+                                FFAppState().currentMemberId),
+                          ),
+                        ),
+                      ),
                     ].divide(SizedBox(height: 14.0)),
                   ),
                 ),

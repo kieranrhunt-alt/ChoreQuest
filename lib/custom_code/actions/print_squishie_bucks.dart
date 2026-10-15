@@ -55,8 +55,8 @@ Future printSquishieBucks(
   pw.Font? bold;
   pw.Font? regular;
   try {
-    bold = await PdfGoogleFonts.comicNeueBold();
-    regular = await PdfGoogleFonts.comicNeueRegular();
+    bold = await PdfGoogleFonts.snigletExtraBold();
+    regular = await PdfGoogleFonts.snigletRegular();
   } catch (_) {}
   pw.TextStyle st(double size, PdfColor color, {bool heavy = true}) =>
       pw.TextStyle(

@@ -118,23 +118,34 @@ class _RoyalSubmitSheetWidgetState extends State<RoyalSubmitSheetWidget>
             Text(
               '📸 Show your brave deed!',
               style: FlutterFlowTheme.of(context).headlineSmall.override(
-                    font: GoogleFonts.comicNeue(
-                      fontWeight:
-                          FlutterFlowTheme.of(context).headlineSmall.fontWeight,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).headlineSmall.fontStyle,
-                    ),
-                    letterSpacing: 0.0,
-                    fontWeight:
-                        FlutterFlowTheme.of(context).headlineSmall.fontWeight,
-                    fontStyle:
-                        FlutterFlowTheme.of(context).headlineSmall.fontStyle,
+                font: GoogleFonts.sniglet(
+                  fontWeight:
+                      FlutterFlowTheme.of(context).headlineSmall.fontWeight,
+                  fontStyle:
+                      FlutterFlowTheme.of(context).headlineSmall.fontStyle,
+                ),
+                letterSpacing: 0.0,
+                fontWeight:
+                    FlutterFlowTheme.of(context).headlineSmall.fontWeight,
+                fontStyle: FlutterFlowTheme.of(context).headlineSmall.fontStyle,
+                shadows: [
+                  Shadow(
+                    color: Colors.white,
+                    offset: Offset(0.0, -1.5),
+                    blurRadius: 0.0,
                   ),
+                  Shadow(
+                    color: Color(0x55B79CFF),
+                    offset: Offset(0.0, 2.5),
+                    blurRadius: 0.0,
+                  )
+                ],
+              ),
             ),
             Text(
               'This quest asks for a photo. Paste a photo link (optional).',
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    font: GoogleFonts.comicNeue(
+                    font: GoogleFonts.sniglet(
                       fontWeight:
                           FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                       fontStyle:
@@ -266,7 +277,7 @@ class _RoyalSubmitSheetWidgetState extends State<RoyalSubmitSheetWidget>
                     SnackBar(
                       content: Text(
                         'Quest complete! 🎉 A ruler will check it soon.',
-                        style: GoogleFonts.comicNeue(
+                        style: GoogleFonts.sniglet(
                           color: Colors.white,
                           fontSize: 16.0,
                         ),
@@ -277,14 +288,15 @@ class _RoyalSubmitSheetWidgetState extends State<RoyalSubmitSheetWidget>
                 },
                 text: '🏆 Quest complete!',
                 options: FFButtonOptions(
-                  height: 56.0,
+                  height: 58.0,
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   iconPadding:
                       EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: Color(0x00FFFFFF),
-                  textStyle: GoogleFonts.comicNeue(
+                  textStyle: GoogleFonts.sniglet(
                     color: Color(0xFF3A2400),
-                    fontSize: 17.0,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 20.0,
                   ),
                   elevation: 0.0,
                   borderRadius: BorderRadius.circular(22.0),

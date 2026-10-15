@@ -118,23 +118,34 @@ class _RoyalDenySheetWidgetState extends State<RoyalDenySheetWidget>
             Text(
               '📜 Send it back',
               style: FlutterFlowTheme.of(context).headlineSmall.override(
-                    font: GoogleFonts.comicNeue(
-                      fontWeight:
-                          FlutterFlowTheme.of(context).headlineSmall.fontWeight,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).headlineSmall.fontStyle,
-                    ),
-                    letterSpacing: 0.0,
-                    fontWeight:
-                        FlutterFlowTheme.of(context).headlineSmall.fontWeight,
-                    fontStyle:
-                        FlutterFlowTheme.of(context).headlineSmall.fontStyle,
+                font: GoogleFonts.sniglet(
+                  fontWeight:
+                      FlutterFlowTheme.of(context).headlineSmall.fontWeight,
+                  fontStyle:
+                      FlutterFlowTheme.of(context).headlineSmall.fontStyle,
+                ),
+                letterSpacing: 0.0,
+                fontWeight:
+                    FlutterFlowTheme.of(context).headlineSmall.fontWeight,
+                fontStyle: FlutterFlowTheme.of(context).headlineSmall.fontStyle,
+                shadows: [
+                  Shadow(
+                    color: Colors.white,
+                    offset: Offset(0.0, -1.5),
+                    blurRadius: 0.0,
                   ),
+                  Shadow(
+                    color: Color(0x55B79CFF),
+                    offset: Offset(0.0, 2.5),
+                    blurRadius: 0.0,
+                  )
+                ],
+              ),
             ),
             Text(
               widget!.questTitle!,
               style: FlutterFlowTheme.of(context).bodyLarge.override(
-                    font: GoogleFonts.comicNeue(
+                    font: GoogleFonts.sniglet(
                       fontWeight:
                           FlutterFlowTheme.of(context).bodyLarge.fontWeight,
                       fontStyle:
@@ -265,7 +276,7 @@ class _RoyalDenySheetWidgetState extends State<RoyalDenySheetWidget>
                     SnackBar(
                       content: Text(
                         'Quest returned to Open with your note',
-                        style: GoogleFonts.comicNeue(
+                        style: GoogleFonts.sniglet(
                           color: Colors.white,
                           fontSize: 16.0,
                         ),
@@ -276,14 +287,15 @@ class _RoyalDenySheetWidgetState extends State<RoyalDenySheetWidget>
                 },
                 text: '🚫 Deny & return to Open',
                 options: FFButtonOptions(
-                  height: 52.0,
+                  height: 58.0,
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   iconPadding:
                       EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: Color(0x00FFFFFF),
-                  textStyle: GoogleFonts.comicNeue(
+                  textStyle: GoogleFonts.sniglet(
                     color: Colors.white,
-                    fontSize: 17.0,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 20.0,
                   ),
                   elevation: 0.0,
                   borderRadius: BorderRadius.circular(22.0),

@@ -52,7 +52,7 @@ class RewardBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle.merge(
-        style: GoogleFonts.comicNeue(fontWeight: FontWeight.w700),
+        style: GoogleFonts.sniglet(fontWeight: FontWeight.w700),
         child: LayoutBuilder(builder: (context, cons) {
           final w = (width != null && width!.isFinite)
               ? width!

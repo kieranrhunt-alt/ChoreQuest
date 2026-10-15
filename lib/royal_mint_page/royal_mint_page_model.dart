@@ -2,6 +2,7 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/ff_builtin_enums.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_styled_border.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -38,17 +39,17 @@ class RoyalMintPageModel extends FlutterFlowModel<RoyalMintPageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // State field(s) for mintMotto widget.
-  FocusNode? mintMottoFocusNode;
-  TextEditingController? mintMottoTextController;
-  String? Function(BuildContext, String?)? mintMottoTextControllerValidator;
+  // State field(s) for mintMottoLive widget.
+  FocusNode? mintMottoLiveFocusNode;
+  TextEditingController? mintMottoLiveTextController;
+  String? Function(BuildContext, String?)? mintMottoLiveTextControllerValidator;
 
   @override
   void initState(BuildContext context) {}
 
   @override
   void dispose() {
-    mintMottoFocusNode?.dispose();
-    mintMottoTextController?.dispose();
+    mintMottoLiveFocusNode?.dispose();
+    mintMottoLiveTextController?.dispose();
   }
 }
