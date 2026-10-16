@@ -2,10 +2,13 @@
 # Docs: https://docs.codemagic.io/yaml-basic-configuration/yaml-getting-started/
 #
 # Workflows:
-#   android-test   – builds an installable APK on every push to main (no setup needed)
+#   android-test   – builds an installable APK on every push to main (automatic)
 #   web            – builds the web app and zips it as an artifact
 #   android-release – signed App Bundle for Google Play (needs a keystore, see below)
-#   ios-release    – signed IPA to TestFlight (needs App Store Connect setup, see below)
+#   ios-release    – signed IPA to TestFlight on every push to main (automatic)
+#
+# To ship the latest FlutterFlow changes: run ship.ps1 (or ship.sh) — it syncs,
+# commits and pushes, which starts both automatic builds.
 
 definitions:
   flutter_env: &flutter_env
@@ -30,6 +33,7 @@ workflows:
       branch_patterns:
         - pattern: main
           include: true
+      cancel_previous_builds: true
     scripts:
       - *get_packages
       - *branding
@@ -105,6 +109,14 @@ workflows:
         - app_store_credentials
       vars:
         BUNDLE_ID: com.Dadapps.chorequest
+    # Every push to main builds and uploads a new TestFlight build.
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+      cancel_previous_builds: true
     scripts:
       - name: Set up keychain
         script: keychain initialize

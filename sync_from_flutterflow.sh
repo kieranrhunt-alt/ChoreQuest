@@ -12,7 +12,7 @@ src="$here/../generated_code"
 [ -d "$src/lib" ] || { echo "generated_code/ not found next to this repo" >&2; exit 1; }
 find "$here" -mindepth 1 -maxdepth 1 \
   ! -name .git ! -name .gitignore ! -name .gitattributes \
-  ! -name codemagic.yaml ! -name sync_from_flutterflow.sh ! -name branding \
+  ! -name codemagic.yaml ! -name sync_from_flutterflow.sh ! -name ship.ps1 ! -name branding \
   -exec rm -rf {} +
 (cd "$src" && tar --exclude=./.gitignore --exclude=.dart_tool --exclude=build --exclude=.flutterflow \
   --exclude=.flutter-plugins-dependencies --exclude=.flutter-plugins --exclude=ephemeral -cf - .) | (cd "$here" && tar -xf -)
