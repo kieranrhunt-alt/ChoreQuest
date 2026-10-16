@@ -48,6 +48,34 @@ class _SquishyStudioPageWidgetState extends State<SquishyStudioPageWidget>
     super.initState();
     _model = createModel(context, () => SquishyStudioPageModel());
 
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      FFAppState().avatarItems = functions
+          .upgradeCatalog(FFAppState().avatarItems.toList())!
+          .toList()
+          .cast<AvatarItemStruct>();
+      safeSetState(() {});
+      FFAppState().transactions = functions
+          .applyMilestoneTxs(
+              FFAppState().transactions.toList(),
+              FFAppState().wardrobe.toList(),
+              FFAppState().avatarItems.toList(),
+              FFAppState().quests.toList(),
+              FFAppState().currentMemberId)!
+          .toList()
+          .cast<BuckTransactionStruct>();
+      safeSetState(() {});
+      FFAppState().wardrobe = functions
+          .applyMilestoneWardrobe(
+              FFAppState().wardrobe.toList(),
+              FFAppState().avatarItems.toList(),
+              FFAppState().quests.toList(),
+              FFAppState().currentMemberId)!
+          .toList()
+          .cast<WardrobeEntryStruct>();
+      safeSetState(() {});
+    });
+
     animationsMap.addAll({
       'containerOnActionTriggerAnimation1': AnimationInfo(
         trigger: AnimationTrigger.onActionTrigger,

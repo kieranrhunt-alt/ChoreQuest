@@ -1465,7 +1465,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                               crossAxisCount: 2,
                               crossAxisSpacing: 12.0,
                               mainAxisSpacing: 12.0,
-                              childAspectRatio: 0.5,
+                              childAspectRatio: 0.48,
                             ),
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
@@ -1526,23 +1526,15 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                                           .currentMemberId),
                                                   animate: false,
                                                   showBackground: true,
-                                                  burstKey: functions.hasPending(
+                                                  burstKey: functions.ownsItem(
                                                           FFAppState()
-                                                              .redemptions
+                                                              .wardrobe
                                                               .toList(),
                                                           FFAppState()
                                                               .currentMemberId,
                                                           itemItem.id)!
-                                                      ? 'requested'
-                                                      : (functions.ownsItem(
-                                                              FFAppState()
-                                                                  .wardrobe
-                                                                  .toList(),
-                                                              FFAppState()
-                                                                  .currentMemberId,
-                                                              itemItem.id)!
-                                                          ? 'owned'
-                                                          : ''),
+                                                      ? 'owned'
+                                                      : '',
                                                 ),
                                               ),
                                             ),
@@ -1568,7 +1560,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                                     .fromSTEB(
                                                         8.0, 3.0, 8.0, 3.0),
                                                 child: Text(
-                                                  '✅ Owned',
+                                                  '✅ Mine',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .labelSmall
@@ -1607,7 +1599,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                       Text(
                                         itemItem.name,
                                         textAlign: TextAlign.center,
-                                        maxLines: 1,
+                                        maxLines: 2,
                                         style: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .override(
@@ -1804,7 +1796,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                                 color: Color(0xFFB8740A),
                                                 offset: Offset(
                                                   0.0,
-                                                  5.0,
+                                                  4.0,
                                                 ),
                                                 spreadRadius: 0.0,
                                               )
@@ -1823,7 +1815,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                                   AlignmentDirectional(-1.0, 0),
                                             ),
                                             borderRadius:
-                                                BorderRadius.circular(22.0),
+                                                BorderRadius.circular(20.0),
                                             border: Border.all(
                                               color: Color(0xD9FFFFFF),
                                               width: 2.5,
@@ -1837,32 +1829,38 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                                       .toList(),
                                                   FFAppState().currentMemberId,
                                                   itemItem.buckCost)!) {
-                                                FFAppState().redemptions =
-                                                    functions
-                                                        .requestRedemption(
-                                                            FFAppState()
-                                                                .redemptions
-                                                                .toList(),
-                                                            'avatar_item',
-                                                            itemItem.id,
-                                                            FFAppState()
-                                                                .currentMemberId,
-                                                            itemItem.name,
-                                                            itemItem.buckCost)!
-                                                        .toList()
-                                                        .cast<
-                                                            RedemptionStruct>();
+                                                FFAppState().transactions = functions
+                                                    .shopBuyTx(
+                                                        FFAppState()
+                                                            .transactions
+                                                            .toList(),
+                                                        FFAppState()
+                                                            .currentMemberId,
+                                                        itemItem.name,
+                                                        itemItem.buckCost)!
+                                                    .toList()
+                                                    .cast<
+                                                        BuckTransactionStruct>();
+                                                safeSetState(() {});
+                                                FFAppState().wardrobe = functions
+                                                    .grantItem(
+                                                        FFAppState()
+                                                            .wardrobe
+                                                            .toList(),
+                                                        FFAppState()
+                                                            .currentMemberId,
+                                                        itemItem.id,
+                                                        'purchased')!
+                                                    .toList()
+                                                    .cast<
+                                                        WardrobeEntryStruct>();
                                                 safeSetState(() {});
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(
                                                   SnackBar(
                                                     content: Text(
-                                                      '✨ Purchase requested! A ruler will approve it 🛍️',
-                                                      style:
-                                                          GoogleFonts.sniglet(
-                                                        color: Colors.white,
-                                                        fontSize: 16.0,
-                                                      ),
+                                                      '✨ It is yours! Find it in the Squishie Studio to wear it.',
+                                                      style: TextStyle(),
                                                     ),
                                                     duration: Duration(
                                                         milliseconds: 4000),
@@ -1874,11 +1872,7 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                                   SnackBar(
                                                     content: Text(
                                                       'Not enough gold yet — keep questing! 💪',
-                                                      style:
-                                                          GoogleFonts.sniglet(
-                                                        color: Colors.white,
-                                                        fontSize: 16.0,
-                                                      ),
+                                                      style: TextStyle(),
                                                     ),
                                                     duration: Duration(
                                                         milliseconds: 4000),
@@ -1887,23 +1881,80 @@ class _SquishyShopPageWidgetState extends State<SquishyShopPageWidget>
                                               }
                                             },
                                             text: ((int? c) {
-                                              return 'Buy 🪙 $c';
+                                              return '🛍️ Buy 🪙 $c';
                                             }(itemItem.buckCost))!,
                                             options: FFButtonOptions(
-                                              height: 58.0,
+                                              height: 50.0,
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               iconPadding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color: Color(0x00FFFFFF),
-                                              textStyle: GoogleFonts.sniglet(
+                                              textStyle: TextStyle(
                                                 color: Color(0xFF3A2400),
-                                                fontWeight: FontWeight.w800,
-                                                fontSize: 20.0,
                                               ),
-                                              elevation: 0.0,
                                               borderRadius:
-                                                  BorderRadius.circular(22.0),
+                                                  BorderRadius.circular(20.0),
+                                            ),
+                                          ),
+                                        ),
+                                      if (functions.ownsItem(
+                                              FFAppState().wardrobe.toList(),
+                                              FFAppState().currentMemberId,
+                                              itemItem.id) ??
+                                          true)
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 0.0,
+                                                color: Color(0xFF167A5A),
+                                                offset: Offset(
+                                                  0.0,
+                                                  4.0,
+                                                ),
+                                                spreadRadius: 0.0,
+                                              )
+                                            ],
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                Color(0xFFD4FFEF),
+                                                Color(0xFF5EE0B5),
+                                                Color(0xFF3FD0A0),
+                                                Color(0xFF22AE80)
+                                              ],
+                                              stops: [0.0, 0.48, 0.52, 1.0],
+                                              begin: AlignmentDirectional(
+                                                  1.0, 0.0),
+                                              end:
+                                                  AlignmentDirectional(-1.0, 0),
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                            border: Border.all(
+                                              color: Color(0xD9FFFFFF),
+                                              width: 2.5,
+                                            ),
+                                          ),
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              context.pushNamed(
+                                                  SquishyStudioPageWidget
+                                                      .routeName);
+                                            },
+                                            text: '🧸 Wear it!',
+                                            options: FFButtonOptions(
+                                              height: 50.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color: Color(0x00FFFFFF),
+                                              textStyle: TextStyle(
+                                                color: Color(0xFF0E3B2E),
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
                                             ),
                                           ),
                                         ),

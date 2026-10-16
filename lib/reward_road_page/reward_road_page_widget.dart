@@ -4203,23 +4203,52 @@ class _RewardRoadPageWidgetState extends State<RewardRoadPageWidget>
                                         .toList()
                                         .cast<BuckTransactionStruct>();
                                     safeSetState(() {});
+                                    if (!(functions
+                                            .rewardItemId(widget!.rewardId) ==
+                                        '')) {
+                                      FFAppState().wardrobe = functions
+                                          .grantItem(
+                                              FFAppState().wardrobe.toList(),
+                                              FFAppState().currentMemberId,
+                                              functions.rewardItemId(
+                                                  widget!.rewardId),
+                                              'treasure_quest')!
+                                          .toList()
+                                          .cast<WardrobeEntryStruct>();
+                                      safeSetState(() {});
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            '🏆 Treasure claimed! Your new Squishie item is waiting in the Squishie Studio ✨',
+                                            style: TextStyle(),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                        ),
+                                      );
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            '🏆 Treasure claimed! Show a ruler to enjoy it.',
+                                            style: TextStyle(),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                        ),
+                                      );
+                                    }
+
                                     _model.burstCount = _model.burstCount! + 1;
                                     safeSetState(() {});
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          '🏆 Treasure claimed! Show a ruler to enjoy it.',
-                                          style: GoogleFonts.sniglet(),
-                                        ),
-                                        duration: Duration(milliseconds: 4000),
-                                      ),
-                                    );
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
                                           'Keep questing — you need a little more gold! 💪',
-                                          style: GoogleFonts.sniglet(),
+                                          style: TextStyle(),
                                         ),
                                         duration: Duration(milliseconds: 4000),
                                       ),

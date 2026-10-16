@@ -107,3 +107,6 @@ export '/custom_code/functions/tq_end.dart';
 export '/custom_code/functions/set_member_species.dart';
 export '/custom_code/functions/species_look.dart';
 export '/custom_code/functions/unlocked_rewards.dart';
+export '/custom_code/functions/shop_buy_tx.dart';
+export '/custom_code/functions/reward_item_id.dart';
+export '/custom_code/functions/add_item_reward.dart';
