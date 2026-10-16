@@ -165,6 +165,125 @@ class _SquishieNavState extends State<SquishieNav> {
     );
   }
 
+  // ---------------------------------------------------------------- stacked deck
+  final _topCard = GlobalKey<_NavCardState>();
+
+  /// Every destination as the same big card, stacked like a deck: the next
+  /// cards peek out behind; swiping flings the top card away (left or right)
+  /// and the deck loops forever. Tap the top card to open that screen.
+  Widget _deck(double w, double h) {
+    final dests = _dests.where((d) => d.route != widget.current).toList();
+    final n = dests.length;
+    final ctrl = _controllerFor(1.0);
+    const peek = 3;
+    final cardW = w - 36;
+    final cardH = h - 34 - peek * 16;
+    return SizedBox(
+      width: w,
+      height: h,
+      child: AnimatedBuilder(
+        animation: ctrl,
+        builder: (context, _) {
+          final page = ctrl.hasClients && ctrl.position.haveDimensions
+              ? (ctrl.page ?? ctrl.initialPage.toDouble())
+              : ctrl.initialPage.toDouble();
+          final base = page.floor();
+          final frac = page - base;
+          final cards = <Widget>[];
+          // Back cards first, then the front card, then the one flying away.
+          for (var k = peek; k >= 0; k--) {
+            final i = base + k + 1;
+            final depth = (k + 1 - frac).clamp(0.0, peek.toDouble());
+            cards.add(_deckCard(dests[i % n], cardW, cardH,
+                depth: depth, fly: 0, front: false));
+          }
+          cards.add(_deckCard(dests[base % n], cardW, cardH,
+              depth: 0, fly: frac, front: frac < 0.5));
+          final dots = Row(mainAxisSize: MainAxisSize.min, children: [
+            for (var j = 0; j < n; j++)
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                margin: const EdgeInsets.symmetric(horizontal: 3),
+                width: j == page.round() % n ? 18 : 8,
+                height: 8,
+                decoration: BoxDecoration(
+                    color: j == page.round() % n
+                        ? const Color(0xFF7B3FE4)
+                        : const Color(0x557B3FE4),
+                    borderRadius: BorderRadius.circular(4)),
+              ),
+          ]);
+          return Stack(clipBehavior: Clip.none, children: [
+            ...cards,
+            // Gesture layer: swipe the deck, tap the top card.
+            Positioned(
+              left: 0,
+              top: 0,
+              width: w,
+              height: cardH + peek * 16,
+              child: PageView.builder(
+                controller: ctrl,
+                itemBuilder: (context, i) => GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    final d = dests[i % n];
+                    final s = _topCard.currentState;
+                    if (s == null) {
+                      _go(d);
+                    } else {
+                      s.squishThen(() => _go(d));
+                    }
+                  },
+                ),
+              ),
+            ),
+            Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                height: 26,
+                child: Center(child: dots)),
+          ]);
+        },
+      ),
+    );
+  }
+
+  Widget _deckCard(_Dest d, double cardW, double cardH,
+      {required double depth, required double fly, required bool front}) {
+    // depth 0 = top of the deck; each step back drops lower and shrinks.
+    final scale = 1 - 0.07 * depth;
+    final dy = 16 * depth;
+    final dx = -fly * (cardW + 60);
+    final rot = -fly * 0.35;
+    final opacity = depth > 2.5 ? (3.2 - depth).clamp(0.0, 1.0) : 1.0;
+    return Positioned(
+      left: 18,
+      top: 0,
+      width: cardW,
+      height: cardH,
+      child: Transform(
+        alignment: Alignment.bottomCenter,
+        transform: Matrix4.identity()
+          ..translate(dx, dy)
+          ..rotateZ(rot)
+          ..scale(scale, scale),
+        child: Opacity(
+          opacity: opacity,
+          child: IgnorePointer(
+            child: _NavCard(
+                key: front ? _topCard : null,
+                dest: d,
+                here: false,
+                compact: false,
+                huge: true,
+                onTap: () {}),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, cons) {
@@ -172,6 +291,39 @@ class _SquishieNavState extends State<SquishieNav> {
           widget.width ?? (cons.maxWidth.isFinite ? cons.maxWidth : 360.0);
       final h = widget.height ??
           (cons.maxHeight.isFinite ? cons.maxHeight : (_dock ? 230.0 : 210.0));
+      final mode = widget.mode ?? 'carousel';
+      if (mode == 'stack') {
+        return Column(mainAxisSize: MainAxisSize.min, children: [
+          _deck(w, h - 32),
+          SizedBox(
+              height: 32,
+              child: Center(
+                  child: FittedBox(
+                      child: Text('👈 Swipe the stack to explore 👉',
+                          style: _font(15, color: const Color(0xFF5E4B7A)))))),
+        ]);
+      }
+      if (mode == 'buttons') {
+        return SizedBox(
+          width: w,
+          height: 64,
+          child: Row(children: [
+            Expanded(
+                child: _JellyButton(
+                    emoji: '⬅️',
+                    label: 'Back',
+                    color: const Color(0xFF9ED8F0),
+                    onTap: _back)),
+            const SizedBox(width: 12),
+            Expanded(
+                child: _JellyButton(
+                    emoji: _parent ? '🏰' : '🏠',
+                    label: _parent ? 'Throne Room' : 'My Castle',
+                    color: const Color(0xFFFFD86B),
+                    onTap: _home)),
+          ]),
+        );
+      }
       if (!_dock) {
         return Column(mainAxisSize: MainAxisSize.min, children: [
           _carousel(w, h - 22, w < 420 ? 0.5 : 0.36),
@@ -243,13 +395,16 @@ mixin _Squish<T extends StatefulWidget>
 
 class _NavCard extends StatefulWidget {
   const _NavCard(
-      {required this.dest,
+      {super.key,
+      required this.dest,
       required this.here,
       required this.compact,
-      required this.onTap});
+      required this.onTap,
+      this.huge = false});
   final _Dest dest;
   final bool here;
   final bool compact;
+  final bool huge;
   final VoidCallback onTap;
 
   @override
@@ -278,7 +433,8 @@ class _NavCardState extends State<_NavCard>
               horizontal: 6, vertical: widget.compact ? 4 : 8),
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(widget.compact ? 22 : 28),
+              borderRadius: BorderRadius.circular(
+                  widget.compact ? 22 : (widget.huge ? 36 : 28)),
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -318,12 +474,16 @@ class _NavCardState extends State<_NavCard>
                   padding: const EdgeInsets.all(8),
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
                     Text(d.emoji,
-                        style: TextStyle(fontSize: widget.compact ? 34 : 54)),
-                    SizedBox(height: widget.compact ? 2 : 6),
+                        style: TextStyle(
+                            fontSize:
+                                widget.compact ? 34 : (widget.huge ? 84 : 54))),
+                    SizedBox(
+                        height: widget.compact ? 2 : (widget.huge ? 12 : 6)),
                     Text(d.label,
                         textAlign: TextAlign.center,
                         maxLines: 2,
-                        style: _font(widget.compact ? 15 : 20)),
+                        style: _font(
+                            widget.compact ? 15 : (widget.huge ? 32 : 20))),
                     if (widget.here)
                       Padding(
                         padding: const EdgeInsets.only(top: 4),

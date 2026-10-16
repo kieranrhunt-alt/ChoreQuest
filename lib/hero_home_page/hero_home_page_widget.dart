@@ -361,12 +361,12 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                         ),
                       ),
                       Container(
-                        height: 250.0,
+                        height: 440.0,
                         child: Container(
                           child: custom_widgets.SquishieNav(
-                            current: 'HeroHomePage',
-                            mode: 'carousel',
                             role: 'kid',
+                            mode: 'stack',
+                            current: 'HeroHomePage',
                           ),
                         ),
                       ),
@@ -1609,14 +1609,12 @@ class _HeroHomePageWidgetState extends State<HeroHomePageWidget> {
                         },
                       ),
                       Container(
-                        height: 250.0,
+                        height: 70.0,
                         child: Container(
                           child: custom_widgets.SquishieNav(
+                            role: 'kid',
+                            mode: 'buttons',
                             current: 'HeroHomePage',
-                            mode: 'dock',
-                            role: functions.memberRole(
-                                FFAppState().members.toList(),
-                                FFAppState().currentMemberId),
                           ),
                         ),
                       ),
